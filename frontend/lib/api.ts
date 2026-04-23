@@ -1,0 +1,119 @@
+/**
+ * API helpers: NestJS backend + Strapi CMS.
+ *
+ * - Gọi trên server (RSC / server actions): dùng INTERNAL_* (docker network)
+ * - Gọi trên client (browser): dùng NEXT_PUBLIC_* (localhost / nginx)
+ */
+
+const isServer = typeof window === 'undefined';
+
+export const API_URL = isServer
+  ? process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'
+  : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+
+export const CMS_URL = isServer
+  ? process.env.INTERNAL_CMS_URL || process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:1337'
+  : process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:1337';
+
+type FetchOptions = RequestInit & { revalidate?: number };
+
+async function request<T>(base: string, path: string, opts: FetchOptions = {}): Promise<T> {
+  const { revalidate, ...rest } = opts;
+  const res = await fetch(`${base}${path}`, {
+    ...rest,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(rest.headers || {}),
+    },
+    next: revalidate !== undefined ? { revalidate } : undefined,
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`API ${res.status} ${base}${path}: ${text}`);
+  }
+  return res.json();
+}
+
+// ==================== NestJS (backend) ====================
+
+export const api = {
+  // Auth
+  register: (data: { email: string; password: string; name?: string }) =>
+    request(API_URL, '/auth/register', { method: 'POST', body: JSON.stringify(data) }),
+
+  login: (data: { email: string; password: string }) =>
+    request(API_URL, '/auth/login', { method: 'POST', body: JSON.stringify(data) }),
+
+  me: (token: string) =>
+    request(API_URL, '/auth/me', { headers: { Authorization: `Bearer ${token}` } }),
+
+  // Contact
+  sendContact: (data: {
+    name: string;
+    email: string;
+    phone?: string;
+    subject?: string;
+    message: string;
+  }) => request(API_URL, '/contact', { method: 'POST', body: JSON.stringify(data) }),
+
+  // Newsletter
+  subscribe: (email: string) =>
+    request(API_URL, '/newsletter', { method: 'POST', body: JSON.stringify({ email }) }),
+};
+
+// ==================== Strapi (CMS) ====================
+
+/**
+ * Ghép query string với locale (Strapi i18n).
+ * - Nếu locale = 'all' → trả tất cả bản dịch (hữu ích cho SSG khi build hreflang)
+ * - Mặc định bỏ qua locale nếu không truyền
+ */
+function withLocale(query: string, locale?: string): string {
+  if (!locale) return query;
+  const sep = query.includes('?') ? '&' : '?';
+  return `${query}${sep}locale=${encodeURIComponent(locale)}`;
+}
+
+export const cms = {
+  projects: (locale?: string, query = '?populate=*') =>
+    request<{ data: any[]; meta: any }>(CMS_URL, `/api/projects${withLocale(query, locale)}`, { revalidate: 60 }),
+
+  projectBySlug: (slug: string, locale?: string) =>
+    request<{ data: any[] }>(
+      CMS_URL,
+      withLocale(`/api/projects?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`, locale),
+      { revalidate: 60 },
+    ),
+
+  articles: (locale?: string, query = '?populate=*') =>
+    request<{ data: any[]; meta: any }>(CMS_URL, `/api/articles${withLocale(query, locale)}`, { revalidate: 60 }),
+
+  articleBySlug: (slug: string, locale?: string) =>
+    request<{ data: any[] }>(
+      CMS_URL,
+      withLocale(`/api/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`, locale),
+      { revalidate: 60 },
+    ),
+
+  news: (locale?: string, query = '?populate=*&sort=event_date:desc') =>
+    request<{ data: any[]; meta: any }>(CMS_URL, `/api/news-items${withLocale(query, locale)}`, { revalidate: 60 }),
+
+  pageBySlug: (slug: string, locale?: string) =>
+    request<{ data: any[] }>(
+      CMS_URL,
+      withLocale(`/api/pages?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[sections][populate]=*`, locale),
+      { revalidate: 60 },
+    ),
+};
+
+/**
+ * Build absolute URL cho media từ Strapi.
+ * Strapi trả về url dạng "/uploads/xxx.jpg" → ghép với CMS_URL.
+ */
+export function cmsMedia(url?: string | null): string | null {
+  if (!url) return null;
+  if (url.startsWith('http')) return url;
+  // Dùng NEXT_PUBLIC_CMS_URL vì <img> render ở browser
+  const base = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:1337';
+  return `${base}${url}`;
+}

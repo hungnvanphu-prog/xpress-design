@@ -1,0 +1,48 @@
+{
+  "Metadata": {
+    "siteName": "Xpress Architecture",
+    "siteDescription": "Kiến trúc & nội thất cao cấp"
+  },
+  "Nav": {
+    "home": "Trang chủ",
+    "about": "Về chúng tôi",
+    "services": "Dịch vụ",
+    "projects": "Dự án",
+    "blog": "Cẩm nang",
+    "insights": "Góc nhìn",
+    "news": "Tin tức",
+    "contact": "Liên hệ"
+  },
+  "Common": {
+    "readMore": "Xem chi tiết",
+    "viewAll": "Xem tất cả",
+    "backToList": "Trở lại danh sách",
+    "nextProject": "Dự án tiếp theo",
+    "discover": "Khám phá không gian",
+    "language": "Ngôn ngữ",
+    "vietnamese": "Tiếng Việt",
+    "english": "English"
+  },
+  "PageTitles": {
+    "projects": "Dự án",
+    "projectsDescription": "Tuyển tập những không gian kiến trúc và nội thất đẳng cấp của Xpress.",
+    "blog": "Cẩm nang",
+    "blogDescription": "Góc nhìn chuyên sâu, xu hướng thiết kế nội thất và kiến trúc.",
+    "insights": "Góc nhìn",
+    "insightsDescription": "Quan điểm chuyên môn về kiến trúc và nội thất cao cấp.",
+    "news": "Tin tức & Sự kiện",
+    "newsDescription": "Cập nhật hoạt động mới nhất, giải thưởng và sự kiện của Xpress.",
+    "about": "Về chúng tôi",
+    "aboutDescription": "Câu chuyện, triết lý thiết kế và đội ngũ của Xpress Architecture.",
+    "services": "Dịch vụ",
+    "servicesDescription": "Các dịch vụ thiết kế kiến trúc, nội thất và thi công của Xpress.",
+    "contact": "Liên hệ",
+    "contactDescription": "Liên hệ với Xpress Architecture để được tư vấn thiết kế cao cấp.",
+    "thankYou": "Cảm ơn"
+  },
+  "NotFound": {
+    "badge": "Đang phát triển",
+    "description": "Nội dung chuyên sâu cho chuyên mục này đang được đội ngũ chuyên gia của chúng tôi hoàn thiện. Vui lòng quay lại sau để cập nhật những thông tin mới nhất.",
+    "backHome": "Quay lại trang chủ"
+  }
+}

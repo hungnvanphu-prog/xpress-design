@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_ctas",
+  "info": {
+    "displayName": "CTA",
+    "icon": "link",
+    "description": "Call-to-action section"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text" },
+    "button_text": { "type": "string" },
+    "button_link": { "type": "string" }
+  }
+}

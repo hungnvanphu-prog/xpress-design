@@ -1,0 +1,48 @@
+{
+  "Metadata": {
+    "siteName": "Xpress Architecture",
+    "siteDescription": "Premium architecture & interior design"
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "blog": "Journal",
+    "insights": "Insights",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "Common": {
+    "readMore": "View details",
+    "viewAll": "View all",
+    "backToList": "Back to list",
+    "nextProject": "Next project",
+    "discover": "Discover the space",
+    "language": "Language",
+    "vietnamese": "Tiếng Việt",
+    "english": "English"
+  },
+  "PageTitles": {
+    "projects": "Projects",
+    "projectsDescription": "A curated collection of Xpress's premium architecture and interior spaces.",
+    "blog": "Journal",
+    "blogDescription": "In-depth perspectives and design trends in architecture & interiors.",
+    "insights": "Insights",
+    "insightsDescription": "Expert viewpoints on premium architecture and interior design.",
+    "news": "News & Events",
+    "newsDescription": "Latest activities, awards and events from Xpress.",
+    "about": "About us",
+    "aboutDescription": "The story, design philosophy and team behind Xpress Architecture.",
+    "services": "Services",
+    "servicesDescription": "Architectural design, interior and build services by Xpress.",
+    "contact": "Contact",
+    "contactDescription": "Get in touch with Xpress Architecture for premium design consulting.",
+    "thankYou": "Thank you"
+  },
+  "NotFound": {
+    "badge": "Coming soon",
+    "description": "In-depth content for this section is being finalized by our team. Please check back soon for updates.",
+    "backHome": "Back to home"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_stats",
+  "info": {
+    "displayName": "Stats",
+    "icon": "chart-pie",
+    "description": "Số liệu nổi bật"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.stat-item"
+    }
+  }
+}

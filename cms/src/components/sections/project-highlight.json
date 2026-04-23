@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_project_highlights",
+  "info": {
+    "displayName": "Project Highlight",
+    "icon": "star",
+    "description": "Nổi bật các dự án"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string" },
+    "description": { "type": "text" },
+    "projects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project.project"
+    }
+  }
+}
