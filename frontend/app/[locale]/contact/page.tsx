@@ -2,11 +2,16 @@
 
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import { PageHero } from '@/components/PageHero';
 
 export default function Contact() {
+  const tNav = useTranslations('Nav');
+  const tPage = useTranslations('PageTitles');
+  const tTag = useTranslations('HeroTaglines');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -62,41 +67,14 @@ export default function Contact() {
 
   return (
     <div className="bg-white">
-      {/* Hero Header */}
-      <section className="relative h-[450px] pt-20 w-full flex items-center justify-center overflow-hidden">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1758381851526-bdfa3810b4ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB2aWxsYSUyMGFyY2hpdGVjdHVyZSUyMGdhcmRlbiUyMHRlcnJhY2UlMjBsdXh1cnklMjBtaW5pbWFsJTIwZGVzaWdufGVufDF8fHx8MTc3NTc0NjY2MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-          alt="Contact Hero"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        
-        <div className="relative text-center z-10 px-6">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-white mb-4"
-            style={{ fontSize: '48px', fontFamily: 'Playfair Display, serif' }}
-          >
-            Liên hệ tư vấn
-          </motion.h1>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-center justify-center"
-          >
-            <div className="flex items-center justify-center space-x-2 text-white/80 text-sm uppercase tracking-widest font-medium mb-6">
-              <Link href="/" className="hover:text-[#D4AF37] transition-colors">Trang chủ</Link>
-              <span className="text-[#D4AF37]">/</span>
-              <span className="text-white">Liên hệ</span>
-            </div>
-            <p className="text-white/80 uppercase tracking-[0.3em] text-xs font-bold">
-              Kiến tạo không gian sống đẳng cấp cùng Xpress Design
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        image="https://images.unsplash.com/photo-1758381851526-bdfa3810b4ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB2aWxsYSUyMGFyY2hpdGVjdHVyZSUyMGdhcmRlbiUyMHRlcnJhY2UlMjBsdXh1cnklMjBtaW5pbWFsJTIwZGVzaWdufGVufDF8fHx8MTc3NTc0NjY2MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+        title={tPage('contact')}
+        breadcrumb={tNav('contact')}
+        homeLabel={tNav('home')}
+        tagline={tTag('contact')}
+        alt="Contact hero"
+      />
 
       <section className="py-24">
         <div className="container mx-auto px-6 md:px-12">

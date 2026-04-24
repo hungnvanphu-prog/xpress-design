@@ -1,18 +1,26 @@
-version: "3.9"
+# Docker Compose v2 — không cần `version:` nữa.
+# Stack: nginx (reverse proxy) -> frontend (Next.js) / backend (NestJS) / cms (Strapi) -> postgres
+
+name: fullstack-app
 
 services:
   nginx:
-    image: nginx:latest
+    image: nginx:1.27-alpine
     container_name: nginx
     ports:
       - "80:80"
     volumes:
       - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - frontend
-      - backend
-      - cms
-    restart: always
+      frontend:
+        condition: service_started
+      backend:
+        condition: service_started
+      cms:
+        condition: service_started
+    networks:
+      - appnet
+    restart: unless-stopped
 
   frontend:
     build:
@@ -21,21 +29,25 @@ services:
         NEXT_PUBLIC_API_URL: http://localhost/api
         NEXT_PUBLIC_CMS_URL: http://localhost:1337
     container_name: frontend
-    restart: always
     environment:
-      - NODE_ENV=production
-      - INTERNAL_API_URL=http://backend:4000/api
-      - INTERNAL_CMS_URL=http://cms:1337
+      NODE_ENV: production
+      INTERNAL_API_URL: http://backend:4000/api
+      INTERNAL_CMS_URL: http://cms:1337
     expose:
       - "3000"
     depends_on:
-      - backend
-      - cms
+      backend:
+        condition: service_started
+      cms:
+        condition: service_started
+    networks:
+      - appnet
+    restart: unless-stopped
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
     container_name: backend
-    restart: always
     env_file:
       - .env
     expose:
@@ -45,44 +57,68 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - appnet
+    restart: unless-stopped
 
   cms:
-    build: ./cms
+    build:
+      context: ./cms
     container_name: cms
-    restart: always
     env_file:
       - .env
     environment:
-      - PORT=1337
+      PORT: "1337"
     expose:
       - "1337"
     ports:
       - "1337:1337"
     volumes:
-      - cms_uploads:/app/public/uploads
+      - ./data-run/cms_uploads:/app/public/uploads
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:1337/_health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 15
+      start_period: 40s
+    networks:
+      - appnet
+    restart: unless-stopped
 
   postgres:
-    image: postgres:15
+    image: postgres:15-alpine
     container_name: postgres
-    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
       POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      # Postgres không cho initdb vào thư mục đã có file (kể cả .gitkeep)
+      # → dùng subdir để tránh xung đột với bind mount
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./data-run/pgdata:/var/lib/postgresql/data
       - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-postgres}"]
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - appnet
+    restart: unless-stopped
 
-volumes:
-  pgdata:
-  cms_uploads:
+networks:
+  appnet:
+    driver: bridge
+

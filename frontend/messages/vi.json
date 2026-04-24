@@ -40,6 +40,12 @@
     "contactDescription": "Liên hệ với Xpress Architecture để được tư vấn thiết kế cao cấp.",
     "thankYou": "Cảm ơn"
   },
+  "HeroTaglines": {
+    "news": "Hoạt động nổi bật, giải thưởng và dấu ấn của Xpress Design",
+    "about": "Câu chuyện và tầm nhìn của Xpress Design",
+    "services": "Giải pháp toàn diện từ ý tưởng đến hiện thực",
+    "contact": "Kiến tạo không gian sống đẳng cấp cùng Xpress Design"
+  },
   "NotFound": {
     "badge": "Đang phát triển",
     "description": "Nội dung chuyên sâu cho chuyên mục này đang được đội ngũ chuyên gia của chúng tôi hoàn thiện. Vui lòng quay lại sau để cập nhật những thông tin mới nhất.",

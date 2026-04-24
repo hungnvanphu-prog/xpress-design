@@ -40,6 +40,12 @@
     "contactDescription": "Get in touch with Xpress Architecture for premium design consulting.",
     "thankYou": "Thank you"
   },
+  "HeroTaglines": {
+    "news": "Featured activities, awards and milestones of Xpress Design",
+    "about": "The story and vision of Xpress Design",
+    "services": "End-to-end solutions from idea to reality",
+    "contact": "Crafting premium living spaces with Xpress Design"
+  },
   "NotFound": {
     "badge": "Coming soon",
     "description": "In-depth content for this section is being finalized by our team. Please check back soon for updates.",

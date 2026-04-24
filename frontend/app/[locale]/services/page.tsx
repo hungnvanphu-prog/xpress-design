@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import { PageHero } from '@/components/PageHero';
 import { 
   CheckCircle2, 
   ChevronDown, 
@@ -55,6 +57,10 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
 };
 
 export default function Services() {
+  const tNav = useTranslations('Nav');
+  const tPage = useTranslations('PageTitles');
+  const tTag = useTranslations('HeroTaglines');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -100,41 +106,14 @@ export default function Services() {
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[450px] pt-20 w-full flex items-center justify-center overflow-hidden">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1582057811341-a22d524c6a4c"
-          alt="Services Hero"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        
-        <div className="relative z-10 text-center px-6">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-white mb-4"
-            style={{ fontSize: '48px', fontFamily: 'Playfair Display, serif' }}
-          >
-            Dịch vụ
-          </motion.h1>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-center justify-center"
-          >
-            <div className="flex items-center justify-center space-x-2 text-white/80 text-sm uppercase tracking-widest font-medium mb-6">
-              <Link href="/" className="hover:text-[#D4AF37] transition-colors">Trang chủ</Link>
-              <span className="text-[#D4AF37]">/</span>
-              <span className="text-white">Dịch vụ</span>
-            </div>
-            <p className="text-white/80 uppercase tracking-[0.3em] text-xs font-bold">
-              Giải pháp toàn diện từ ý tưởng đến hiện thực
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        image="https://images.unsplash.com/photo-1582057811341-a22d524c6a4c"
+        title={tPage('services')}
+        breadcrumb={tNav('services')}
+        homeLabel={tNav('home')}
+        tagline={tTag('services')}
+        alt="Services hero"
+      />
 
       {/* Overview Section */}
       <section className="py-24 bg-white">

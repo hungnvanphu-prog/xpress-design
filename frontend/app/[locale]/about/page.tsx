@@ -2,8 +2,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView, animate, useMotionValue, useTransform } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import { PageHero } from '@/components/PageHero';
 import { 
   Target, 
   Lightbulb, 
@@ -37,47 +39,24 @@ const Counter = ({ value, suffix = "" }: { value: number; suffix?: string }) => 
 };
 
 export default function About() {
+  const tNav = useTranslations('Nav');
+  const tPage = useTranslations('PageTitles');
+  const tTag = useTranslations('HeroTaglines');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[450px] pt-20 w-full flex items-center justify-center overflow-hidden">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1770943558988-2c605d6bd5a7"
-          alt="XPRESS DESIGN Office"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        
-        <div className="relative z-10 text-center px-6">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-white mb-4"
-            style={{ fontSize: '48px', fontFamily: 'Playfair Display, serif' }}
-          >
-            Về chúng tôi
-          </motion.h1>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-center justify-center"
-          >
-            <div className="flex items-center justify-center space-x-2 text-white/80 text-sm uppercase tracking-widest font-medium mb-6">
-              <Link href="/" className="hover:text-[#D4AF37] transition-colors">Trang chủ</Link>
-              <span className="text-[#D4AF37]">/</span>
-              <span className="text-white">Giới thiệu</span>
-            </div>
-            <p className="text-white/80 uppercase tracking-[0.3em] text-xs font-bold">
-              Câu chuyện và tầm nhìn của Xpress Design
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        image="https://images.unsplash.com/photo-1770943558988-2c605d6bd5a7"
+        title={tPage('about')}
+        breadcrumb={tNav('about')}
+        homeLabel={tNav('home')}
+        tagline={tTag('about')}
+        alt="XPRESS DESIGN Office"
+      />
 
       {/* Our Story Section */}
       <section className="py-24 bg-white overflow-hidden">

@@ -1,2 +1,8 @@
 frontend/.next
 frontend/node_modules
+
+# Runtime data (Postgres + Strapi uploads) do docker bind-mount vào ./data-run
+# Giữ lại cấu trúc thư mục nhưng không commit dữ liệu thật
+data-run/**/*
+!data-run/**/
+!data-run/**/.gitkeep

@@ -2,9 +2,14 @@
 
 import { motion } from "motion/react";
 import { ArrowRight, ChevronRight, MapPin, Tag } from "lucide-react";
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { PageHero } from '@/components/PageHero';
 
 export default function News() {
+  const tNav = useTranslations('Nav');
+  const tPage = useTranslations('PageTitles');
+  const tTag = useTranslations('HeroTaglines');
   const fadeUpVariant = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
@@ -51,35 +56,15 @@ export default function News() {
 
   return (
     <div className="w-full relative bg-[#F8F9FA] min-h-screen">
-      
-      {/* Hero Header */}
-      <section className="relative h-[450px] pt-20 w-full flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1648775933902-f633de370964?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmUlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMG5ld3N8ZW58MXx8fHwxNzc2MjQ4NzMyfDA&ixlib=rb-4.1.0&q=80&w=1080)' }}></div>
-        <div className="absolute inset-0 bg-black/60" />
-        
-        <div className="relative z-10 text-center px-6">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-            className="text-white mb-4"
-            style={{ fontSize: '48px', fontFamily: 'Playfair Display, serif' }}
-          >
-            Tin tức & Sự kiện
-          </motion.h1>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col items-center justify-center"
-          >
-            <div className="flex items-center justify-center space-x-2 text-white/80 text-sm uppercase tracking-widest font-medium mb-6">
-              <Link href="/" className="hover:text-[#D4AF37] transition-colors">Trang chủ</Link>
-              <span className="text-[#D4AF37]">/</span>
-              <span className="text-white">Tin tức</span>
-            </div>
-            <p className="text-white/80 uppercase tracking-[0.3em] text-xs font-bold">
-              Hoạt động nổi bật, giải thưởng và dấu ấn của Xpress Design
-            </p>
-          </motion.div>
-        </div>
-      </section>
+
+      <PageHero
+        image="https://images.unsplash.com/photo-1648775933902-f633de370964?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmUlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMG5ld3N8ZW58MXx8fHwxNzc2MjQ4NzMyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+        title={tPage('news')}
+        breadcrumb={tNav('news')}
+        homeLabel={tNav('home')}
+        tagline={tTag('news')}
+        alt="News hero"
+      />
 
       {/* 3. Danh sách tin tức (Timeline List) */}
       <section className="py-16 md:py-32 px-6 md:px-12 max-w-[1200px] mx-auto relative">
