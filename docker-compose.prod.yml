@@ -1,0 +1,24 @@
+# Production overlay — chạy: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Tạo / cập nhật .env (cùng thư mục) với domain thật, ví dụ:
+#   NEXT_PUBLIC_API_URL=https://xpress.vn/api
+#   NEXT_PUBLIC_CMS_URL=https://cms.xpress.vn
+#   CMS_PUBLIC_URL=https://cms.xpress.vn
+#
+# Sau đó sửa infra/nginx/nginx.production.conf: thay FRONTEND_DOMAIN và CMS_DOMAIN bằng cùng các giá trị (không có https://).
+# Hoặc dùng envsubst / templating nếu bạn muốn tự động hoá.
+
+services:
+  nginx:
+    volumes:
+      - ./infra/nginx/nginx.production.conf:/etc/nginx/nginx.conf:ro
+
+  frontend:
+    build:
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://example.com/api}
+        NEXT_PUBLIC_CMS_URL: ${NEXT_PUBLIC_CMS_URL:-https://cms.example.com}
+
+  cms:
+    environment:
+      PUBLIC_URL: ${CMS_PUBLIC_URL:-https://cms.example.com}
