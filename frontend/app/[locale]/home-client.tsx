@@ -123,7 +123,7 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
         {/* Content */}
         <motion.div
           style={{ y: textY, opacity: textOpacity }}
-          className="relative z-10 text-center px-6 md:px-12 max-w-5xl mx-auto flex flex-col items-center justify-center pointer-events-none"
+          className="relative z-10 text-center px-6 md:px-12 max-w-4xl md:max-w-5xl mx-auto flex flex-col items-center justify-center pointer-events-none"
         >
           <motion.h1
             initial={{
@@ -135,8 +135,25 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             transition={{ duration: 1.8, ease: CUSTOM_EASE }}
             className="font-['Playfair_Display',serif] text-[44px] md:text-[80px] lg:text-[100px] leading-[1.1] text-white font-light tracking-tight mix-blend-difference"
           >
-            Kiến trúc không gian đẳng cấp.
+            {tHome("heroTitle")}
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.55, ease: CUSTOM_EASE }}
+            className="mt-8 md:mt-10 flex w-full max-w-2xl flex-col items-center gap-5 md:gap-6"
+          >
+            <div
+              className="h-px w-16 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent md:w-20"
+              aria-hidden
+            />
+            <p
+              className="whitespace-pre-line text-center font-['Montserrat',sans-serif] text-[14px] font-light leading-[1.85] tracking-[0.04em] text-white/80 md:text-[16px] md:leading-[1.9] md:tracking-[0.06em]"
+            >
+              {tHome("heroSubtitle")}
+            </p>
+          </motion.div>
         </motion.div>
 
         {/* Minimalist CTA */}
@@ -155,7 +172,7 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             href="/projects"
             className="text-white/70 hover:text-white text-[10px] uppercase tracking-[0.25em] font-semibold transition-colors duration-500 pb-2 border-b border-white/20 hover:border-white"
           >
-            Bắt đầu hành trình
+            {tHome("heroCta")}
           </Link>
         </motion.div>
       </section>
@@ -260,11 +277,7 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               Triết lý thiết kế
             </span>
             <h2 className="font-['Playfair_Display',serif] text-[32px] md:text-[52px] leading-[1.3] text-[#1A1A1A] font-medium mb-16">
-              "Chúng tôi tin rằng, mỗi không gian đều mang một
-              linh hồn riêng. Nhiệm vụ của Xpress Design không
-              chỉ là vẽ nên những đường nét kiến trúc, mà là
-              đánh thức cảm xúc và hiện thực hóa giấc mơ của
-              bạn."
+              "Chúng tôi tin rằng một không gian tốt không chỉ đẹp – mà phải phù hợp với cách bạn sống, làm việc và tận hưởng cuộc sống."
             </h2>
             <Link
               href="/about"

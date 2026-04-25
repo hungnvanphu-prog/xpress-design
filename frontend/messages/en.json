@@ -41,6 +41,9 @@
     "thankYou": "Thank you"
   },
   "Home": {
+    "heroTitle": "Designing your space reflects your style and values.",
+    "heroSubtitle": "We don't just design – we shape how you experience the space every day.",
+    "heroCta": "Explore the project",
     "featured": {
       "title": "Signature works<br />by XPRESS",
       "viewAll": "All projects"
