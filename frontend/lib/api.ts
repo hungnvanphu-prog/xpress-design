@@ -130,7 +130,9 @@ export const cms = {
 export function cmsMedia(url?: string | null): string | null {
   if (!url) return null;
   if (url.startsWith('http')) return url;
-  // Dùng NEXT_PUBLIC_CMS_URL vì <img> render ở browser
+  // Dùng public CMS URL vì <img>/lightbox render ở browser.
+  // ImageWithFallback sẽ tắt Next optimizer cho /uploads để tránh container
+  // frontend tự fetch `localhost:1337`.
   const base = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:1337';
   return `${base}${url}`;
 }

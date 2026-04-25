@@ -32,6 +32,15 @@ export type StrapiProject = {
     slug: string;
     description?: string | null;
     content?: string | null;
+    hero_subtitle?: string | null;
+    problem_label?: string | null;
+    problem_title?: string | null;
+    problem_body?: string | null;
+    implementation_label?: string | null;
+    implementation_title?: string | null;
+    implementation_body?: string | null;
+    result_label?: string | null;
+    result_quote?: string | null;
     location?: string | null;
     client_name?: string | null;
     project_type?: string | null;
@@ -46,8 +55,6 @@ export type StrapiProject = {
     thumbnail?: StrapiMedia;
     cover_image?: StrapiMedia;
     gallery?: StrapiMedia;
-    cover_url?: string | null;
-    gallery_urls?: string[] | null;
     localizations?: {
       data?: Array<{
         id: number;
@@ -100,6 +107,15 @@ export function toUiProject(entity: StrapiProject, index = 0): Project & {
   projectType?: string;
   constructionMonths?: number;
   localizedSlugs?: Record<string, string>;
+  heroSubtitle?: string;
+  problemLabel?: string;
+  problemTitle?: string;
+  problemBody?: string;
+  implementationLabel?: string;
+  implementationTitle?: string;
+  implementationBody?: string;
+  resultLabel?: string;
+  resultQuote?: string;
 } {
   const a = entity.attributes;
   const typeMeta = TYPE_MAP[a.project_type || ''] ?? {
@@ -110,21 +126,15 @@ export function toUiProject(entity: StrapiProject, index = 0): Project & {
   const coverMedia = pickMediaUrl(a.cover_image);
   const thumbMedia = pickMediaUrl(a.thumbnail);
   const mediaGallery = pickGalleryUrls(a.gallery);
-  const urlGallery = Array.isArray(a.gallery_urls)
-    ? a.gallery_urls.filter((u): u is string => typeof u === 'string' && u.length > 0)
-    : [];
 
   const fallback = PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length];
 
-  const cover =
-    coverMedia ?? thumbMedia ?? a.cover_url ?? urlGallery[0] ?? fallback;
+  const cover = coverMedia ?? thumbMedia ?? fallback;
 
-  // Ưu tiên media upload → URL seed → cuối cùng mới tới placeholder
+  // Chỉ dùng media upload từ Strapi; placeholder là lớp bảo vệ cuối cùng.
   const gallery =
     mediaGallery.length > 0
       ? mediaGallery
-      : urlGallery.length > 0
-      ? urlGallery
       : [cover, thumbMedia, fallback].filter((u): u is string => Boolean(u));
 
   const localizedSlugs: Record<string, string> = {};
@@ -144,6 +154,15 @@ export function toUiProject(entity: StrapiProject, index = 0): Project & {
     image: cover,
     description: a.description ?? '',
     content: a.content ?? undefined,
+    heroSubtitle: a.hero_subtitle ?? undefined,
+    problemLabel: a.problem_label ?? undefined,
+    problemTitle: a.problem_title ?? undefined,
+    problemBody: a.problem_body ?? undefined,
+    implementationLabel: a.implementation_label ?? undefined,
+    implementationTitle: a.implementation_title ?? undefined,
+    implementationBody: a.implementation_body ?? undefined,
+    resultLabel: a.result_label ?? undefined,
+    resultQuote: a.result_quote ?? undefined,
     client: a.client_name ?? undefined,
     location: a.location ?? undefined,
     year: a.year != null ? String(a.year) : undefined,

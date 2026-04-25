@@ -16,6 +16,15 @@ type UiProject = Project & {
   featured?: boolean;
   projectType?: string;
   constructionMonths?: number;
+  heroSubtitle?: string;
+  problemLabel?: string;
+  problemTitle?: string;
+  problemBody?: string;
+  implementationLabel?: string;
+  implementationTitle?: string;
+  implementationBody?: string;
+  resultLabel?: string;
+  resultQuote?: string;
 };
 
 const fadeUpVariant = {
@@ -70,7 +79,7 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
               {project.title}
             </h1>
             <p className="text-[#D4AF37] text-[12px] uppercase tracking-[0.25em] font-medium mt-6">
-              {[project.style, project.category].filter(Boolean).join(' · ')}
+              {project.heroSubtitle || [project.style, project.category].filter(Boolean).join(' · ')}
             </p>
           </motion.div>
         </div>
@@ -157,12 +166,14 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
             variants={fadeUpVariant}
             className="flex flex-col justify-center"
           >
-            <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">01 — {tProj('concept')}</span>
+            <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">
+              01 — {project.problemLabel || tProj('problem')}
+            </span>
             <h2 className="font-['Playfair_Display',serif] text-[36px] md:text-[48px] leading-[1.2] mb-8 text-[#1A1A1A]">
-              {tProj('designIdea')}
+              {project.problemTitle || tProj('problemTitle')}
             </h2>
             <p className="text-[#4A4A4A] text-[15px] leading-[1.8] font-light max-w-md">
-              {project.description}
+              {project.problemBody || project.description}
             </p>
 
             {project.content ? (
@@ -182,6 +193,70 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
               <ImageWithFallback src={images[1].src} alt={images[1].alt} className="w-full h-full object-cover" />
             </motion.div>
           )}
+        </div>
+      </section>
+
+      {/* 4. Immersive Image Break */}
+      {images[2] && (
+        <section className="w-full h-[60vh]">
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="w-full h-full"
+          >
+            <ImageWithFallback
+              src={images[2].src}
+              alt={images[2].alt}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </section>
+      )}
+
+      {/* 5. Development / Result */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-20">
+          {images[3] && (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeUpVariant}
+              className="order-2 md:order-1 relative h-[500px] w-full"
+            >
+              <ImageWithFallback
+                src={images[3].src}
+                alt={images[3].alt}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          )}
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUpVariant}
+            className="order-1 md:order-2 flex flex-col justify-center"
+          >
+            <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">
+              02 — {project.implementationLabel || tProj('implementation')}
+            </span>
+            <h2 className="font-['Playfair_Display',serif] text-[36px] md:text-[48px] leading-[1.2] mb-8 text-[#1A1A1A]">
+              {project.implementationTitle || tProj('implementationTitle')}
+            </h2>
+            <p className="text-[#4A4A4A] text-[15px] leading-[1.8] font-light max-w-md mb-12">
+              {project.implementationBody || tProj('implementationDescription')}
+            </p>
+            <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">
+              03 — {project.resultLabel || tProj('result')}
+            </span>
+            <p className="text-[#1A1A1A] font-['Playfair_Display',serif] text-[24px] italic max-w-md border-l-[3px] border-[#D4AF37] pl-6">
+              “{project.resultQuote || tProj('resultQuote')}”
+            </p>
+          </motion.div>
         </div>
       </section>
 

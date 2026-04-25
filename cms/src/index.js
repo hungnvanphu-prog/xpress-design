@@ -238,20 +238,40 @@ async function seedCategories(strapi) {
 }
 
 async function seedProjects(strapi) {
-  // Ảnh mẫu Unsplash dùng chung (không có upload media → lưu URL trực tiếp)
-  const img = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`;
-  const IMG = {
-    villa1: img('1765279162736-14c7d64ff820'),
-    villa2: img('1758381851526-bdfa3810b4ff'),
-    pent1: img('1761330439180-2bba3bbb8eb2'),
-    apt1: img('1758448756362-e323282ccbcc'),
-    apt2: img('1765279333918-949ddcb655ba'),
-    town1: img('1750360563453-1c02464f2e97'),
+  const detailVi = {
+    hero_subtitle: 'Bản giao hưởng của ánh sáng và tĩnh lặng',
+    problem_label: 'Vấn đề',
+    problem_title: 'Bài toán của sự tĩnh tại giữa lòng đô thị.',
+    problem_body:
+      'Gia chủ khao khát một chốn trở về hoàn toàn biệt lập với nhịp sống hối hả ngoài kia. Yêu cầu đặt ra không chỉ là một không gian sinh hoạt, mà là một chốn ẩn mình xoa dịu các giác quan và nuôi dưỡng đời sống tinh thần.',
+    implementation_label: 'Triển khai',
+    implementation_title: 'Chế tác từng khoảnh khắc.',
+    implementation_body:
+      'Chúng tôi kiến tạo không gian mở ở tầng trệt, xóa nhòa ranh giới giữa phòng khách, bếp và khu vườn Zen. Vật liệu tự nhiên được lựa chọn để tương phản với đá thô và ánh sáng mềm, tạo nên một phổ màu trầm ấm, sang trọng và đầy tính bản nguyên.',
+    result_label: 'Kết quả',
+    result_quote:
+      'Không chỉ là một công trình kiến trúc vật lý, mà là một tác phẩm nghệ thuật có tính thiền định — một di sản sống của gia chủ.',
+  };
+
+  const detailEn = {
+    hero_subtitle: 'A symphony of light and stillness',
+    problem_label: 'Problem',
+    problem_title: 'The challenge of stillness within the city.',
+    problem_body:
+      'The homeowner wanted a place of return, completely set apart from the restless rhythm outside. The brief was not only a living space, but a retreat that soothes the senses and nurtures a more contemplative way of life.',
+    implementation_label: 'Implementation',
+    implementation_title: 'Crafting every moment.',
+    implementation_body:
+      'We created an open ground-floor sequence, dissolving the boundary between living room, kitchen and Zen garden. Natural materials are composed against raw stone and soft light, forming a warm, refined and elemental palette.',
+    result_label: 'Result',
+    result_quote:
+      'More than a physical architectural work, it becomes a meditative piece of living art — a legacy for the homeowner.',
   };
 
   const projects = [
     {
       vi: {
+        ...detailVi,
         title: 'Biệt thự Xanh Đà Lạt',
         slug: 'biet-thu-xanh-da-lat',
         description:
@@ -264,6 +284,7 @@ async function seedProjects(strapi) {
           'Dự án biệt thự nghỉ dưỡng hòa quyện cùng thiên nhiên Đà Lạt, thiết kế hiện đại với hồ bơi vô cực.',
       },
       en: {
+        ...detailEn,
         title: 'Green Villa Da Lat',
         slug: 'green-villa-da-lat',
         description:
@@ -283,12 +304,11 @@ async function seedProjects(strapi) {
         architect: 'Le Anh Tuan',
         area: '450 m²',
         construction_time: 12,
-        cover_url: IMG.villa1,
-        gallery_urls: [IMG.villa1, IMG.villa2, IMG.apt2, IMG.town1, IMG.pent1],
       },
     },
     {
       vi: {
+        ...detailVi,
         title: 'Penthouse Urban Skyline',
         slug: 'penthouse-urban-skyline',
         description:
@@ -301,6 +321,7 @@ async function seedProjects(strapi) {
           'Penthouse hạng sang tại trung tâm TP.HCM với phong cách Luxury Minimalism tinh tế.',
       },
       en: {
+        ...detailEn,
         title: 'Urban Skyline Penthouse',
         slug: 'urban-skyline-penthouse',
         description:
@@ -320,12 +341,11 @@ async function seedProjects(strapi) {
         architect: 'Nguyen Van Nam',
         area: '320 m²',
         construction_time: 8,
-        cover_url: IMG.pent1,
-        gallery_urls: [IMG.pent1, IMG.apt2, IMG.apt1, IMG.villa1],
       },
     },
     {
       vi: {
+        ...detailVi,
         title: 'Neo Classic Residence',
         slug: 'neo-classic-residence',
         description:
@@ -338,6 +358,7 @@ async function seedProjects(strapi) {
           'Căn hộ tân cổ điển tại Hà Nội với chi tiết phào chỉ tinh tế và bảng màu sang trọng.',
       },
       en: {
+        ...detailEn,
         title: 'Neo Classic Residence',
         slug: 'neo-classic-residence-en',
         description:
@@ -357,12 +378,11 @@ async function seedProjects(strapi) {
         architect: 'Tran Thi Mai',
         area: '180 m²',
         construction_time: 6,
-        cover_url: IMG.apt2,
-        gallery_urls: [IMG.apt2, IMG.apt1, IMG.pent1],
       },
     },
     {
       vi: {
+        ...detailVi,
         title: 'Nhà phố Tối giản Đà Nẵng',
         slug: 'nha-pho-toi-gian-da-nang',
         description:
@@ -375,6 +395,7 @@ async function seedProjects(strapi) {
           'Nhà phố tối giản tại Đà Nẵng tối ưu ánh sáng và thông gió tự nhiên.',
       },
       en: {
+        ...detailEn,
         title: 'Minimalist Townhouse Da Nang',
         slug: 'minimalist-townhouse-da-nang',
         description:
@@ -394,12 +415,11 @@ async function seedProjects(strapi) {
         architect: 'Pham Hoang Duy',
         area: '250 m²',
         construction_time: 10,
-        cover_url: IMG.town1,
-        gallery_urls: [IMG.town1, IMG.villa2, IMG.villa1, IMG.apt1],
       },
     },
     {
       vi: {
+        ...detailVi,
         title: 'Văn phòng Sáng tạo Sài Gòn',
         slug: 'van-phong-sang-tao-sai-gon',
         description:
@@ -412,6 +432,7 @@ async function seedProjects(strapi) {
           'Thiết kế văn phòng hybrid tại trung tâm TP.HCM, tối ưu hoạt động đội ngũ 500 nhân sự.',
       },
       en: {
+        ...detailEn,
         title: 'Saigon Creative Office',
         slug: 'saigon-creative-office',
         description:
@@ -431,12 +452,11 @@ async function seedProjects(strapi) {
         architect: 'Xpress Design Studio',
         area: '2,800 m²',
         construction_time: 9,
-        cover_url: IMG.apt1,
-        gallery_urls: [IMG.apt1, IMG.apt2, IMG.pent1, IMG.villa1, IMG.town1],
       },
     },
     {
       vi: {
+        ...detailVi,
         title: 'Nhà phố Hà Nội 2025',
         slug: 'nha-pho-ha-noi-2025',
         description:
@@ -449,6 +469,7 @@ async function seedProjects(strapi) {
           'Nhà phố hiện đại tối ưu ánh sáng giữa phố cổ Hà Nội, giao thoa truyền thống và đương đại.',
       },
       en: {
+        ...detailEn,
         title: 'Hanoi Townhouse 2025',
         slug: 'hanoi-townhouse-2025',
         description:
@@ -468,8 +489,6 @@ async function seedProjects(strapi) {
         architect: 'Xpress Design Studio',
         area: '320 m²',
         construction_time: 11,
-        cover_url: IMG.villa2,
-        gallery_urls: [IMG.villa2, IMG.town1, IMG.villa1, IMG.apt1, IMG.apt2],
       },
     },
   ];

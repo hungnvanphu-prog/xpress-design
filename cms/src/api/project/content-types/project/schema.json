@@ -35,6 +35,42 @@
       "type": "richtext",
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "hero_subtitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "problem_label": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "problem_title": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "problem_body": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "implementation_label": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "implementation_title": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "implementation_body": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "result_label": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "result_quote": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
     "location": {
       "type": "string",
       "pluginOptions": { "i18n": { "localized": true } }
@@ -89,14 +125,6 @@
       "multiple": true,
       "required": false,
       "allowedTypes": ["images"],
-      "pluginOptions": { "i18n": { "localized": false } }
-    },
-    "gallery_urls": {
-      "type": "json",
-      "pluginOptions": { "i18n": { "localized": false } }
-    },
-    "cover_url": {
-      "type": "string",
       "pluginOptions": { "i18n": { "localized": false } }
     },
     "seo_title": {

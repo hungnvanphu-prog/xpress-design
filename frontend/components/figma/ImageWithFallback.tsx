@@ -38,6 +38,7 @@ export function ImageWithFallback(props: Props) {
 
   // Mặc định dùng `fill` để tương thích với code hiện tại (chỉ có className, không có width/height)
   const useFill = fill ?? (width === undefined && height === undefined);
+  const unoptimized = typeof src === 'string' && src.includes('/uploads/');
 
   if (useFill) {
     return (
@@ -48,6 +49,7 @@ export function ImageWithFallback(props: Props) {
           fill
           sizes={sizes ?? '(max-width: 768px) 100vw, 50vw'}
           priority={priority}
+          unoptimized={unoptimized}
           onError={() => setDidError(true)}
           style={{ objectFit: 'cover' }}
           {...rest}
@@ -64,6 +66,7 @@ export function ImageWithFallback(props: Props) {
       height={height as number}
       sizes={sizes}
       priority={priority}
+      unoptimized={unoptimized}
       className={className}
       style={style}
       onError={() => setDidError(true)}
