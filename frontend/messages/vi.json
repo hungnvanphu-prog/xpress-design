@@ -40,6 +40,12 @@
     "contactDescription": "Liên hệ với Xpress Architecture để được tư vấn thiết kế cao cấp.",
     "thankYou": "Cảm ơn"
   },
+  "Home": {
+    "featured": {
+      "title": "Những tác phẩm<br />mang dấu ấn XPRESS",
+      "viewAll": "Toàn bộ dự án"
+    }
+  },
   "Projects": {
     "badge": "Dự án tiêu biểu",
     "heroTitle": "Tuyển tập những không gian<br />đậm chất nghệ thuật",

@@ -40,6 +40,12 @@
     "contactDescription": "Get in touch with Xpress Architecture for premium design consulting.",
     "thankYou": "Thank you"
   },
+  "Home": {
+    "featured": {
+      "title": "Signature works<br />by XPRESS",
+      "viewAll": "All projects"
+    }
+  },
   "Projects": {
     "badge": "Featured projects",
     "heroTitle": "A collection of spaces<br />crafted with artistry",
