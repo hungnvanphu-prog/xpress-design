@@ -51,15 +51,25 @@ export class CmsService {
     return this.proxyGet('/articles', { populate: '*', ...query });
   }
 
-  getArticleBySlug(slug: string) {
+  getArticleBySlug(slug: string, query: Record<string, any> = {}) {
     return this.proxyGet('/articles', {
       'filters[slug][$eq]': slug,
       populate: '*',
+      ...query,
     });
   }
 
+  /** Strapi pluralName = `news-items` (collection news) */
   getNews(query: Record<string, any>) {
-    return this.proxyGet('/news', { populate: '*', ...query });
+    return this.proxyGet('/news-items', { populate: '*', ...query });
+  }
+
+  getNewsBySlug(slug: string, query: Record<string, any> = {}) {
+    return this.proxyGet('/news-items', {
+      'filters[slug][$eq]': slug,
+      populate: '*',
+      ...query,
+    });
   }
 
   getPageBySlug(slug: string) {

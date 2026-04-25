@@ -76,6 +76,44 @@ export const api = {
       }`,
       { revalidate: 60 },
     ),
+
+  cmsArticles: (locale?: string) => {
+    const q = new URLSearchParams();
+    q.set('populate', '*');
+    q.set('sort', 'publishedAt:desc');
+    if (locale) q.set('locale', locale);
+    return request<{ data: any[]; meta?: any }>(API_URL, `/cms/articles?${q}`, { revalidate: 60 });
+  },
+
+  cmsArticleBySlug: (slug: string, locale?: string) => {
+    const q = new URLSearchParams();
+    if (locale) q.set('locale', locale);
+    const suffix = q.toString() ? `?${q}` : '';
+    return request<{ data: any[]; meta?: any }>(
+      API_URL,
+      `/cms/articles/${encodeURIComponent(slug)}${suffix}`,
+      { revalidate: 60 },
+    );
+  },
+
+  cmsNews: (locale?: string) => {
+    const q = new URLSearchParams();
+    q.set('populate', '*');
+    q.set('sort', 'event_date:desc');
+    if (locale) q.set('locale', locale);
+    return request<{ data: any[]; meta?: any }>(API_URL, `/cms/news?${q}`, { revalidate: 60 });
+  },
+
+  cmsNewsBySlug: (slug: string, locale?: string) => {
+    const q = new URLSearchParams();
+    if (locale) q.set('locale', locale);
+    const suffix = q.toString() ? `?${q}` : '';
+    return request<{ data: any[]; meta?: any }>(
+      API_URL,
+      `/cms/news/${encodeURIComponent(slug)}${suffix}`,
+      { revalidate: 60 },
+    );
+  },
 };
 
 // ==================== Strapi (CMS) ====================

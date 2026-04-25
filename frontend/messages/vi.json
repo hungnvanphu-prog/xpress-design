@@ -87,6 +87,22 @@
     "services": "Giải pháp toàn diện từ ý tưởng đến hiện thực",
     "contact": "Kiến tạo không gian sống đẳng cấp cùng Xpress Design"
   },
+  "Insights": {
+    "authorCredit": "Xpress Design",
+    "filterAll": "Tất cả",
+    "searchPlaceholder": "Tìm kiếm chủ đề...",
+    "emptyList": "Chưa có bài viết nào. Vui lòng thêm nội dung trên CMS.",
+    "readMoreLink": "Đọc thêm",
+    "readFullArticle": "Đọc bài viết",
+    "sectionFeatured": "Tiêu điểm chuyên môn",
+    "sectionLibrary": "Thư viện kiến thức"
+  },
+  "News": {
+    "emptyList": "Chưa có tin tức. Vui lòng thêm nội dung trên CMS.",
+    "typeNews": "Tin tức",
+    "typeEvent": "Sự kiện",
+    "typeCommunity": "Cộng đồng"
+  },
   "NotFound": {
     "badge": "Đang phát triển",
     "description": "Nội dung chuyên sâu cho chuyên mục này đang được đội ngũ chuyên gia của chúng tôi hoàn thiện. Vui lòng quay lại sau để cập nhật những thông tin mới nhất.",

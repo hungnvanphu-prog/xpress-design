@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import type { toUiProject } from "@/lib/cms-transform";
@@ -18,6 +18,19 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
   const tHome = useTranslations("Home");
   const tProj = useTranslations("Projects");
   const tCommon = useTranslations("Common");
+  const locale = useLocale();
+  const insightSlugs =
+    locale === "en"
+      ? [
+          "5-sustainable-architecture-trends-2025",
+          "minimal-interior",
+          "urban-landscape-micro-climate",
+        ]
+      : [
+          "5-xu-huong-kien-truc-ben-vung-2025",
+          "noi-that-toi-gian",
+          "canh-quan-do-thi-va-vi-khi-hau",
+        ];
 
   const { scrollY } = useScroll();
   const [isMobile, setIsMobile] = useState(false);
@@ -371,7 +384,7 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               className="group cursor-pointer flex flex-col h-full"
             >
               <Link
-                href="/insights/1"
+                href={`/insights/${insightSlugs[0]}`}
                 className="block relative aspect-[4/5] overflow-hidden mb-8 bg-gray-100"
               >
                 <img
@@ -381,17 +394,19 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
-                Xu hướng 2025
+                {locale === "en" ? "Sustainability" : "Kiến trúc 2025"}
               </span>
-              <Link href="/insights/1">
+              <Link href={`/insights/${insightSlugs[0]}`}>
                 <h3 className="font-['Playfair_Display',serif] text-[24px] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors leading-snug font-medium">
-                  5 Xu hướng thiết kế nội thất định hình năm tới
+                  {locale === "en"
+                    ? "5 Sustainable Architecture Trends 2025"
+                    : "5 xu hướng kiến trúc bền vững 2025"}
                 </h3>
               </Link>
               <p className="text-[#4A4A4A] text-[15px] leading-relaxed font-light">
-                Khám phá những phong cách sẽ thống trị không
-                gian sống, kết hợp giữa sự tối giản và tính cá
-                nhân hóa cao.
+                {locale === "en"
+                  ? "A round-up of five green building approaches we apply most in tropical work."
+                  : "Năm hướng tiếp cận kiến trúc bền vững tại dự án nhiệt đới, từ mặt động tới cây cấu trúc."}
               </p>
             </motion.article>
 
@@ -401,27 +416,29 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               className="group cursor-pointer flex flex-col h-full"
             >
               <Link
-                href="/insights/2"
+                href={`/insights/${insightSlugs[1]}`}
                 className="block relative aspect-[4/5] overflow-hidden mb-8 bg-gray-100"
               >
                 <img
                   src="https://images.unsplash.com/photo-1729335009895-bfe50bae5922?q=80&w=1080"
-                  alt="Phong thủy nhà phố"
+                  alt="Nội thất tối giản"
                   className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
-                Phong thủy ứng dụng
+                {locale === "en" ? "Interiors" : "Nội thất"}
               </span>
-              <Link href="/insights/2">
+              <Link href={`/insights/${insightSlugs[1]}`}>
                 <h3 className="font-['Playfair_Display',serif] text-[24px] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors leading-snug font-medium">
-                  Phong thủy nhà phố: Nguyên tắc vàng cho sự
-                  thịnh vượng
+                  {locale === "en"
+                    ? "Minimal Interior: Less to Breathe More"
+                    : "Nội thất tối giản: ít hơn để thở nhiều hơn"}
                 </h3>
               </Link>
               <p className="text-[#4A4A4A] text-[15px] leading-relaxed font-light">
-                Ứng dụng phong thủy vào nhà phố hiện đại mà vẫn
-                giữ được vẻ đẹp tinh tế, sang trọng.
+                {locale === "en"
+                  ? "Proportion, palette and light — what really defines calm rooms."
+                  : "Tỷ lệ không gian, bảng màu, ánh sáng: ba lớp của phong cách tĩnh lặng."}
               </p>
             </motion.article>
 
@@ -431,28 +448,29 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               className="group cursor-pointer flex flex-col h-full"
             >
               <Link
-                href="/insights/3"
+                href={`/insights/${insightSlugs[2]}`}
                 className="block relative aspect-[4/5] overflow-hidden mb-8 bg-gray-100"
               >
                 <img
                   src="https://images.unsplash.com/photo-1597280683904-95d07f4237eb?q=80&w=1080"
-                  alt="Ánh sáng tự nhiên"
+                  alt="Cảnh quan đô thị"
                   className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
-                Nghệ thuật ánh sáng
+                {locale === "en" ? "Landscape" : "Cảnh quan"}
               </span>
-              <Link href="/insights/3">
+              <Link href={`/insights/${insightSlugs[2]}`}>
                 <h3 className="font-['Playfair_Display',serif] text-[24px] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors leading-snug font-medium">
-                  Ánh sáng tự nhiên: Bản giao hưởng của không
-                  gian
+                  {locale === "en"
+                    ? "Urban landscape & micro-climate"
+                    : "Cảnh quan đô thị và vi khí hậu: tạo ra sự dễ chịu thật sự"}
                 </h3>
               </Link>
               <p className="text-[#4A4A4A] text-[15px] leading-relaxed font-light">
-                Cách bố trí giếng trời và vật liệu phản quang để
-                biến ánh sáng thành chất liệu trang trí đắt giá
-                nhất.
+                {locale === "en"
+                  ? "Shade layers, wind paths and cool pavements along dense streets."
+                  : "Bóng cây, dẫn gió, vỉa phản nhiệt — giảm nhiệt cảm nhận ở khu công cộng."}
               </p>
             </motion.article>
           </motion.div>

@@ -87,6 +87,22 @@
     "services": "End-to-end solutions from idea to reality",
     "contact": "Crafting premium living spaces with Xpress Design"
   },
+  "Insights": {
+    "authorCredit": "Xpress Design",
+    "filterAll": "All",
+    "searchPlaceholder": "Search topics…",
+    "emptyList": "No articles yet. Add content in the CMS.",
+    "readMoreLink": "Read more",
+    "readFullArticle": "Read article",
+    "sectionFeatured": "Featured insights",
+    "sectionLibrary": "Knowledge library"
+  },
+  "News": {
+    "emptyList": "No news yet. Add content in the CMS.",
+    "typeNews": "News",
+    "typeEvent": "Event",
+    "typeCommunity": "Community"
+  },
   "NotFound": {
     "badge": "Coming soon",
     "description": "In-depth content for this section is being finalized by our team. Please check back soon for updates.",

@@ -75,7 +75,7 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <h1 className="text-white text-[48px] md:text-[80px] font-['Playfair_Display',serif] leading-[1.1] font-medium max-w-4xl">
+            <h1 className="text-white text-[48px] md:text-[80px] font-['Playfair_Display',serif] leading-[1.1] font-medium">
               {project.title}
             </h1>
             <p className="text-[#D4AF37] text-[12px] uppercase tracking-[0.25em] font-medium mt-6">

@@ -21,13 +21,18 @@ export class CmsController {
   }
 
   @Get('articles/:slug')
-  articleBySlug(@Param('slug') slug: string) {
-    return this.cmsService.getArticleBySlug(slug);
+  articleBySlug(@Param('slug') slug: string, @Query() q: Record<string, any>) {
+    return this.cmsService.getArticleBySlug(slug, q);
   }
 
   @Get('news')
   news(@Query() q: Record<string, any>) {
     return this.cmsService.getNews(q);
+  }
+
+  @Get('news/:slug')
+  newsBySlug(@Param('slug') slug: string, @Query() q: Record<string, any>) {
+    return this.cmsService.getNewsBySlug(slug, q);
   }
 
   @Get('pages/:slug')
