@@ -53,6 +53,18 @@
       "type": "integer",
       "pluginOptions": { "i18n": { "localized": false } }
     },
+    "architect": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "area": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "construction_time": {
+      "type": "integer",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
     "featured": {
       "type": "boolean",
       "default": false,
@@ -77,6 +89,14 @@
       "multiple": true,
       "required": false,
       "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "gallery_urls": {
+      "type": "json",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "cover_url": {
+      "type": "string",
       "pluginOptions": { "i18n": { "localized": false } }
     },
     "seo_title": {

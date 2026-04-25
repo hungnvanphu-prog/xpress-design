@@ -39,10 +39,11 @@ export class CmsService {
     return this.proxyGet('/projects', { populate: '*', ...query });
   }
 
-  getProjectBySlug(slug: string) {
+  getProjectBySlug(slug: string, query: Record<string, any> = {}) {
     return this.proxyGet('/projects', {
       'filters[slug][$eq]': slug,
       populate: '*',
+      ...query,
     });
   }
 

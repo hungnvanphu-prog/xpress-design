@@ -7,6 +7,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { FloatingActions } from '@/components/FloatingActions';
 import { ScrollReset, TrackingScripts } from './scroll-reset';
+import { LocalizedRouteProvider } from '@/lib/localized-route';
 import '../globals.css';
 
 // Pre-generate route cho mọi locale để SSG
@@ -47,12 +48,14 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className="min-h-screen bg-[#F8F9FA] selection:bg-[#D4AF37] selection:text-white">
         <NextIntlClientProvider>
-          <TrackingScripts />
-          <ScrollReset />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <FloatingActions />
+          <LocalizedRouteProvider>
+            <TrackingScripts />
+            <ScrollReset />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <FloatingActions />
+          </LocalizedRouteProvider>
         </NextIntlClientProvider>
       </body>
     </html>

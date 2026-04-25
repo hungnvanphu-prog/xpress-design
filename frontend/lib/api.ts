@@ -59,6 +59,23 @@ export const api = {
   // Newsletter
   subscribe: (email: string) =>
     request(API_URL, '/newsletter', { method: 'POST', body: JSON.stringify({ email }) }),
+
+  // CMS proxy qua Nest (bảo mật hơn gọi thẳng Strapi từ FE)
+  cmsProjects: (locale?: string) =>
+    request<{ data: any[]; meta?: any }>(
+      API_URL,
+      `/cms/projects${locale ? `?locale=${encodeURIComponent(locale)}` : ''}`,
+      { revalidate: 60 },
+    ),
+
+  cmsProjectBySlug: (slug: string, locale?: string) =>
+    request<{ data: any[]; meta?: any }>(
+      API_URL,
+      `/cms/projects/${encodeURIComponent(slug)}${
+        locale ? `?locale=${encodeURIComponent(locale)}` : ''
+      }`,
+      { revalidate: 60 },
+    ),
 };
 
 // ==================== Strapi (CMS) ====================

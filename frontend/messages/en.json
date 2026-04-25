@@ -40,6 +40,34 @@
     "contactDescription": "Get in touch with Xpress Architecture for premium design consulting.",
     "thankYou": "Thank you"
   },
+  "Projects": {
+    "badge": "Featured projects",
+    "heroTitle": "A collection of spaces<br />crafted with artistry",
+    "heroSubtitle": "Each project tells a unique story where we blend minimal architectural language with thoughtful function.",
+    "empty": "No projects match this filter",
+    "featured": "Featured",
+    "client": "Client",
+    "location": "Location",
+    "type": "Project type",
+    "year": "Year",
+    "architect": "Architect",
+    "area": "Area",
+    "constructionTime": "Construction time",
+    "months": "{count, plural, one {# month} other {# months}}",
+    "concept": "Concept",
+    "designIdea": "Design idea",
+    "gallery": "Gallery",
+    "fullscreen": "View fullscreen",
+    "zoom": "Zoom",
+    "filter": {
+      "all": "All",
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "public": "Public",
+      "interior": "Interior",
+      "landscape": "Landscape"
+    }
+  },
   "HeroTaglines": {
     "news": "Featured activities, awards and milestones of Xpress Design",
     "about": "The story and vision of Xpress Design",

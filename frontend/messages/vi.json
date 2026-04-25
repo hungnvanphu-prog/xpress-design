@@ -40,6 +40,34 @@
     "contactDescription": "Liên hệ với Xpress Architecture để được tư vấn thiết kế cao cấp.",
     "thankYou": "Cảm ơn"
   },
+  "Projects": {
+    "badge": "Dự án tiêu biểu",
+    "heroTitle": "Tuyển tập những không gian<br />đậm chất nghệ thuật",
+    "heroSubtitle": "Mỗi công trình là một câu chuyện độc bản, nơi chúng tôi kết hợp hoàn hảo giữa ngôn ngữ kiến trúc tối giản và công năng sử dụng.",
+    "empty": "Không tìm thấy dự án phù hợp",
+    "featured": "Nổi bật",
+    "client": "Khách hàng",
+    "location": "Địa điểm",
+    "type": "Loại dự án",
+    "year": "Năm",
+    "architect": "Kiến trúc sư",
+    "area": "Diện tích",
+    "constructionTime": "Thời gian thi công",
+    "months": "{count} tháng",
+    "concept": "Concept",
+    "designIdea": "Ý tưởng thiết kế",
+    "gallery": "Thư viện không gian",
+    "fullscreen": "Xem toàn màn hình",
+    "zoom": "Phóng to",
+    "filter": {
+      "all": "Tất cả",
+      "residential": "Nhà ở",
+      "commercial": "Thương mại",
+      "public": "Công cộng",
+      "interior": "Nội thất",
+      "landscape": "Cảnh quan"
+    }
+  },
   "HeroTaglines": {
     "news": "Hoạt động nổi bật, giải thưởng và dấu ấn của Xpress Design",
     "about": "Câu chuyện và tầm nhìn của Xpress Design",

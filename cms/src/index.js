@@ -145,18 +145,7 @@ async function grantPublicPermissions(strapi) {
  * ============================================================ */
 async function seedContent(strapi) {
   try {
-    // Chỉ seed khi DB trống → idempotent
-    const projectCount = await strapi.entityService.count('api::project.project');
-    const articleCount = await strapi.entityService.count('api::article.article');
-    const newsCount = await strapi.entityService.count('api::news.news');
-    const pageCount = await strapi.entityService.count('api::page.page');
-
-    if (projectCount + articleCount + newsCount + pageCount > 0) {
-      strapi.log.info('[seed] Đã có dữ liệu content → bỏ qua seed mẫu');
-      return;
-    }
-
-    strapi.log.info('[seed] 🌱 Bắt đầu seed dữ liệu mẫu song ngữ...');
+    strapi.log.info('[seed] 🌱 Bắt đầu upsert dữ liệu mẫu song ngữ...');
 
     const categories = await seedCategories(strapi);
     await seedProjects(strapi);
@@ -164,35 +153,71 @@ async function seedContent(strapi) {
     await seedNews(strapi);
     await seedPages(strapi);
 
-    strapi.log.info('[seed] ✅ Hoàn tất seed dữ liệu mẫu');
+    strapi.log.info('[seed] ✅ Hoàn tất upsert dữ liệu mẫu');
   } catch (err) {
     strapi.log.error('[seed] Lỗi seed content:', err);
   }
 }
 
 /**
- * Tạo 1 entity ở locale `vi` rồi link bản dịch `en` vào nó.
- * Trả về entity vi (đã có field localizations).
+ * Upsert 1 entity theo (slug, locale). Nếu đã có → update, chưa có → create.
+ * Với locale `en` thì tự link về bản `vi` qua field `localizations`.
  */
-async function createBilingual(strapi, uid, viData, enData) {
-  const viEntity = await strapi.entityService.create(uid, {
-    data: { ...viData, locale: 'vi', publishedAt: new Date() },
+async function upsertBilingual(strapi, uid, viData, enData) {
+  const viExisting = await strapi.db.query(uid).findOne({
+    where: { slug: viData.slug, locale: 'vi' },
   });
 
-  const enEntity = await strapi.entityService.create(uid, {
-    data: {
-      ...enData,
-      locale: 'en',
-      localizations: [viEntity.id],
-      publishedAt: new Date(),
-    },
+  const viPayload = { ...viData, publishedAt: new Date() };
+  const viEntity = viExisting
+    ? await strapi.entityService.update(uid, viExisting.id, { data: viPayload })
+    : await strapi.entityService.create(uid, {
+        data: { ...viPayload, locale: 'vi' },
+      });
+
+  const enExisting = await strapi.db.query(uid).findOne({
+    where: { slug: enData.slug, locale: 'en' },
   });
+
+  const enPayload = { ...enData, publishedAt: new Date() };
+  const enEntity = enExisting
+    ? await strapi.entityService.update(uid, enExisting.id, { data: enPayload })
+    : await strapi.entityService.create(uid, {
+        data: { ...enPayload, locale: 'en', localizations: [viEntity.id] },
+      });
+
+  // Đồng bộ 2 chiều qua pivot table: entityService.update không tác động được
+  // lên field `localizations` trên Strapi 4 i18n → chèn trực tiếp vào bảng link.
+  await syncLocalizationLink(strapi, uid, viEntity.id, enEntity.id);
+  await syncLocalizationLink(strapi, uid, enEntity.id, viEntity.id);
 
   return { vi: viEntity, en: enEntity };
 }
 
+async function syncLocalizationLink(strapi, uid, fromId, toId) {
+  // Bảng pivot Strapi sinh ra có dạng `${collectionName}_localizations_links`,
+  // với cột `${singularName}_id` (owner), `inv_${singularName}_id` (target)
+  // và `${singularName}_order` (thứ tự).
+  const model = strapi.getModel(uid);
+  const singular = model.info?.singularName || model.modelName;
+  const table = `${model.collectionName}_localizations_links`;
+  const ownerCol = `${singular}_id`;
+  const invCol = `inv_${singular}_id`;
+  const orderCol = `${singular}_order`;
+
+  const knex = strapi.db.connection;
+  try {
+    await knex(table)
+      .insert({ [ownerCol]: fromId, [invCol]: toId, [orderCol]: 1 })
+      .onConflict([ownerCol, invCol])
+      .ignore();
+  } catch (err) {
+    strapi.log.warn(`[seed] Không sync được localization link ${table}: ${err.message}`);
+  }
+}
+
 async function seedCategories(strapi) {
-  // Category không bật i18n → chỉ tạo 1 bản
+  // Category không bật i18n → upsert theo `name`
   const data = [
     { name: 'Kiến trúc', description: 'Bài viết về kiến trúc' },
     { name: 'Nội thất', description: 'Bài viết về nội thất' },
@@ -200,7 +225,12 @@ async function seedCategories(strapi) {
   ];
   const created = [];
   for (const d of data) {
-    const c = await strapi.entityService.create('api::category.category', { data: d });
+    const existing = await strapi.db
+      .query('api::category.category')
+      .findOne({ where: { name: d.name } });
+    const c = existing
+      ? await strapi.entityService.update('api::category.category', existing.id, { data: d })
+      : await strapi.entityService.create('api::category.category', { data: d });
     created.push(c);
     strapi.log.info(`[seed] ✅ Category: ${c.name}`);
   }
@@ -208,89 +238,244 @@ async function seedCategories(strapi) {
 }
 
 async function seedProjects(strapi) {
+  // Ảnh mẫu Unsplash dùng chung (không có upload media → lưu URL trực tiếp)
+  const img = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`;
+  const IMG = {
+    villa1: img('1765279162736-14c7d64ff820'),
+    villa2: img('1758381851526-bdfa3810b4ff'),
+    pent1: img('1761330439180-2bba3bbb8eb2'),
+    apt1: img('1758448756362-e323282ccbcc'),
+    apt2: img('1765279333918-949ddcb655ba'),
+    town1: img('1750360563453-1c02464f2e97'),
+  };
+
   const projects = [
     {
       vi: {
         title: 'Biệt thự Xanh Đà Lạt',
         slug: 'biet-thu-xanh-da-lat',
-        description: 'Biệt thự nghỉ dưỡng trên đồi thông, hoà quyện thiên nhiên.',
-        content: 'Công trình sử dụng vật liệu địa phương, tối ưu thông gió tự nhiên và ánh sáng ban ngày.',
+        description:
+          'Biệt thự nghỉ dưỡng trên đồi thông, hoà quyện thiên nhiên với tầm nhìn panorama hướng thung lũng.',
+        content:
+          '<p>Công trình sử dụng vật liệu địa phương — đá bazan, gỗ thông và kính low-e khổ lớn — nhằm tối ưu thông gió tự nhiên và đón trọn ánh sáng ban ngày.</p><p>Không gian sống mở xuyên suốt tầng trệt kết nối trực tiếp với hồ bơi vô cực và rừng thông bao quanh, xoá nhòa ranh giới giữa nội thất và cảnh quan.</p><p>Các điểm nhấn thiết kế:</p><ul><li>Mặt tiền đá bazan tối màu, tương phản với gỗ thông sáng ấm.</li><li>Hệ kính khổ lớn cao 3.2m trượt toàn phần mở ra terrace.</li><li>Hồ bơi vô cực bốn cạnh, mặt nước nối liền tầm nhìn thung lũng.</li><li>Hệ thống thông gió chéo — giảm 60% chi phí làm mát.</li></ul>',
         location: 'Đà Lạt, Lâm Đồng',
         seo_title: 'Biệt thự Xanh Đà Lạt — Dự án kiến trúc nghỉ dưỡng',
-        seo_description: 'Dự án biệt thự nghỉ dưỡng hòa quyện cùng thiên nhiên Đà Lạt.',
+        seo_description:
+          'Dự án biệt thự nghỉ dưỡng hòa quyện cùng thiên nhiên Đà Lạt, thiết kế hiện đại với hồ bơi vô cực.',
       },
       en: {
         title: 'Green Villa Da Lat',
         slug: 'green-villa-da-lat',
-        description: 'A resort villa on the pine hill in harmony with nature.',
-        content: 'The project uses local materials, optimizes natural ventilation and daylight.',
+        description:
+          'A resort villa on the pine hill in harmony with nature, offering a panoramic view over the valley.',
+        content:
+          '<p>The project uses local materials — basalt stone, pine wood and oversized low-e glass — to optimize natural ventilation and daylight.</p><p>The ground floor flows into an infinity pool and the surrounding pine forest, blurring the line between interior and landscape.</p><p>Design highlights:</p><ul><li>A dark basalt façade contrasted with warm, light-toned pine wood.</li><li>Full-sliding 3.2m-tall glazing opening onto the terrace.</li><li>A four-sided infinity pool extending the view across the valley.</li><li>Cross ventilation system — cutting cooling costs by 60%.</li></ul>',
         location: 'Da Lat, Lam Dong',
         seo_title: 'Green Villa Da Lat — Resort Architecture Project',
-        seo_description: 'A resort villa project blending with the nature of Da Lat.',
+        seo_description:
+          'A resort villa project blending with the nature of Da Lat, modern design with an infinity pool.',
       },
       shared: {
         client_name: 'Green Hill Group',
         project_type: 'residential',
         year: 2024,
         featured: true,
+        architect: 'Le Anh Tuan',
+        area: '450 m²',
+        construction_time: 12,
+        cover_url: IMG.villa1,
+        gallery_urls: [IMG.villa1, IMG.villa2, IMG.apt2, IMG.town1, IMG.pent1],
+      },
+    },
+    {
+      vi: {
+        title: 'Penthouse Urban Skyline',
+        slug: 'penthouse-urban-skyline',
+        description:
+          'Căn penthouse tại trung tâm TP.HCM với tầm nhìn toàn cảnh skyline, thiết kế theo phong cách Luxury Minimalism.',
+        content:
+          '<p>Sự sang trọng không đến từ các chi tiết rườm rà mà từ việc chắt lọc vật liệu và tỷ lệ không gian hoàn hảo: đá marble Calacatta, gỗ walnut và đồng thau vàng ấm.</p><p>Khu bếp đảo ốp đá nguyên khối, phòng khách double-height kết nối ra terrace riêng nhìn xuống thành phố.</p>',
+        location: 'Quận 1, TP. Hồ Chí Minh',
+        seo_title: 'Penthouse Urban Skyline — Thiết kế nội thất cao cấp',
+        seo_description:
+          'Penthouse hạng sang tại trung tâm TP.HCM với phong cách Luxury Minimalism tinh tế.',
+      },
+      en: {
+        title: 'Urban Skyline Penthouse',
+        slug: 'urban-skyline-penthouse',
+        description:
+          'A downtown HCMC penthouse with a full skyline view, designed in the Luxury Minimalism aesthetic.',
+        content:
+          '<p>Luxury here comes not from ornamentation but from material curation and perfect proportions: Calacatta marble, walnut wood and warm brass.</p><p>The solid-stone kitchen island and double-height living room open onto a private terrace overlooking the city.</p>',
+        location: 'District 1, Ho Chi Minh City',
+        seo_title: 'Urban Skyline Penthouse — Premium Interior Design',
+        seo_description:
+          'A premium penthouse in downtown HCMC with refined Luxury Minimalism design.',
+      },
+      shared: {
+        client_name: 'Mrs. Lan Huong',
+        project_type: 'interior',
+        year: 2023,
+        featured: true,
+        architect: 'Nguyen Van Nam',
+        area: '320 m²',
+        construction_time: 8,
+        cover_url: IMG.pent1,
+        gallery_urls: [IMG.pent1, IMG.apt2, IMG.apt1, IMG.villa1],
+      },
+    },
+    {
+      vi: {
+        title: 'Neo Classic Residence',
+        slug: 'neo-classic-residence',
+        description:
+          'Sự kết hợp hoàn hảo giữa vẻ đẹp cổ điển Pháp và tiện nghi hiện đại trong căn hộ tại Hà Nội.',
+        content:
+          '<p>Các chi tiết phào chỉ tinh tế, cột trang trí và hệ trần caisson được tiết chế, cân bằng bằng nội thất đương đại với đường nét thanh thoát.</p><p>Bảng màu trắng ngà, vàng champagne và xanh prussian blue tạo nên không gian đẳng cấp nhưng không xa cách.</p>',
+        location: 'Ba Đình, Hà Nội',
+        seo_title: 'Neo Classic Residence — Căn hộ tân cổ điển Hà Nội',
+        seo_description:
+          'Căn hộ tân cổ điển tại Hà Nội với chi tiết phào chỉ tinh tế và bảng màu sang trọng.',
+      },
+      en: {
+        title: 'Neo Classic Residence',
+        slug: 'neo-classic-residence-en',
+        description:
+          'A perfect blend of classical French beauty and modern comfort in a Hanoi apartment.',
+        content:
+          '<p>Refined mouldings, decorative columns and caisson ceilings are balanced by contemporary furniture with clean silhouettes.</p><p>An ivory, champagne and Prussian blue palette delivers elegance without feeling distant.</p>',
+        location: 'Ba Dinh, Hanoi',
+        seo_title: 'Neo Classic Residence — Hanoi Neo-Classical Apartment',
+        seo_description:
+          'A neo-classical apartment in Hanoi with refined mouldings and a luxurious palette.',
+      },
+      shared: {
+        client_name: 'Mr. Hoang Nam',
+        project_type: 'interior',
+        year: 2024,
+        featured: false,
+        architect: 'Tran Thi Mai',
+        area: '180 m²',
+        construction_time: 6,
+        cover_url: IMG.apt2,
+        gallery_urls: [IMG.apt2, IMG.apt1, IMG.pent1],
+      },
+    },
+    {
+      vi: {
+        title: 'Nhà phố Tối giản Đà Nẵng',
+        slug: 'nha-pho-toi-gian-da-nang',
+        description:
+          'Tối ưu không gian cho nhà phố diện tích hẹp nhưng vẫn đảm bảo sự thoáng đãng và sang trọng.',
+        content:
+          '<p>Giếng trời xuyên 4 tầng và khoảng thông tầng đưa ánh sáng tự nhiên chạm tới mọi phòng. Mặt tiền lam bê tông che nắng nhưng vẫn lưu thông gió biển.</p><p>Nội thất gỗ sồi trắng kết hợp bê tông trần mang đến vẻ đẹp mộc mạc nhưng tinh tế.</p>',
+        location: 'Sơn Trà, Đà Nẵng',
+        seo_title: 'Nhà phố Tối giản Đà Nẵng — Kiến trúc hiện đại ven biển',
+        seo_description:
+          'Nhà phố tối giản tại Đà Nẵng tối ưu ánh sáng và thông gió tự nhiên.',
+      },
+      en: {
+        title: 'Minimalist Townhouse Da Nang',
+        slug: 'minimalist-townhouse-da-nang',
+        description:
+          'A narrow townhouse optimized for openness and elegance without sacrificing luxury.',
+        content:
+          '<p>A 4-storey skylight and an interior void bring daylight to every room. The concrete louvre façade shades the sun while letting sea breezes pass.</p><p>White oak furniture paired with exposed concrete delivers a rustic yet refined ambience.</p>',
+        location: 'Son Tra, Da Nang',
+        seo_title: 'Minimalist Townhouse Da Nang — Coastal Modern Architecture',
+        seo_description:
+          'A minimalist townhouse in Da Nang optimized for daylight and natural ventilation.',
+      },
+      shared: {
+        client_name: 'Mr. Thanh Tung',
+        project_type: 'residential',
+        year: 2023,
+        featured: false,
+        architect: 'Pham Hoang Duy',
+        area: '250 m²',
+        construction_time: 10,
+        cover_url: IMG.town1,
+        gallery_urls: [IMG.town1, IMG.villa2, IMG.villa1, IMG.apt1],
       },
     },
     {
       vi: {
         title: 'Văn phòng Sáng tạo Sài Gòn',
         slug: 'van-phong-sang-tao-sai-gon',
-        description: 'Văn phòng hybrid cho công ty công nghệ 500 nhân sự.',
-        content: 'Không gian mở, nhiều khu collaboration và phòng focus-pod.',
-        location: 'Quận 1, TP.HCM',
-        seo_title: 'Văn phòng Sáng tạo Sài Gòn',
-        seo_description: 'Thiết kế văn phòng hybrid tại trung tâm TP.HCM.',
+        description:
+          'Văn phòng hybrid cho công ty công nghệ 500 nhân sự, thiết kế xoay quanh hoạt động và con người.',
+        content:
+          '<p>Không gian mở với các cụm collaboration, phòng focus-pod cách âm và hệ thống acoustic ceiling bằng vật liệu tái chế.</p><p>Cafeteria trung tâm hoạt động như heart of the office, kết nối 3 tầng qua cầu thang điêu khắc.</p>',
+        location: 'Quận 1, TP. Hồ Chí Minh',
+        seo_title: 'Văn phòng Sáng tạo Sài Gòn — Thiết kế workspace hybrid',
+        seo_description:
+          'Thiết kế văn phòng hybrid tại trung tâm TP.HCM, tối ưu hoạt động đội ngũ 500 nhân sự.',
       },
       en: {
         title: 'Saigon Creative Office',
         slug: 'saigon-creative-office',
-        description: 'A hybrid office for a 500-people tech company.',
-        content: 'Open layout with collaboration zones and focus pods.',
+        description:
+          'A hybrid office for a 500-people tech company, designed around activity and people.',
+        content:
+          '<p>Open zones for collaboration, soundproof focus pods and an acoustic ceiling system in recycled materials.</p><p>A central cafeteria acts as the heart of the office, connecting three floors via a sculptural staircase.</p>',
         location: 'District 1, Ho Chi Minh City',
-        seo_title: 'Saigon Creative Office',
-        seo_description: 'Hybrid office design in the heart of Ho Chi Minh City.',
+        seo_title: 'Saigon Creative Office — Hybrid Workspace Design',
+        seo_description:
+          'Hybrid office design in the heart of Ho Chi Minh City for a 500-people tech team.',
       },
       shared: {
         client_name: 'Saigon Tech JSC',
         project_type: 'commercial',
         year: 2025,
         featured: true,
+        architect: 'Xpress Design Studio',
+        area: '2,800 m²',
+        construction_time: 9,
+        cover_url: IMG.apt1,
+        gallery_urls: [IMG.apt1, IMG.apt2, IMG.pent1, IMG.villa1, IMG.town1],
       },
     },
     {
       vi: {
         title: 'Nhà phố Hà Nội 2025',
         slug: 'nha-pho-ha-noi-2025',
-        description: 'Nhà phố 4 tầng tối ưu ánh sáng giữa lòng phố cổ.',
-        content: 'Giếng trời xuyên suốt, vườn trong nhà, vật liệu thân thiện môi trường.',
+        description:
+          'Nhà phố 4 tầng tối ưu ánh sáng giữa lòng phố cổ Hà Nội, giao thoa hiện đại và truyền thống.',
+        content:
+          '<p>Giếng trời xuyên suốt, vườn trong nhà với cây xanh cao 4m, cùng vật liệu thân thiện môi trường.</p><p>Mặt tiền gạch đất nung thủ công gợi nhắc phố cổ, kết hợp với cửa kính khung thép đen tối giản.</p>',
         location: 'Hoàn Kiếm, Hà Nội',
-        seo_title: 'Nhà phố Hà Nội 2025',
-        seo_description: 'Nhà phố hiện đại tối ưu ánh sáng giữa phố cổ Hà Nội.',
+        seo_title: 'Nhà phố Hà Nội 2025 — Hiện đại giữa lòng phố cổ',
+        seo_description:
+          'Nhà phố hiện đại tối ưu ánh sáng giữa phố cổ Hà Nội, giao thoa truyền thống và đương đại.',
       },
       en: {
         title: 'Hanoi Townhouse 2025',
         slug: 'hanoi-townhouse-2025',
-        description: 'A 4-storey townhouse maximizing daylight in the Old Quarter.',
-        content: 'Full-height skylight, indoor garden and eco-friendly materials.',
+        description:
+          'A 4-storey townhouse maximizing daylight in the Old Quarter, bridging modern and traditional.',
+        content:
+          '<p>A full-height skylight, an indoor garden with 4m-tall trees and eco-friendly materials throughout.</p><p>A handmade terracotta façade references the Old Quarter, paired with minimalist black steel-framed glazing.</p>',
         location: 'Hoan Kiem, Hanoi',
-        seo_title: 'Hanoi Townhouse 2025',
-        seo_description: 'A modern townhouse optimizing daylight in Hanoi Old Quarter.',
+        seo_title: 'Hanoi Townhouse 2025 — Modern in the Old Quarter',
+        seo_description:
+          'A modern townhouse optimizing daylight in Hanoi Old Quarter, blending tradition and contemporary.',
       },
       shared: {
         client_name: 'Private',
         project_type: 'residential',
         year: 2025,
         featured: false,
+        architect: 'Xpress Design Studio',
+        area: '320 m²',
+        construction_time: 11,
+        cover_url: IMG.villa2,
+        gallery_urls: [IMG.villa2, IMG.town1, IMG.villa1, IMG.apt1, IMG.apt2],
       },
     },
   ];
 
   for (const p of projects) {
-    await createBilingual(
+    await upsertBilingual(
       strapi,
       'api::project.project',
       { ...p.vi, ...p.shared },
@@ -350,7 +535,7 @@ async function seedArticles(strapi, categories) {
   ];
 
   for (const a of articles) {
-    await createBilingual(
+    await upsertBilingual(
       strapi,
       'api::article.article',
       { ...a.vi, category: a.category },
@@ -401,7 +586,7 @@ async function seedNews(strapi) {
   ];
 
   for (const n of items) {
-    await createBilingual(
+    await upsertBilingual(
       strapi,
       'api::news.news',
       { ...n.vi, ...n.shared },
@@ -490,7 +675,7 @@ async function seedPages(strapi) {
   ];
 
   for (const p of pages) {
-    await createBilingual(strapi, 'api::page.page', p.vi, p.en);
+    await upsertBilingual(strapi, 'api::page.page', p.vi, p.en);
     strapi.log.info(`[seed] ✅ Page: ${p.vi.title} / ${p.en.title}`);
   }
 }

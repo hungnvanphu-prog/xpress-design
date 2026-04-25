@@ -11,8 +11,8 @@ export class CmsController {
   }
 
   @Get('projects/:slug')
-  projectBySlug(@Param('slug') slug: string) {
-    return this.cmsService.getProjectBySlug(slug);
+  projectBySlug(@Param('slug') slug: string, @Query() q: Record<string, any>) {
+    return this.cmsService.getProjectBySlug(slug, q);
   }
 
   @Get('articles')

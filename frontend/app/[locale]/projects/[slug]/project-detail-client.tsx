@@ -2,12 +2,21 @@
 
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ArrowRight, ChevronRight, LayoutGrid } from 'lucide-react';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { Project } from '@/data/projects';
+
+type UiProject = Project & {
+  slug: string;
+  content?: string;
+  featured?: boolean;
+  projectType?: string;
+  constructionMonths?: number;
+};
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 40 },
@@ -20,11 +29,13 @@ const staggerContainer = {
 };
 
 interface Props {
-  project: Project;
-  nextProject?: Project | null;
+  project: UiProject;
+  nextProject?: UiProject | null;
 }
 
 export default function ProjectDetailClient({ project, nextProject }: Props) {
+  const tCommon = useTranslations('Common');
+  const tProj = useTranslations('Projects');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
@@ -59,7 +70,7 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
               {project.title}
             </h1>
             <p className="text-[#D4AF37] text-[12px] uppercase tracking-[0.25em] font-medium mt-6">
-              {project.style} · {project.category}
+              {[project.style, project.category].filter(Boolean).join(' · ')}
             </p>
           </motion.div>
         </div>
@@ -77,25 +88,64 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
           >
             <motion.div variants={fadeUpVariant} className="hidden md:flex flex-col justify-between">
               <Link href="/projects" className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] font-bold text-[#4A4A4A] hover:text-[#D4AF37] transition-colors">
-                <ChevronRight className="rotate-180 mr-2" size={14} /> Trở lại danh sách
+                <ChevronRight className="rotate-180 mr-2" size={14} /> {tCommon('backToList')}
               </Link>
             </motion.div>
 
             <motion.div variants={fadeUpVariant}>
-              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">Khách hàng</span>
+              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">{tProj('client')}</span>
               <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">{project.client ?? '—'}</p>
             </motion.div>
 
             <motion.div variants={fadeUpVariant}>
-              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">Địa điểm</span>
+              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">{tProj('location')}</span>
               <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">{project.location ?? '—'}</p>
             </motion.div>
 
             <motion.div variants={fadeUpVariant}>
-              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">Loại dự án</span>
-              <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">{project.category}</p>
+              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">{tProj('type')}</span>
+              <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">
+                {project.projectType
+                  ? tProj(`filter.${project.projectType}` as any)
+                  : project.category}
+              </p>
             </motion.div>
           </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-8 pt-12 border-t border-gray-100"
+          >
+            <motion.div variants={fadeUpVariant} className="hidden md:block" />
+
+            <motion.div variants={fadeUpVariant}>
+              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">{tProj('architect')}</span>
+              <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">{project.architect ?? '—'}</p>
+            </motion.div>
+
+            <motion.div variants={fadeUpVariant}>
+              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">{tProj('area')}</span>
+              <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">{project.area ?? '—'}</p>
+            </motion.div>
+
+            <motion.div variants={fadeUpVariant}>
+              <span className="block text-[#4A4A4A] text-[10px] uppercase tracking-[0.2em] mb-3">{tProj('constructionTime')}</span>
+              <p className="font-['Playfair_Display',serif] text-[20px] text-[#1A1A1A]">
+                {project.constructionMonths != null
+                  ? tProj('months', { count: project.constructionMonths })
+                  : '—'}
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {project.year ? (
+            <div className="mt-12 flex items-center gap-3 text-[#4A4A4A] text-[12px] uppercase tracking-[0.2em] font-bold">
+              <span className="w-8 h-px bg-[#D4AF37]" /> {tProj('year')}: <span className="text-[#1A1A1A]">{project.year}</span>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -107,13 +157,20 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
             variants={fadeUpVariant}
             className="flex flex-col justify-center"
           >
-            <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">01 — Concept</span>
+            <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">01 — {tProj('concept')}</span>
             <h2 className="font-['Playfair_Display',serif] text-[36px] md:text-[48px] leading-[1.2] mb-8 text-[#1A1A1A]">
-              Ý tưởng thiết kế
+              {tProj('designIdea')}
             </h2>
             <p className="text-[#4A4A4A] text-[15px] leading-[1.8] font-light max-w-md">
               {project.description}
             </p>
+
+            {project.content ? (
+              <div
+                className="text-[#4A4A4A] text-[15px] leading-[1.8] font-light mt-8 max-w-md prose prose-sm"
+                dangerouslySetInnerHTML={{ __html: project.content }}
+              />
+            ) : null}
           </motion.div>
 
           {images[1] && (
@@ -137,12 +194,12 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
               variants={fadeUpVariant}
               className="flex items-end justify-between mb-16"
             >
-              <h2 className="font-['Playfair_Display',serif] text-[40px] text-white">Thư viện không gian</h2>
+              <h2 className="font-['Playfair_Display',serif] text-[40px] text-white">{tProj('gallery')}</h2>
               <button
                 onClick={() => openGallery(0)}
                 className="hidden md:flex items-center text-[10px] uppercase tracking-[0.2em] font-bold text-white/50 hover:text-white transition-colors"
               >
-                <LayoutGrid size={14} className="mr-2" /> Xem toàn màn hình
+                <LayoutGrid size={14} className="mr-2" /> {tProj('fullscreen')}
               </button>
             </motion.div>
 
@@ -169,7 +226,7 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
                     <span className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-white uppercase text-[10px] tracking-[0.2em] font-bold border border-white/50 px-6 py-3 backdrop-blur-sm">
-                      Phóng to
+                      {tProj('zoom')}
                     </span>
                   </div>
                 </motion.div>
@@ -197,16 +254,16 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
               transition={{ duration: 1 }}
             >
               <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold mb-4 block">
-                Dự án tiếp theo
+                {tCommon('nextProject')}
               </span>
               <h2 className="text-white text-[40px] md:text-[64px] font-['Playfair_Display',serif] leading-tight mb-8">
                 {nextProject.title}
               </h2>
               <Link
-                href={`/projects/${nextProject.id}`}
+                href={`/projects/${nextProject.slug}`}
                 className="inline-flex items-center text-white text-[11px] uppercase tracking-[0.2em] font-bold hover:text-[#D4AF37] transition-colors"
               >
-                Khám phá không gian <ArrowRight size={16} className="ml-3" />
+                {tCommon('discover')} <ArrowRight size={16} className="ml-3" />
               </Link>
             </motion.div>
           </div>

@@ -5,6 +5,7 @@ import { useRouter, usePathname } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import { Globe } from 'lucide-react';
 import { useTransition } from 'react';
+import { useLocalizedRoute } from '@/lib/localized-route';
 
 interface Props {
   variant?: 'desktop' | 'mobile';
@@ -16,11 +17,21 @@ export function LanguageSwitcher({ variant = 'desktop' }: Props) {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const t = useTranslations('Common');
+  const localizedRoute = useLocalizedRoute();
 
   const switchTo = (nextLocale: (typeof routing.locales)[number]) => {
     if (nextLocale === locale) return;
     startTransition(() => {
-      // router.replace sinh URL đúng theo locale mới, giữ nguyên pathname hiện tại
+      // Nếu đang ở trang có slug bản dịch → đổi cả slug theo locale mới
+      const translatedSlug = localizedRoute?.slugs?.[nextLocale];
+      if (localizedRoute && translatedSlug) {
+        router.replace(
+          `${localizedRoute.basePath}/${translatedSlug}`,
+          { locale: nextLocale },
+        );
+        return;
+      }
+      // Mặc định: giữ nguyên pathname, chỉ đổi prefix locale
       router.replace(pathname, { locale: nextLocale });
     });
   };
