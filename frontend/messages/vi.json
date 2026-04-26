@@ -107,7 +107,11 @@
     "sectionLibrary": "Thư viện kiến thức",
     "filteringByTag": "Đang lọc theo chủ đề",
     "clearTagFilter": "Xóa bộ lọc",
-    "tagsLabel": "Chủ đề"
+    "tagsLabel": "Chủ đề",
+    "signupError": "Không gửi được. Vui lòng thử lại sau.",
+    "signupReportOk": "Đã ghi nhận — chúng tôi sẽ liên hệ qua email.",
+    "signupFooterOk": "Đã đăng ký nhận bản tin.",
+    "signupSending": "Đang gửi…"
   },
   "InsightsDetail": {
     "breadcrumbHome": "Trang chủ",
@@ -167,6 +171,10 @@
     "readMore": "Đọc tiếp",
     "fallbackDescription": "Tuyển tập bài viết và tin tức dưới nhãn “{tag}” — nhịp điệu kiến trúc, ánh sáng và nghệ thuật an cư.",
     "heroImageAlt": "Ảnh nền chủ đề {tag}"
+  },
+  "ContactPage": {
+    "submitError": "Không gửi được yêu cầu. Vui lòng thử lại sau.",
+    "submitting": "Đang gửi…"
   },
   "NotFound": {
     "badge": "Đang phát triển",

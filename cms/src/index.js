@@ -168,6 +168,9 @@ async function grantPublicPermissions(strapi) {
     'api::news.news.findOne',
     'api::page.page.find',
     'api::page.page.findOne',
+    /** Form công khai: chỉ create, không public find (tránh lộ dữ liệu) */
+    'api::insight-signup.insight-signup.create',
+    'api::contact-request.contact-request.create',
   ];
 
   for (const action of actions) {

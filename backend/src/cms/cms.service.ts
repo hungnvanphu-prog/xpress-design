@@ -2,6 +2,8 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
+import type { CreateInsightSignupDto } from './dto/create-insight-signup.dto';
+import type { CreateContactRequestDto } from './dto/create-contact-request.dto';
 
 @Injectable()
 export class CmsService {
@@ -33,6 +35,57 @@ export class CmsService {
       const data = err?.response?.data || { error: 'CMS proxy error' };
       throw new HttpException(data, status);
     }
+  }
+
+  private async proxyPost(path: string, body: unknown) {
+    try {
+      const res = await firstValueFrom(
+        this.http.post(`${this.baseUrl}/api${path}`, body, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(this.token ? { Authorization: `Bearer ${this.token}` } : {}),
+          },
+        }),
+      );
+      return res.data;
+    } catch (err: any) {
+      const status = err?.response?.status || 500;
+      const data = err?.response?.data || { error: 'CMS proxy error' };
+      throw new HttpException(data, status);
+    }
+  }
+
+  /** Ghi Strapi: đăng ký email từ trang Góc nhìn (hiển thị trong CMS Admin). */
+  createInsightSignup(dto: CreateInsightSignupDto) {
+    const data: Record<string, unknown> = {
+      email: dto.email.trim().toLowerCase(),
+      source: dto.source,
+    };
+    const name = dto.name?.trim();
+    if (name) data.name = name;
+    const loc = dto.locale?.trim();
+    if (loc) data.locale = loc;
+    return this.proxyPost('/insight-signups', { data });
+  }
+
+  /** Ghi Strapi: form liên hệ (hiển thị trong CMS Admin). */
+  createContactRequest(dto: CreateContactRequestDto) {
+    const data: Record<string, unknown> = {
+      name: dto.name.trim(),
+    };
+    const phone = dto.phone?.trim();
+    if (phone) data.phone = phone;
+    const email = dto.email?.trim();
+    if (email) data.email = email;
+    const service = dto.service?.trim();
+    if (service) data.service = service;
+    const budget = dto.budget?.trim();
+    if (budget) data.budget = budget;
+    const message = dto.message?.trim();
+    if (message) data.message = message;
+    const loc = dto.locale?.trim();
+    if (loc) data.locale = loc;
+    return this.proxyPost('/contact-requests', { data });
   }
 
   getProjects(query: Record<string, any>) {

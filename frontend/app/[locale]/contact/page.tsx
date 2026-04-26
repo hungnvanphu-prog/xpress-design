@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { api } from '@/lib/api';
 import { Link } from '@/i18n/navigation';
 import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
@@ -12,23 +13,49 @@ export default function Contact() {
   const tNav = useTranslations('Nav');
   const tPage = useTranslations('PageTitles');
   const tTag = useTranslations('HeroTaglines');
+  const tContact = useTranslations('ContactPage');
+  const locale = useLocale();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    service: 'Kiến trúc',
+    service: 'Thiết kế kiến trúc',
     budget: 'Dưới 500 triệu',
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => {
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      await api.cmsContactRequest({
+        name: formData.name.trim(),
+        phone: formData.phone.trim() || undefined,
+        email: formData.email.trim() || undefined,
+        service: formData.service,
+        budget: formData.budget,
+        message: formData.message.trim() || undefined,
+        locale,
+      });
       setIsSubmitted(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1000);
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        service: 'Thiết kế kiến trúc',
+        budget: 'Dưới 500 triệu',
+        message: '',
+      });
+    } catch {
+      setSubmitError(tContact('submitError'));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -138,6 +165,9 @@ export default function Contact() {
               <div className="bg-white p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-50">
                 <h3 className="text-3xl mb-10 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>Gửi yêu cầu báo giá</h3>
                 
+                {submitError ? (
+                  <p className="text-red-600 text-sm mb-4 font-['Montserrat',sans-serif]">{submitError}</p>
+                ) : null}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
@@ -223,9 +253,10 @@ export default function Contact() {
 
                   <button 
                     type="submit"
-                    className="w-full bg-[#1A1A1A] text-white py-5 flex items-center justify-center gap-3 uppercase tracking-widest text-sm font-bold hover:bg-[#D4AF37] transition-all duration-500 group"
+                    disabled={submitting}
+                    className="w-full bg-[#1A1A1A] text-white py-5 flex items-center justify-center gap-3 uppercase tracking-widest text-sm font-bold hover:bg-[#D4AF37] transition-all duration-500 group disabled:opacity-60"
                   >
-                    <span>Gửi yêu cầu ngay</span>
+                    <span>{submitting ? tContact('submitting') : 'Gửi yêu cầu ngay'}</span>
                     <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </button>
                 </form>

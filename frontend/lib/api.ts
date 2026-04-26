@@ -99,6 +99,27 @@ export const api = {
   subscribe: (email: string) =>
     request(API_URL, '/newsletter', { method: 'POST', body: JSON.stringify({ email }) }),
 
+  /** Đăng ký email Góc nhìn → Strapi (CMS Admin xem tại «Đăng ký Góc nhìn»). */
+  cmsInsightSignup: (data: {
+    email: string;
+    source: 'insights_feature_report' | 'insights_footer';
+    name?: string;
+    locale?: string;
+  }) =>
+    request(API_URL, '/cms/insight-signups', { method: 'POST', body: JSON.stringify(data) }),
+
+  /** Form liên hệ → Strapi (CMS Admin xem tại «Yêu cầu liên hệ»). */
+  cmsContactRequest: (data: {
+    name: string;
+    phone?: string;
+    email?: string;
+    service?: string;
+    budget?: string;
+    message?: string;
+    locale?: string;
+  }) =>
+    request(API_URL, '/cms/contact-requests', { method: 'POST', body: JSON.stringify(data) }),
+
   // CMS proxy qua Nest (bảo mật hơn gọi thẳng Strapi từ FE)
   cmsProjects: (locale?: string, opts?: CmsPaginationOpts & { category?: string }) => {
     const q = new URLSearchParams();

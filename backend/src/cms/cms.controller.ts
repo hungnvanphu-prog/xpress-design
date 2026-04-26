@@ -1,5 +1,7 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CmsService } from './cms.service';
+import { CreateInsightSignupDto } from './dto/create-insight-signup.dto';
+import { CreateContactRequestDto } from './dto/create-contact-request.dto';
 
 @Controller('cms')
 export class CmsController {
@@ -43,5 +45,15 @@ export class CmsController {
   @Get('tags')
   tags(@Query() q: Record<string, any>) {
     return this.cmsService.getTags(q);
+  }
+
+  @Post('insight-signups')
+  createInsightSignup(@Body() dto: CreateInsightSignupDto) {
+    return this.cmsService.createInsightSignup(dto);
+  }
+
+  @Post('contact-requests')
+  createContactRequest(@Body() dto: CreateContactRequestDto) {
+    return this.cmsService.createContactRequest(dto);
   }
 }

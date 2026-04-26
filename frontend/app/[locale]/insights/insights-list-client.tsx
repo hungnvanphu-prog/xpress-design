@@ -4,9 +4,10 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'motion/react';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { UiArticleListItem } from '@/lib/cms-article-news';
+import { api } from '@/lib/api';
 import ListPagination from '@/components/ListPagination';
 import { 
   Search, 
@@ -81,14 +82,21 @@ const GRID_PAGE_SIZE = 9;
 
 export default function InsightsListClient({ posts }: { posts: UiArticleListItem[] }) {
   const t = useTranslations('Insights');
+  const locale = useLocale();
   const allLabel = t('filterAll');
   const router = useRouter();
   const pathname = usePathname();
   const urlSearchParams = useSearchParams();
   const tagSlug = (urlSearchParams.get('tag') || '').trim().toLowerCase();
   const [searchQuery, setSearchQuery] = useState('');
-  const [email, setEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [reportEmail, setReportEmail] = useState('');
+  const [footerName, setFooterName] = useState('');
+  const [footerEmail, setFooterEmail] = useState('');
+  const [reportOk, setReportOk] = useState(false);
+  const [footerOk, setFooterOk] = useState(false);
+  const [reportLoading, setReportLoading] = useState(false);
+  const [footerLoading, setFooterLoading] = useState(false);
+  const [signupError, setSignupError] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState(allLabel);
 
   const stripPageFromUrl = useCallback(() => {
@@ -146,12 +154,49 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
   const gridStart = 2 + (currentPage - 1) * GRID_PAGE_SIZE;
   const listPosts = filtered.slice(gridStart, gridStart + GRID_PAGE_SIZE);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleReportSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(email) {
-      setIsSubscribed(true);
-      setTimeout(() => setIsSubscribed(false), 3000);
-      setEmail('');
+    const em = reportEmail.trim();
+    if (!em) return;
+    setSignupError(null);
+    setReportLoading(true);
+    try {
+      await api.cmsInsightSignup({
+        email: em,
+        source: 'insights_feature_report',
+        locale,
+      });
+      setReportOk(true);
+      setReportEmail('');
+      setTimeout(() => setReportOk(false), 4000);
+    } catch {
+      setSignupError(t('signupError'));
+    } finally {
+      setReportLoading(false);
+    }
+  };
+
+  const handleFooterSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const em = footerEmail.trim();
+    if (!em) return;
+    setSignupError(null);
+    setFooterLoading(true);
+    try {
+      await api.cmsInsightSignup({
+        email: em,
+        source: 'insights_footer',
+        name: footerName.trim() || undefined,
+        locale,
+      });
+      setFooterOk(true);
+      setFooterEmail('');
+      setFooterName('');
+      setTimeout(() => setFooterOk(false), 4000);
+    } catch {
+      setSignupError(t('signupError'));
+    } finally {
+      setFooterLoading(false);
     }
   };
 
@@ -260,24 +305,29 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                 15 xu hướng thiết kế nội thất nổi bật, phân tích từ 200+ dự án
               </p>
               
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 relative z-10">
+              {signupError ? (
+                <p className="text-red-300 text-[13px] mb-3 font-['Montserrat',sans-serif]">{signupError}</p>
+              ) : null}
+              <form onSubmit={handleReportSubscribe} className="flex flex-col sm:flex-row gap-3 relative z-10">
                 <div className="flex-1 relative">
                   <input 
                     type="email" 
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={reportEmail}
+                    onChange={(e) => setReportEmail(e.target.value)}
                     placeholder="Nhập địa chỉ email của bạn..."
                     className="w-full bg-white/5 border border-white/20 text-white px-6 py-4 outline-none focus:border-[#D4AF37] transition-colors text-[14px] font-light placeholder:text-white/40"
                     style={{ fontFamily: 'Montserrat, sans-serif' }}
+                    disabled={reportLoading}
                   />
                 </div>
                 <button 
                   type="submit"
-                  className="bg-[#D4AF37] text-[#1A1A1A] px-8 py-4 uppercase tracking-[0.15em] text-[12px] font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
+                  disabled={reportLoading}
+                  className="bg-[#D4AF37] text-[#1A1A1A] px-8 py-4 uppercase tracking-[0.15em] text-[12px] font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60"
                 >
-                  {isSubscribed ? <CheckCircle2 size={16} /> : <Download size={16} />}
-                  {isSubscribed ? "Đã gửi qua Email" : "Tải báo cáo miễn phí"}
+                  {reportOk ? <CheckCircle2 size={16} /> : reportLoading ? null : <Download size={16} />}
+                  {reportOk ? t('signupReportOk') : reportLoading ? t('signupSending') : 'Tải báo cáo miễn phí'}
                 </button>
               </form>
               <p className="text-white/40 text-[11px] mt-4 font-light flex items-center gap-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
@@ -479,25 +529,37 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
           <div className="max-w-3xl mx-auto">
             <h2 className="text-[32px] md:text-[40px] text-white mb-4 font-medium" style={{ fontFamily: 'Playfair Display, serif' }}>Đăng ký nhận bản tin — Cập nhật xu hướng mỗi tháng</h2>
             <p className="text-white/60 mb-12 text-[14px] uppercase tracking-widest font-semibold" style={{ fontFamily: 'Montserrat, sans-serif' }}>Đừng bỏ lỡ những chia sẻ chuyên môn từ các chuyên gia.</p>
-            <form className="flex flex-col gap-4" onSubmit={handleSubscribe}>
+            <form className="flex flex-col gap-4" onSubmit={handleFooterSubscribe}>
               <div className="flex flex-col sm:flex-row gap-4">
                 <input 
                   type="text" 
                   required
+                  name="footerName"
+                  value={footerName}
+                  onChange={(e) => setFooterName(e.target.value)}
                   placeholder="Họ tên của bạn..."
                   className="flex-1 px-8 py-4 bg-[#2A2A2A] border border-white/10 outline-none focus:border-[#D4AF37] text-white text-[14px] transition-colors"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  disabled={footerLoading}
                 />
                 <input 
                   type="email" 
                   required
+                  name="footerEmail"
+                  value={footerEmail}
+                  onChange={(e) => setFooterEmail(e.target.value)}
                   placeholder="Địa chỉ Email..."
                   className="flex-1 px-8 py-4 bg-[#2A2A2A] border border-white/10 outline-none focus:border-[#D4AF37] text-white text-[14px] transition-colors"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
+                  disabled={footerLoading}
                 />
               </div>
-              <button className="bg-[#D4AF37] text-[#1A1A1A] w-full px-10 py-5 uppercase tracking-[0.2em] text-[12px] font-bold hover:bg-white transition-all duration-300">
-                Đăng ký
+              <button
+                type="submit"
+                disabled={footerLoading}
+                className="bg-[#D4AF37] text-[#1A1A1A] w-full px-10 py-5 uppercase tracking-[0.2em] text-[12px] font-bold hover:bg-white transition-all duration-300 disabled:opacity-60"
+              >
+                {footerOk ? t('signupFooterOk') : footerLoading ? t('signupSending') : 'Đăng ký'}
               </button>
             </form>
             <p className="text-white/40 text-[11px] mt-6 font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>

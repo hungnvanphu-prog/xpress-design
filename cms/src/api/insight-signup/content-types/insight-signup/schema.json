@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "insight_signups",
+  "info": {
+    "singularName": "insight-signup",
+    "pluralName": "insight-signups",
+    "displayName": "Đăng ký Góc nhìn",
+    "description": "Email đăng ký từ trang Góc nhìn (báo cáo / footer)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": ["insights_feature_report", "insights_footer"],
+      "required": true,
+      "default": "insights_feature_report"
+    },
+    "locale": {
+      "type": "string",
+      "maxLength": 10
+    }
+  }
+}

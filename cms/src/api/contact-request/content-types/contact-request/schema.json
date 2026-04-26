@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact_requests",
+  "info": {
+    "singularName": "contact-request",
+    "pluralName": "contact-requests",
+    "displayName": "Yêu cầu liên hệ",
+    "description": "Form gửi yêu cầu từ trang Liên hệ"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "service": {
+      "type": "string"
+    },
+    "budget": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "locale": {
+      "type": "string",
+      "maxLength": 10
+    }
+  }
+}

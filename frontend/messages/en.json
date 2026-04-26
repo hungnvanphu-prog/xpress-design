@@ -107,7 +107,11 @@
     "sectionLibrary": "Knowledge library",
     "filteringByTag": "Filtered by topic",
     "clearTagFilter": "Clear filter",
-    "tagsLabel": "Topics"
+    "tagsLabel": "Topics",
+    "signupError": "Could not submit. Please try again.",
+    "signupReportOk": "Thank you — we will reach out by email.",
+    "signupFooterOk": "You are subscribed to our newsletter.",
+    "signupSending": "Sending…"
   },
   "InsightsDetail": {
     "breadcrumbHome": "Home",
@@ -167,6 +171,10 @@
     "readMore": "Read more",
     "fallbackDescription": "A curated flow of insights and news under “{tag}” — rhythm of architecture, light, and the art of dwelling.",
     "heroImageAlt": "Topic hero background — {tag}"
+  },
+  "ContactPage": {
+    "submitError": "Could not send your request. Please try again.",
+    "submitting": "Sending…"
   },
   "NotFound": {
     "badge": "Coming soon",
