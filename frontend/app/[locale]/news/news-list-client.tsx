@@ -121,7 +121,7 @@ export default function NewsListClient({
                     {item.tags.slice(0, 5).map((tag) => (
                       <Link
                         key={tag.slug}
-                        href={`/news?tag=${encodeURIComponent(tag.slug)}`}
+                        href={`/tags/${encodeURIComponent(tag.slug)}`}
                         className="text-[9px] uppercase tracking-wider text-[#888888] hover:text-[#D4AF37] px-2 py-0.5 border border-[#1A1A1A]/10 hover:border-[#D4AF37]/50 bg-[#F8F9FA]/80 transition-colors font-['Montserrat',sans-serif]"
                         onClick={(e) => e.stopPropagation()}
                       >

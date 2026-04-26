@@ -317,7 +317,7 @@ export default function ArticleDetailClient({
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[#888888] mb-4 font-semibold">
                   {tInsights('tagsLabel')}
                 </p>
-                <ContentTagLinks tags={article.tags} listHrefBase="/insights" />
+                <ContentTagLinks tags={article.tags} />
               </div>
             ) : null}
           </div>

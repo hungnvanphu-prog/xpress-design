@@ -152,6 +152,21 @@
     "shareArticle": "Chia sẻ bài viết",
     "shareCopied": "Đã sao chép liên kết"
   },
+  "TagArchive": {
+    "metaTitle": "{tag} — Chủ đề | Xpress Design",
+    "metaDescription": "Góc nhìn và tin tức gắn nhãn “{tag}” — kiến trúc, ánh sáng và không gian sống theo tinh thần Xpress Design.",
+    "notFoundTitle": "Không tìm thấy chủ đề",
+    "breadcrumbHome": "Trang chủ",
+    "breadcrumbTags": "Chủ đề",
+    "sectionEyebrow": "Tuyển tập chủ đề",
+    "philosophyLine": "Nơi lưu giữ những giá trị vượt thời gian",
+    "typeInsight": "Góc nhìn",
+    "typeNews": "Tin tức",
+    "countLabel": "{count} bài",
+    "empty": "Chưa có bài viết hay tin tức nào gắn nhãn này.",
+    "readMore": "Đọc tiếp",
+    "fallbackDescription": "Tuyển tập bài viết và tin tức dưới nhãn “{tag}” — nhịp điệu kiến trúc, ánh sáng và nghệ thuật an cư."
+  },
   "NotFound": {
     "badge": "Đang phát triển",
     "description": "Nội dung chuyên sâu cho chuyên mục này đang được đội ngũ chuyên gia của chúng tôi hoàn thiện. Vui lòng quay lại sau để cập nhật những thông tin mới nhất.",

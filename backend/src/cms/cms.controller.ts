@@ -39,4 +39,9 @@ export class CmsController {
   pageBySlug(@Param('slug') slug: string) {
     return this.cmsService.getPageBySlug(slug);
   }
+
+  @Get('tags')
+  tags(@Query() q: Record<string, any>) {
+    return this.cmsService.getTags(q);
+  }
 }

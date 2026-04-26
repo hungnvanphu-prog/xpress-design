@@ -25,6 +25,8 @@ export type CmsPaginationOpts = {
 export type CmsArticlesQueryOpts = CmsPaginationOpts & {
   categoryId?: number;
   excludeSlug?: string;
+  /** Lọc Góc nhìn theo slug tag */
+  tagSlug?: string;
 };
 
 export type CmsNewsQueryOpts = CmsPaginationOpts & {
@@ -130,6 +132,8 @@ export const api = {
     if (opts?.excludeSlug) {
       q.set('filters[slug][$ne]', opts.excludeSlug);
     }
+    const artTag = opts?.tagSlug?.trim().toLowerCase();
+    if (artTag) q.set('filters[tags][slug][$eq]', artTag);
     appendStrapiPagination(q, opts);
     return request<{ data: any[]; meta?: any }>(API_URL, `/cms/articles?${q}`, { revalidate: 60 });
   },
@@ -166,6 +170,14 @@ export const api = {
       `/cms/news/${encodeURIComponent(slug)}${suffix}`,
       { revalidate: 60 },
     );
+  },
+
+  /** Một tag theo slug (Strapi `api::tag.tag`) */
+  cmsTagBySlug: (slug: string) => {
+    const q = new URLSearchParams();
+    q.set('filters[slug][$eq]', slug.trim().toLowerCase());
+    q.set('pagination[pageSize]', '1');
+    return request<{ data: any[]; meta?: any }>(API_URL, `/cms/tags?${q}`, { revalidate: 120 });
   },
 };
 

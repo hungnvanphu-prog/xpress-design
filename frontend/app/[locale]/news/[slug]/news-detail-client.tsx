@@ -193,7 +193,7 @@ export default function NewsDetailClient({ item }: { item: UiNewsDetail }) {
 
         {item.tags.length > 0 ? (
           <div className="mt-14 pt-10 border-t border-gray-200">
-            <ContentTagLinks tags={item.tags} label={tNews('tagsLabel')} listHrefBase="/news" />
+            <ContentTagLinks tags={item.tags} label={tNews('tagsLabel')} />
           </div>
         ) : null}
 

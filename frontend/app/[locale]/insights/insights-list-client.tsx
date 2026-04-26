@@ -58,7 +58,7 @@ function BlogCard({ post, readMoreLabel }: { post: UiArticleListItem; readMoreLa
         {post.tags.slice(0, 4).map((tag) => (
           <Link
             key={tag.slug}
-            href={`/insights?tag=${encodeURIComponent(tag.slug)}`}
+            href={`/tags/${encodeURIComponent(tag.slug)}`}
             className="text-[9px] uppercase tracking-wider text-[#888888] hover:text-[#D4AF37] px-2 py-0.5 border border-[#1A1A1A]/10 hover:border-[#D4AF37]/50 bg-[#F8F9FA]/80 transition-colors"
             style={{ fontFamily: 'Montserrat, sans-serif' }}
             onClick={(e) => e.stopPropagation()}

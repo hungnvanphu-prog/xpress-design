@@ -78,4 +78,9 @@ export class CmsService {
       populate: 'deep',
     });
   }
+
+  /** Strapi pluralName = `tags` */
+  getTags(query: Record<string, any>) {
+    return this.proxyGet('/tags', { ...query });
+  }
 }

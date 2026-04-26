@@ -152,6 +152,21 @@
     "shareArticle": "Share article",
     "shareCopied": "Link copied"
   },
+  "TagArchive": {
+    "metaTitle": "{tag} — Topics | Xpress Design",
+    "metaDescription": "Insights and news tagged “{tag}” — architecture, light, and living spaces in the spirit of Xpress Design.",
+    "notFoundTitle": "Topic not found",
+    "breadcrumbHome": "Home",
+    "breadcrumbTags": "Topics",
+    "sectionEyebrow": "Topic archive",
+    "philosophyLine": "Where values endure beyond time",
+    "typeInsight": "Insights",
+    "typeNews": "News",
+    "countLabel": "{count} pieces",
+    "empty": "No articles or news use this tag yet.",
+    "readMore": "Read more",
+    "fallbackDescription": "A curated flow of insights and news under “{tag}” — rhythm of architecture, light, and the art of dwelling."
+  },
   "NotFound": {
     "badge": "Coming soon",
     "description": "In-depth content for this section is being finalized by our team. Please check back soon for updates.",
