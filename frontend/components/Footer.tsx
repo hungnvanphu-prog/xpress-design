@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
     try {
       await api.cmsInsightSignup({
         email: em,
-        source: 'insights_footer',
+        source: 'site_footer',
         locale,
       });
       setEmail('');

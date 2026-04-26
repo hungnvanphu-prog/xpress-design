@@ -102,7 +102,11 @@ export const api = {
   /** Đăng ký email Góc nhìn → Strapi (CMS Admin xem tại «Đăng ký Góc nhìn»). */
   cmsInsightSignup: (data: {
     email: string;
-    source: 'insights_feature_report' | 'insights_footer';
+    source:
+      | 'insights_feature_report'
+      | 'insights_newsletter'
+      | 'site_footer'
+      | 'insights_footer';
     name?: string;
     locale?: string;
   }) =>

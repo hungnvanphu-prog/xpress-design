@@ -185,7 +185,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
     try {
       await api.cmsInsightSignup({
         email: em,
-        source: 'insights_footer',
+        source: 'insights_newsletter',
         name: footerName.trim() || undefined,
         locale,
       });

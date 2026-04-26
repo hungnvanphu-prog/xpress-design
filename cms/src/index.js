@@ -16,6 +16,7 @@ module.exports = {
     await seedSuperAdmin(strapi);
     await seedLocales(strapi);
     await grantPublicPermissions(strapi);
+    await configureInsightSignupAdminList(strapi);
     await seedContent(strapi);
     await hideRelationTagsInContentManager(strapi, 'api::article.article', 'Article');
     await hideRelationTagsInContentManager(strapi, 'api::news.news', 'News');
@@ -184,6 +185,32 @@ async function grantPublicPermissions(strapi) {
       });
       strapi.log.info(`[seed] ✅ Public permission: ${action}`);
     }
+  }
+}
+
+/** Danh sách «Đăng ký Góc nhìn» trong Admin: sắp xếp mới nhất, dễ lọc. */
+async function configureInsightSignupAdminList(strapi) {
+  const uid = 'api::insight-signup.insight-signup';
+  const contentType = strapi.contentTypes[uid];
+  if (!contentType) return;
+  try {
+    const cm = strapi.plugin('content-manager').service('content-types');
+    const cfg = await cm.findConfiguration(contentType);
+    await cm.updateConfiguration(contentType, {
+      ...cfg,
+      settings: {
+        ...(cfg.settings || {}),
+        bulkable: true,
+        filterable: true,
+        searchable: true,
+        pageSize: 25,
+        defaultSortBy: 'createdAt',
+        defaultSortOrder: 'DESC',
+      },
+    });
+    strapi.log.info('[cms] Content Manager: Đăng ký Góc nhìn — sort createdAt DESC, pageSize 25');
+  } catch (err) {
+    strapi.log.warn(`[cms] Không cấu hình CM insight-signup: ${err.message}`);
   }
 }
 

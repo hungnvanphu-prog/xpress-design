@@ -5,7 +5,7 @@
     "singularName": "insight-signup",
     "pluralName": "insight-signups",
     "displayName": "Đăng ký Góc nhìn",
-    "description": "Email đăng ký từ trang Góc nhìn (báo cáo / footer)"
+    "description": "Đăng ký email công khai: báo cáo đặc biệt, bản tin cuối trang Góc nhìn, footer website (xem trong Content Manager)"
   },
   "options": {
     "draftAndPublish": false
@@ -20,7 +20,12 @@
     },
     "source": {
       "type": "enumeration",
-      "enum": ["insights_feature_report", "insights_footer"],
+      "enum": [
+        "insights_feature_report",
+        "insights_newsletter",
+        "site_footer",
+        "insights_footer"
+      ],
       "required": true,
       "default": "insights_feature_report"
     },
