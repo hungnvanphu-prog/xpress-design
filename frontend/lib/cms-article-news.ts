@@ -52,8 +52,16 @@ export type StrapiNews = {
   attributes: {
     title: string;
     slug: string;
+    excerpt?: string | null;
+    lead?: string | null;
+    source?: string | null;
+    hero_image_url?: string | null;
+    badge_label?: string | null;
+    event_award_category?: string | null;
+    show_event_info_box?: boolean | null;
     content?: unknown;
     event_date?: string | null;
+    publishedAt?: string | null;
     type?: 'news' | 'event' | 'community' | null;
     location?: string | null;
     locale?: string;
@@ -241,13 +249,18 @@ export function toUiNewsListItem(entity: StrapiNews, locale: string): UiNewsList
   const t = a.type || 'news';
   const typeKey = t === 'event' || t === 'community' ? t : 'news';
   const bodyText = richtextToHtml(a.content).replace(/<[^>]+>/g, '').trim();
+  const excerpt = (a.excerpt || '').trim();
+  const summary =
+    excerpt ||
+    bodyText.slice(0, 280) + (bodyText.length > 280 ? '…' : '');
+  const hero = (a.hero_image_url || '').trim();
   const { day, monthYear } = formatNewsTimeline(a.event_date || undefined, locale);
   return {
     id: entity.id,
     slug: a.slug,
     title: a.title,
-    summary: bodyText.slice(0, 280) + (bodyText.length > 280 ? '…' : ''),
-    image: pickThumb(a.thumbnail),
+    summary,
+    image: hero || pickThumb(a.thumbnail),
     day,
     monthYear,
     categoryKey: typeKey,
@@ -256,17 +269,91 @@ export function toUiNewsListItem(entity: StrapiNews, locale: string): UiNewsList
   };
 }
 
+function formatNewsPostedDate(iso: string | undefined, locale: string): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(d);
+}
+
+function formatEventDateTime(iso: string | undefined, locale: string): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const datePart = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(d);
+  const timePart = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'vi-VN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(d);
+  return `${datePart} - ${timePart}`;
+}
+
 export type UiNewsDetail = UiNewsListItem & {
   contentHtml: string;
   eventDateIso: string | null;
+  postedDateStr: string;
+  lead?: string;
+  source?: string;
+  badgeLabel?: string;
+  eventInfo:
+    | {
+        whenLine: string;
+        venue: string;
+        awardCategory: string;
+      }
+    | null;
 };
 
 export function toUiNewsDetail(entity: StrapiNews, locale: string): UiNewsDetail {
   const list = toUiNewsListItem(entity, locale);
   const a = entity.attributes;
+  const type = a.type || 'news';
+  const showBox =
+    !!a.show_event_info_box &&
+    type === 'event' &&
+    !!(a.event_date || a.location || (a.event_award_category || '').trim());
+
+  const venue = (a.location || '').trim();
+  const award = (a.event_award_category || '').trim();
+  const whenLine =
+    a.event_date && showBox ? formatEventDateTime(a.event_date, locale) : '';
+
+  const eventInfo =
+    showBox && (whenLine || venue || award)
+      ? {
+          whenLine: whenLine || formatNewsPostedDate(a.event_date || undefined, locale),
+          venue,
+          awardCategory: award,
+        }
+      : null;
+
+  const postedDateStr =
+    formatNewsPostedDate(a.publishedAt || undefined, locale) ||
+    formatNewsPostedDate(a.event_date || undefined, locale) ||
+    '';
+
+  const badgeLabel = (a.badge_label || '').trim() || undefined;
+  const lead = (a.lead || '').trim() || undefined;
+  const source = (a.source || '').trim() || undefined;
+
   return {
     ...list,
+    image: list.image,
     contentHtml: richtextToHtml(a.content),
     eventDateIso: a.event_date || null,
+    postedDateStr,
+    lead,
+    source,
+    badgeLabel,
+    eventInfo,
   };
 }

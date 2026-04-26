@@ -27,6 +27,35 @@
       "required": true,
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "excerpt": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "lead": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "source": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "hero_image_url": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "badge_label": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "event_award_category": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "show_event_info_box": {
+      "type": "boolean",
+      "default": false,
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
     "content": {
       "type": "richtext",
       "pluginOptions": { "i18n": { "localized": true } }

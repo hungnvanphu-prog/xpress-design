@@ -132,6 +132,18 @@
     "typeEvent": "Sự kiện",
     "typeCommunity": "Cộng đồng"
   },
+  "NewsDetail": {
+    "breadcrumbHome": "Trang chủ",
+    "postedLabel": "Ngày đăng",
+    "sourceLabel": "Nguồn",
+    "eventBoxAria": "Thông tin sự kiện",
+    "eventWhen": "Thời gian",
+    "eventWhere": "Địa điểm",
+    "eventCategory": "Hạng mục",
+    "backToNews": "← Quay lại Tin tức",
+    "shareArticle": "Chia sẻ bài viết",
+    "shareCopied": "Đã sao chép liên kết"
+  },
   "NotFound": {
     "badge": "Đang phát triển",
     "description": "Nội dung chuyên sâu cho chuyên mục này đang được đội ngũ chuyên gia của chúng tôi hoàn thiện. Vui lòng quay lại sau để cập nhật những thông tin mới nhất.",

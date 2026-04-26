@@ -59,7 +59,7 @@ export default async function NewsDetailPage({ params }: { params: Params }) {
   return (
     <>
       <LocalizedRouteSetter basePath="/news" slugs={item.localizedSlugs ?? {}} />
-      <NewsDetailClient item={item} locale={locale} />
+      <NewsDetailClient item={item} />
     </>
   );
 }

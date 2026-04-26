@@ -132,6 +132,18 @@
     "typeEvent": "Event",
     "typeCommunity": "Community"
   },
+  "NewsDetail": {
+    "breadcrumbHome": "Home",
+    "postedLabel": "Published",
+    "sourceLabel": "Source",
+    "eventBoxAria": "Event details",
+    "eventWhen": "Time",
+    "eventWhere": "Venue",
+    "eventCategory": "Category",
+    "backToNews": "← Back to News",
+    "shareArticle": "Share article",
+    "shareCopied": "Link copied"
+  },
   "NotFound": {
     "badge": "Coming soon",
     "description": "In-depth content for this section is being finalized by our team. Please check back soon for updates.",
