@@ -11,6 +11,8 @@ services:
       - "80:80"
     volumes:
       - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./infra/nginx/snippets:/etc/nginx/snippets:ro
+      - ./infra/nginx/auth:/etc/nginx/auth:ro
     depends_on:
       frontend:
         condition: service_started

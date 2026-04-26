@@ -6,3 +6,6 @@ frontend/node_modules
 data-run/**/*
 !data-run/**/
 !data-run/**/.gitkeep
+
+# Mật khẩu Basic Auth Nginx (tạo local, xem infra/nginx/README-htauth.md)
+infra/nginx/auth/.htpasswd
