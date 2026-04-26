@@ -519,8 +519,22 @@
     "zaloButton": "Zalo"
   },
   "NotFound": {
-    "badge": "Coming soon",
-    "description": "In-depth content for this section is being finalized by our team. Please check back soon for updates.",
-    "backHome": "Back to home"
+    "metaTitle": "Page not found",
+    "metaDescription": "The page you are looking for was not found on Xpress Design.",
+    "eyebrow": "XPRESS DESIGN",
+    "headline": "This page can’t be found",
+    "description": "The page you are looking for doesn’t exist or has been moved. You can return home, get in touch, or explore the links below.",
+    "backHome": "Back to home",
+    "contactSupport": "Contact us",
+    "suggestedTitle": "You might be looking for",
+    "linkProjects": "Projects",
+    "linkInsights": "Insights",
+    "linkServices": "Services",
+    "countdownLine": "Redirecting to home in {seconds, plural, one {# second} other {# seconds}}",
+    "countdownSubline": "You can stay on this page or go home anytime.",
+    "cancelCta": "Cancel · Stay here",
+    "cancelledMessage": "Redirect cancelled. You can stay on this page or use the links below to navigate.",
+    "countdownRegionLabel": "Automatic redirect to homepage",
+    "skipToActions": "Skip countdown and links"
   }
 }

@@ -519,8 +519,22 @@
     "zaloButton": "Zalo"
   },
   "NotFound": {
-    "badge": "Đang phát triển",
-    "description": "Nội dung chuyên sâu cho chuyên mục này đang được đội ngũ chuyên gia của chúng tôi hoàn thiện. Vui lòng quay lại sau để cập nhật những thông tin mới nhất.",
-    "backHome": "Quay lại trang chủ"
+    "metaTitle": "Không tìm thấy trang",
+    "metaDescription": "Trang bạn tìm không tồn tại trên Xpress Design.",
+    "eyebrow": "XPRESS DESIGN",
+    "headline": "Không tìm thấy trang này",
+    "description": "Trang bạn tìm không tồn tại hoặc đã được chuyển. Bạn có thể về trang chủ, liên hệ hoặc tham khảo các mục dưới đây.",
+    "backHome": "Về trang chủ",
+    "contactSupport": "Liên hệ",
+    "suggestedTitle": "Gợi ý tham khảo",
+    "linkProjects": "Dự án",
+    "linkInsights": "Góc nhìn chuyên gia",
+    "linkServices": "Dịch vụ",
+    "countdownLine": "Tự động chuyển về trang chủ sau {seconds, plural, one {# giây} other {# giây}}",
+    "countdownSubline": "Bạn vẫn có thể ở lại trang này hoặc về trang chủ bất kỳ lúc nào.",
+    "cancelCta": "Hủy · Ở lại đây",
+    "cancelledMessage": "Đã hủy chuyển hướng. Bạn có thể ở lại hoặc dùng liên kết bên dưới.",
+    "countdownRegionLabel": "Đếm ngược chuyển hướng tự động về trang chủ",
+    "skipToActions": "Bỏ qua đếm ngược và liên kết"
   }
 }
