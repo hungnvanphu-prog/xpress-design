@@ -22,15 +22,17 @@ function Breadcrumb({
   homeLabel,
   insightsLabel,
   title,
+  ariaLabel,
 }: {
   homeLabel: string;
   insightsLabel: string;
   title: string;
+  ariaLabel: string;
 }) {
   return (
     <nav
       className="max-w-[1200px] mx-auto px-5 md:px-10 pt-6 pb-2"
-      aria-label="Breadcrumb"
+      aria-label={ariaLabel}
     >
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-['Montserrat',sans-serif] text-[#888888]">
         <li>
@@ -71,27 +73,27 @@ function ShareRow({ title }: { title: string }) {
   const links = useMemo(
     () => [
       {
-        label: 'Facebook',
+        label: t('networkFacebook'),
         href: shareUrl ? `https://www.facebook.com/sharer/sharer.php?u=${enc(shareUrl)}` : '#',
       },
       {
-        label: 'Zalo',
+        label: t('networkZalo'),
         href: shareUrl ? `https://zalo.me/share?url=${enc(shareUrl)}` : '#',
       },
       {
-        label: 'LinkedIn',
+        label: t('networkLinkedIn'),
         href: shareUrl
           ? `https://www.linkedin.com/sharing/share-offsite/?url=${enc(shareUrl)}`
           : '#',
       },
       {
-        label: 'Twitter',
+        label: t('networkTwitter'),
         href: shareUrl
           ? `https://twitter.com/intent/tweet?url=${enc(shareUrl)}&text=${enc(title)}`
           : '#',
       },
     ],
-    [shareUrl, title],
+    [shareUrl, title, t],
   );
 
   return (
@@ -132,12 +134,15 @@ export default function ArticleDetailClient({
       ? tDetail('readTime', { minutes: article.readingTimeMinutes })
       : null;
 
-  const socialFollow = [
-    { Icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
-    { Icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-    { Icon: MessageCircle, href: 'https://zalo.me', label: 'Zalo' },
-    { Icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  ];
+  const socialFollow = useMemo(
+    () => [
+      { Icon: Facebook, href: 'https://facebook.com', label: tDetail('networkFacebook') },
+      { Icon: Instagram, href: 'https://instagram.com', label: tDetail('networkInstagram') },
+      { Icon: MessageCircle, href: 'https://zalo.me', label: tDetail('networkZalo') },
+      { Icon: Linkedin, href: 'https://linkedin.com', label: tDetail('networkLinkedIn') },
+    ],
+    [tDetail],
+  );
 
   return (
     <div className="bg-[#F8F9FA] text-[#1A1A1A] w-full min-h-screen font-['Montserrat',sans-serif]">
@@ -145,6 +150,7 @@ export default function ArticleDetailClient({
         homeLabel={tDetail('breadcrumbHome')}
         insightsLabel={tNav('insights')}
         title={article.title}
+        ariaLabel={tDetail('breadcrumbAriaLabel')}
       />
 
       {/* Hero — timeless, emotional */}
@@ -365,7 +371,7 @@ export default function ArticleDetailClient({
                         <div className="w-[72px] h-[72px] shrink-0 overflow-hidden bg-[#F8F9FA]">
                           <ImageWithFallback
                             src={p.image}
-                            alt=""
+                            alt={p.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         </div>
@@ -416,7 +422,7 @@ export default function ArticleDetailClient({
                   <div className="aspect-video overflow-hidden bg-[#F8F9FA]">
                     <ImageWithFallback
                       src={p.image}
-                      alt=""
+                      alt={p.title}
                       className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
                     />
                   </div>

@@ -47,7 +47,7 @@ export type StrapiArticle = {
     category?: {
       data?: {
         id?: number;
-        attributes?: { name?: string } | null;
+        attributes?: { name?: string; name_en?: string | null; slug?: string } | null;
       } | null;
     } | null;
     localizations?: {
@@ -140,6 +140,31 @@ function buildLocalizedSlugs(
     if (c && s) map[c] = s;
   }
   return map;
+}
+
+/** Khi Strapi chưa có `name_en`, map slug mặc định (từ tên tiếng Việt seed) → nhãn EN. */
+const ARTICLE_CATEGORY_SLUG_EN: Record<string, string> = {
+  'kien-truc': 'Architecture',
+  'noi-that': 'Interiors',
+  'canh-quan': 'Landscape',
+  'kien-thuc-xay-dung': 'Construction knowledge',
+};
+
+function pickArticleCategoryLabel(
+  category: StrapiArticle['attributes']['category'],
+  locale: string,
+): string {
+  const attrs = category?.data?.attributes;
+  if (!attrs) return '—';
+  const nameVi = (attrs.name || '').trim();
+  const nameEn = (attrs.name_en || '').trim();
+  if (locale === 'en') {
+    if (nameEn) return nameEn;
+    const slug = (attrs.slug || '').trim().toLowerCase();
+    if (slug && ARTICLE_CATEGORY_SLUG_EN[slug]) return ARTICLE_CATEGORY_SLUG_EN[slug];
+    return nameVi || '—';
+  }
+  return nameVi || '—';
 }
 
 function formatListDate(iso: string | undefined, locale: string): string {
@@ -259,7 +284,7 @@ export function toUiArticleListItem(entity: StrapiArticle, locale: string, autho
     description: (a.excerpt || '').trim() || richtextToHtml(a.content).replace(/<[^>]+>/g, '').slice(0, 200),
     image: hero || pickThumb(a.thumbnail),
     date: formatListDate(published, locale),
-    category: a.category?.data?.attributes?.name || '—',
+    category: pickArticleCategoryLabel(a.category, locale),
     author: (a.author_display_name || '').trim() || authorLabel,
     tags: entityTagsFromAttributes(a, locale),
     localizedSlugs: buildLocalizedSlugs(a.locale, a.slug, a.localizations),

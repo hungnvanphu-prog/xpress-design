@@ -50,10 +50,106 @@
     "heroTitle": "Thiết kế không gian phản ánh phong cách & giá trị của bạn.",
     "heroSubtitle": "Không chỉ thiết kế – chúng tôi định hình cách bạn trải nghiệm không gian mỗi ngày.",
     "heroCta": "Khám phá dự án",
+    "heroImageAlt": "Không gian kiến trúc ánh sáng tối giản",
     "featured": {
       "title": "Những tác phẩm<br />mang dấu ấn XPRESS",
       "viewAll": "Toàn bộ dự án"
-    }
+    },
+    "philosophyEyebrow": "Triết lý thiết kế",
+    "philosophyQuote": "“Chúng tôi tin rằng một không gian tốt không chỉ đẹp – mà phải phù hợp với cách bạn sống, làm việc và tận hưởng cuộc sống.”",
+    "philosophyCta": "Tìm hiểu câu chuyện",
+    "servicesEyebrow": "Dịch vụ",
+    "servicesTitle": "Giải pháp toàn diện",
+    "services": {
+      "architecture": {
+        "num": "01",
+        "title": "Thiết kế Kiến trúc",
+        "desc": "Định hình không gian sống từ những nét vẽ đầu tiên, hài hòa với cảnh quan."
+      },
+      "interior": {
+        "num": "02",
+        "title": "Thiết kế Nội thất",
+        "desc": "Thổi hồn vào không gian bằng sự tinh tế của chất liệu và ánh sáng."
+      },
+      "construction": {
+        "num": "03",
+        "title": "Thi công Trọn gói",
+        "desc": "Hiện thực hóa bản vẽ với độ chính xác tuyệt đối và sự bền bỉ."
+      },
+      "renovation": {
+        "num": "04",
+        "title": "Cải tạo & Nâng cấp",
+        "desc": "Khoác lên màu áo mới cho những giá trị kỷ niệm, nâng tầm lối sống."
+      }
+    },
+    "insightsEyebrow": "Góc nhìn chuyên gia",
+    "insightsTitleLine1": "Kiến thức &",
+    "insightsTitleLine2": "Xu hướng thiết kế",
+    "insightsViewAll": "Xem tất cả",
+    "insights": {
+      "card1": {
+        "category": "Kiến trúc 2025",
+        "title": "5 xu hướng kiến trúc bền vững 2025",
+        "desc": "Năm hướng tiếp cận kiến trúc bền vững tại dự án nhiệt đới, từ mặt động tới cây cấu trúc.",
+        "imageAlt": "Gỗ tái chế và kiến trúc bền vững"
+      },
+      "card2": {
+        "category": "Nội thất",
+        "title": "Nội thất tối giản: ít hơn để thở nhiều hơn",
+        "desc": "Tỷ lệ không gian, bảng màu, ánh sáng: ba lớp của phong cách tĩnh lặng.",
+        "imageAlt": "Nội thất tối giản"
+      },
+      "card3": {
+        "category": "Cảnh quan",
+        "title": "Cảnh quan đô thị và vi khí hậu: tạo ra sự dễ chịu thật sự",
+        "desc": "Bóng cây, dẫn gió, vỉa phản nhiệt — giảm nhiệt cảm nhận ở khu công cộng.",
+        "imageAlt": "Cảnh quan đô thị"
+      }
+    },
+    "finalCtaTitleLine1": "Bạn đã sẵn sàng viết tiếp",
+    "finalCtaTitleLine2": "câu chuyện của mình?",
+    "finalCtaBody": "Hãy để chúng tôi đồng hành cùng bạn trong hành trình kiến tạo không gian sống mơ ước, nơi mỗi góc nhỏ đều mang đậm dấu ấn cá nhân.",
+    "finalCtaButton": "Liên hệ tư vấn"
+  },
+  "About": {
+    "heroImageAlt": "Văn phòng XPRESS DESIGN",
+    "storyTitle": "Câu chuyện của XPRESS DESIGN",
+    "storyP1": "Được thành lập từ niềm đam mê kiến tạo những không gian sống đẳng cấp, XPRESS DESIGN đã trải qua hơn một thập kỷ hình thành và phát triển. Chúng tôi không chỉ xây dựng những ngôi nhà, mà còn tạo nên những kiệt tác nghệ thuật mang đậm dấu ấn cá nhân của từng gia chủ.",
+    "storyP2": "Triết lý thiết kế của chúng tôi dựa trên sự cân bằng hoàn hảo giữa tính thẩm mỹ hiện đại và công năng sử dụng tối ưu. Với phong cách Luxury Minimalism, chúng tôi tin rằng sự sang trọng thực sự đến từ sự tinh giản, chất lượng của vật liệu và sự tỉ mỉ trong từng đường nét kiến trúc.",
+    "storyP3": "Hành trình của XPRESS DESIGN là hành trình của sự sáng tạo không ngừng nghỉ, luôn đặt sự hài lòng của khách hàng và tính bền vững của công trình lên hàng đầu.",
+    "founderName": "Hồng Anh Tú",
+    "founderRole": "Founder & Lead Architect",
+    "storyPhotoAlt": "Hình ảnh câu chuyện kiến trúc",
+    "visionTitle": "Tầm nhìn",
+    "visionText": "Trở thành thương hiệu thiết kế kiến trúc và nội thất hàng đầu Việt Nam, được công nhận bởi sự sáng tạo đột phá và tiêu chuẩn chất lượng quốc tế trong phân khúc bất động sản cao cấp.",
+    "missionTitle": "Sứ mệnh",
+    "missionText": "Kiến tạo không gian sống không chỉ để ở, mà để tôn vinh giá trị con người. Chúng tôi cam kết mang lại giải pháp thiết kế thông minh, cá nhân hóa tối đa và bền vững cùng thời gian.",
+    "valuesHeading": "Giá trị cốt lõi — Điều làm nên XPRESS",
+    "valueCreativityTitle": "Sáng tạo",
+    "valueCreativityDesc": "Không ngừng đổi mới, bứt phá mọi giới hạn trong thiết kế.",
+    "valueQualityTitle": "Chất lượng",
+    "valueQualityDesc": "Sử dụng vật liệu tốt nhất và quy trình kiểm soát nghiêm ngặt.",
+    "valueCareTitle": "Tận tâm",
+    "valueCareDesc": "Lắng nghe và thấu hiểu mọi mong muốn nhỏ nhất của khách hàng.",
+    "valueTrustTitle": "Uy tín",
+    "valueTrustDesc": "Cam kết đúng tiến độ và minh bạch trong mọi khâu triển khai.",
+    "teamHeading": "Đội ngũ kiến trúc sư — Những người tạo nên khác biệt",
+    "team1Name": "Hồng Anh Tú",
+    "team1Role": "Founder & Lead Architect",
+    "team1Desc": "Hơn 15 năm kinh nghiệm trong thiết kế biệt thự và penthouse cao cấp.",
+    "team2Name": "Nguyễn Mai Lan",
+    "team2Role": "Senior Interior Designer",
+    "team2Desc": "Phù thủy không gian với gu thẩm mỹ tinh tế, chuyên về Minimalist Style.",
+    "team3Name": "Trần Thế Vinh",
+    "team3Role": "Technical Manager",
+    "team3Desc": "Chuyên gia về giải pháp kỹ thuật và thi công công trình hiện đại.",
+    "milestoneYears": "Năm kinh nghiệm",
+    "milestoneProjects": "Dự án hoàn thành",
+    "milestonePartners": "Đối tác chiến lược",
+    "milestoneAwards": "Giải thưởng thiết kế",
+    "ctaTitle": "Bạn có dự án cần tư vấn?",
+    "ctaBody": "Đừng ngần ngại liên hệ với XPRESS DESIGN để nhận được sự hỗ trợ tận tình từ đội ngũ kiến trúc sư chuyên nghiệp.",
+    "ctaButton": "Nhận tư vấn miễn phí"
   },
   "Projects": {
     "badge": "Dự án tiêu biểu",
@@ -96,6 +192,108 @@
     "services": "Giải pháp toàn diện từ ý tưởng đến hiện thực",
     "contact": "Kiến tạo không gian sống đẳng cấp cùng Xpress Design"
   },
+  "ServicesPage": {
+    "heroImageAlt": "Hình nền trang dịch vụ",
+    "overviewTitle": "Kiến tạo giá trị thực qua từng bản vẽ",
+    "overviewBody": "Tại XPRESS DESIGN, chúng tôi cung cấp hệ sinh thái dịch vụ khép kín từ khâu tư vấn, thiết kế kiến trúc, nội thất cho đến thi công trọn gói. Với đội ngũ kiến trúc sư tâm huyết, chúng tôi cam kết mang đến những công trình không chỉ đạt chuẩn về kỹ thuật mà còn chạm đến đỉnh cao của nghệ thuật sống.",
+    "learnMore": "Tìm hiểu thêm",
+    "processTitle": "Quy trình làm việc chuyên nghiệp — 5 bước",
+    "faqTitle": "Câu hỏi thường gặp",
+    "faqIntro": "Chúng tôi tổng hợp những thắc mắc phổ biến từ khách hàng để giúp bạn có cái nhìn tổng quan nhất về dịch vụ của XPRESS DESIGN.",
+    "faqQuote": "“Sự hài lòng của khách hàng không chỉ là kết quả cuối cùng, mà là trải nghiệm xuyên suốt trong toàn bộ quá trình hợp tác.”",
+    "faqQuoteAttribution": "— Đội ngũ XPRESS DESIGN",
+    "ctaTitleLine1": "Bạn đã sẵn sàng kiến tạo",
+    "ctaTitleLine2": "không gian mơ ước?",
+    "ctaBody": "Hãy để chúng tôi đồng hành cùng bạn trên hành trình tạo dựng tổ ấm đẳng cấp và khác biệt.",
+    "ctaButton": "Nhận báo giá ngay",
+    "cards": {
+      "architecture": {
+        "title": "Thiết kế Kiến trúc",
+        "desc": "Kiến tạo không gian ngoại thất đẳng cấp, tối ưu hóa công năng và thẩm mỹ hiện đại.",
+        "highlights": [
+          "Phân tích mặt bằng & phong thủy",
+          "Thiết kế 3D kiến trúc ngoại thất",
+          "Hồ sơ kỹ thuật thi công",
+          "Giám sát tác quyền"
+        ]
+      },
+      "interior": {
+        "title": "Thiết kế Nội thất",
+        "desc": "Thổi hồn vào không gian sống với gu thẩm mỹ tinh tế, vật liệu cao cấp và sự sang trọng.",
+        "highlights": [
+          "Thiết kế concept không gian",
+          "Lựa chọn vật liệu & màu sắc",
+          "Thiết kế nội thất chi tiết",
+          "Trang trí (Styling) nghệ thuật"
+        ]
+      },
+      "turnkey": {
+        "title": "Thi công trọn gói",
+        "desc": "Hiện thực hóa bản vẽ với quy trình thi công chuyên nghiệp, đảm bảo tiến độ và chất lượng.",
+        "highlights": [
+          "Quản lý dự án chuyên nghiệp",
+          "Báo giá chi tiết & minh bạch",
+          "Thi công theo đúng thiết kế",
+          "Bảo hành dài hạn"
+        ]
+      },
+      "renovation": {
+        "title": "Cải tạo & Phục dựng",
+        "desc": "Làm mới không gian cũ, giữ lại giá trị truyền thống kết hợp tiện nghi hiện đại.",
+        "highlights": [
+          "Khảo sát kết cấu hiện hữu",
+          "Tối ưu hóa không gian sử dụng",
+          "Nâng cấp hệ thống kỹ thuật",
+          "Làm mới diện mạo hoàn toàn"
+        ]
+      }
+    },
+    "processSteps": [
+      {
+        "number": "01",
+        "title": "Tư vấn & Khảo sát",
+        "desc": "Lắng nghe mong muốn và khảo sát thực địa để đưa ra giải pháp sơ bộ."
+      },
+      {
+        "number": "02",
+        "title": "Thiết kế Concept",
+        "desc": "Xây dựng ý tưởng không gian qua các bản vẽ 3D minh họa trực quan."
+      },
+      {
+        "number": "03",
+        "title": "Hồ sơ chi tiết",
+        "desc": "Hoàn thiện hồ sơ kỹ thuật, bóc tách khối lượng và dự toán thi công."
+      },
+      {
+        "number": "04",
+        "title": "Thi công & Giám sát",
+        "desc": "Triển khai xây dựng thực tế với sự giám sát chặt chẽ từ kiến trúc sư."
+      },
+      {
+        "number": "05",
+        "title": "Bàn giao & Bảo trì",
+        "desc": "Nghiệm thu công trình và thực hiện cam kết bảo hành sau thi công."
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "Chi phí thiết kế được tính như thế nào?",
+        "answer": "Đơn giá thiết kế tại XPRESS DESIGN được tính dựa trên m2 sàn sử dụng. Chi phí thực tế sẽ phụ thuộc vào phong cách thiết kế (Modern, Classic, Minimalism...) và độ phức tạp của công trình. Chúng tôi luôn cung cấp báo giá chi tiết và cam kết không phát sinh chi phí ngoài hợp đồng."
+      },
+      {
+        "question": "Thời gian hoàn thành một bộ hồ sơ thiết kế?",
+        "answer": "Thông thường, một bộ hồ sơ thiết kế đầy đủ bao gồm kiến trúc, nội thất và kỹ thuật điện nước sẽ mất từ 45 đến 60 ngày làm việc. Thời gian này có thể thay đổi tùy thuộc vào quy mô dự án và tốc độ phản hồi, thống nhất phương án giữa khách hàng và kiến trúc sư."
+      },
+      {
+        "question": "XPRESS DESIGN có nhận thiết kế ngoại tỉnh không?",
+        "answer": "Chúng tôi nhận thực hiện các dự án trên toàn quốc. Đối với khách hàng ở xa, quy trình sẽ được linh hoạt kết hợp giữa làm việc online và các đợt khảo sát, giám sát trực tiếp định kỳ tại công trình để đảm bảo chất lượng thi công đúng bản vẽ."
+      },
+      {
+        "question": "Chế độ bảo hành và bảo trì sau thi công?",
+        "answer": "Đối với các dự án thi công trọn gói, chúng tôi cung cấp chế độ bảo hành 2 năm cho phần hoàn thiện nội thất và lên đến 5 năm cho các hạng mục kết cấu xây dựng. Sau thời gian bảo hành, XPRESS DESIGN vẫn tiếp tục hỗ trợ bảo trì trọn đời với chi phí ưu đãi cho khách hàng cũ."
+      }
+    ]
+  },
   "Insights": {
     "authorCredit": "Xpress Design",
     "filterAll": "Tất cả",
@@ -111,7 +309,46 @@
     "signupError": "Không gửi được. Vui lòng thử lại sau.",
     "signupReportOk": "Đã ghi nhận — chúng tôi sẽ liên hệ qua email.",
     "signupFooterOk": "Đã đăng ký nhận bản tin.",
-    "signupSending": "Đang gửi…"
+    "signupSending": "Đang gửi…",
+    "heroImageAlt": "Ảnh nền trang Góc nhìn",
+    "heroEyebrow": "Góc nhìn chuyên gia",
+    "heroTitleBeforeBreak": "Góc nhìn —",
+    "heroTitleAfterBreak": "Kiến tạo không gian bền vững",
+    "heroSubtitle": "Nghiên cứu, xu hướng và kiến thức chuyên sâu từ đội ngũ kiến trúc sư của XPRESS DESIGN. Chúng tôi không chỉ thiết kế không gian, chúng tôi kiến tạo giá trị.",
+    "reportBadge": "Báo cáo đặc biệt",
+    "reportTitle": "Báo cáo Xu hướng Nội thất 2026",
+    "reportSubtitle": "15 xu hướng thiết kế nội thất nổi bật, phân tích từ 200+ dự án",
+    "reportEmailPlaceholder": "Nhập địa chỉ email của bạn...",
+    "reportDownloadCta": "Tải báo cáo miễn phí",
+    "reportSpamNote": "Cam kết không spam, tài liệu sẽ được gửi trực tiếp qua email.",
+    "reportCoverAlt": "Ảnh bìa báo cáo",
+    "reportMockBrand": "XPRESS DESIGN",
+    "reportMockTitle": "Báo cáo xu hướng:\nKhông gian sống 2026",
+    "researchEyebrow": "Hiệu quả được chứng minh",
+    "researchTitleLine1": "Nghiên cứu của chúng tôi —",
+    "researchTitleLine2": "Dữ liệu từ 200+ dự án thực tế",
+    "researchBody": "Tại XPRESS DESIGN, mọi giải pháp thiết kế đều được xây dựng dựa trên sự thấu hiểu nhu cầu thực tế và được chứng minh bằng các chỉ số đo lường hiệu năng rõ ràng.",
+    "stat1Value": "92%",
+    "stat1Text": "Khách hàng hài lòng với giải pháp ánh sáng",
+    "stat2Value": "35%",
+    "stat2Text": "Tiết kiệm trung bình 35% điện năng",
+    "stat3Value": "100%",
+    "stat3Text": "Dự án bàn giao đúng tiến độ",
+    "webinarBadge": "XPRESS Masterclass",
+    "webinarTitle": "Webinar: Nghệ thuật tổ chức không gian mở cho Biệt thự phố",
+    "webinarBody": "Trong số XPRESS Masterclass tháng này, KTS trưởng Lê Anh sẽ chia sẻ bí quyết giải quyết bài toán “kết nối nhưng vẫn riêng tư” — một trong những thách thức lớn nhất khi thiết kế không gian mở cho các căn biệt thự có diện tích hạn chế tại trung tâm thành phố.",
+    "webinarDurationLabel": "Thời lượng:",
+    "webinarDurationValue": "12 phút",
+    "webinarSpeakerLabel": "Diễn giả:",
+    "webinarSpeakerValue": "KTS Lê Anh",
+    "webinarCta": "Xem toàn bộ series",
+    "webinarThumbAlt": "Ảnh thumbnail webinar",
+    "newsletterTitle": "Đăng ký nhận bản tin — Cập nhật xu hướng mỗi tháng",
+    "newsletterSubtitle": "Đừng bỏ lỡ những chia sẻ chuyên môn từ các chuyên gia.",
+    "newsletterNamePlaceholder": "Họ tên của bạn...",
+    "newsletterEmailPlaceholder": "Địa chỉ Email...",
+    "newsletterSubmit": "Đăng ký",
+    "newsletterLegal": "Bằng việc đăng ký, bạn đồng ý nhận email từ XPRESS DESIGN. Bạn có thể hủy đăng ký bất cứ lúc nào."
   },
   "InsightsDetail": {
     "breadcrumbHome": "Trang chủ",
@@ -121,6 +358,12 @@
     "relatedTitle": "Bài viết liên quan",
     "followTitle": "Theo dõi chúng tôi",
     "shareTitle": "Chia sẻ bài viết này",
+    "breadcrumbAriaLabel": "Dẫn hướng breadcrumb",
+    "networkFacebook": "Facebook",
+    "networkZalo": "Zalo",
+    "networkLinkedIn": "LinkedIn",
+    "networkTwitter": "Twitter",
+    "networkInstagram": "Instagram",
     "moreTitle": "Bài viết khác bạn có thể quan tâm",
     "commentsTitle": "Bình luận",
     "commentName": "Họ tên",
@@ -174,7 +417,103 @@
   },
   "ContactPage": {
     "submitError": "Không gửi được yêu cầu. Vui lòng thử lại sau.",
-    "submitting": "Đang gửi…"
+    "submitting": "Đang gửi…",
+    "submitButton": "Gửi yêu cầu ngay",
+    "heroImageAlt": "Ảnh nền trang liên hệ",
+    "successTitle": "Cảm ơn bạn!",
+    "successBody": "Thông tin của bạn đã được gửi thành công. Đội ngũ chuyên gia của Xpress Design sẽ liên hệ tư vấn cho bạn trong vòng 24 giờ làm việc.",
+    "successNewRequest": "Gửi yêu cầu mới",
+    "infoTitle": "Thông tin liên hệ",
+    "addressLabel": "Địa chỉ văn phòng",
+    "addressValue": "123 Đường Luxury, Quận 1, TP. Hồ Chí Minh",
+    "hotlineLabel": "Hotline tư vấn",
+    "hotlineValue": "0987.654.321 (Zalo)",
+    "emailLabel": "Email liên hệ",
+    "emailValue": "contact@xpressdesign.vn",
+    "hoursTitle": "Giờ làm việc",
+    "hoursWeekdays": "Thứ 2 - Thứ 6:",
+    "hoursWeekdaysTime": "08:00 - 18:00",
+    "hoursSaturday": "Thứ 7:",
+    "hoursSaturdayTime": "08:00 - 12:00",
+    "hoursSunday": "Chủ nhật:",
+    "hoursSundayClosed": "Nghỉ",
+    "formTitle": "Gửi yêu cầu báo giá",
+    "labelName": "Họ và tên *",
+    "labelPhone": "Số điện thoại *",
+    "labelEmailOptional": "Email (không bắt buộc)",
+    "labelService": "Dịch vụ quan tâm",
+    "labelBudget": "Ngân sách dự kiến",
+    "labelMessage": "Nội dung yêu cầu",
+    "placeholderName": "Nguyễn Văn A",
+    "placeholderPhone": "09xx xxx xxx",
+    "placeholderEmail": "email@example.com",
+    "placeholderMessage": "Mô tả sơ lược về nhu cầu của bạn...",
+    "mapImageAlt": "Bản đồ / hình minh họa văn phòng",
+    "mapCardTitle": "XPRESS DESIGN HQ",
+    "mapCardBody": "Chúng tôi luôn sẵn sàng đón tiếp quý khách tại văn phòng.",
+    "mapLink": "Xem trên Google Maps",
+    "services": {
+      "architecture": "Thiết kế kiến trúc",
+      "interior": "Thi công nội thất",
+      "full_package": "Thiết kế trọn gói",
+      "renovation": "Cải tạo nhà phố"
+    },
+    "budgets": {
+      "under500": "Dưới 500 triệu",
+      "b500_1b": "500 triệu - 1 tỷ",
+      "b1b_3b": "1 tỷ - 3 tỷ",
+      "over3b": "Trên 3 tỷ"
+    }
+  },
+  "ThankYou": {
+    "title": "Cảm ơn bạn đã tin tưởng!",
+    "subtitle": "Yêu cầu tư vấn của bạn đã được gửi thành công",
+    "followUpLead": "Kiến trúc sư của XPRESS DESIGN sẽ liên hệ lại với bạn trong vòng 24 giờ.",
+    "hotlineIntro": "Nếu cần hỗ trợ ngay, vui lòng liên hệ Hotline:",
+    "hotlineNumber": "0987.654.321",
+    "nextStepsTitle": "Trong khi chờ đợi, bạn có thể...",
+    "cardProjectsTitle": "Dự án tiêu biểu",
+    "cardProjectsDesc": "Khám phá những công trình kiến trúc đẳng cấp đã hoàn thành.",
+    "cardBlogTitle": "Cẩm nang thiết kế",
+    "cardBlogDesc": "Cập nhật xu hướng nội thất và kiến thức xây dựng mới nhất.",
+    "cardZaloTitle": "Kết nối Zalo",
+    "cardZaloDesc": "Trò chuyện trực tiếp với đội ngũ tư vấn nhanh chóng.",
+    "cardFacebookTitle": "Theo dõi Fanpage",
+    "cardFacebookDesc": "Cập nhật những hình ảnh thi công thực tế mỗi ngày.",
+    "shareLabel": "Chia sẻ cảm hứng với bạn bè",
+    "shareFacebook": "Facebook",
+    "shareZalo": "Zalo",
+    "shareTwitter": "Twitter",
+    "backHome": "Về trang chủ"
+  },
+  "Footer": {
+    "brandName": "Xpress Design",
+    "brandSubtitle": "Kiến trúc & Nội thất",
+    "tagline": "Giải pháp kiến trúc và nội thất lấy con người làm trung tâm. Chúng tôi kiến tạo không gian và giá trị bền vững cho cuộc sống.",
+    "addressLine1": "Tòa nhà XPRESS, 123 Đường Nguyễn Huệ",
+    "addressLine2": "Quận 1, TP. Hồ Chí Minh",
+    "emailLabel": "Email:",
+    "email": "contact@xpressdesign.vn",
+    "hotlineLabel": "Hotline:",
+    "hotlineDisplay": "0900 123 456",
+    "hotlineTel": "0900123456",
+    "quickLinksTitle": "Liên kết nhanh",
+    "servicesTitle": "Dịch vụ",
+    "serviceArchitecture": "Thiết kế Kiến trúc",
+    "serviceInterior": "Thiết kế Nội thất",
+    "serviceTurnkey": "Thi công trọn gói",
+    "serviceRenovation": "Cải tạo",
+    "connectTitle": "Kết nối với chúng tôi",
+    "newsletterTitle": "Đăng ký nhận tin",
+    "newsletterPlaceholder": "Nhập email của bạn...",
+    "newsletterSubmit": "Gửi",
+    "newsletterSending": "Đang gửi…",
+    "newsletterThanks": "Cảm ơn bạn đã đăng ký.",
+    "newsletterError": "Không gửi được. Vui lòng thử lại sau.",
+    "copyright": "© {year} XPRESS DESIGN — Bảo lưu mọi quyền",
+    "ariaFacebook": "Facebook",
+    "ariaInstagram": "Instagram",
+    "zaloButton": "Zalo"
   },
   "NotFound": {
     "badge": "Đang phát triển",

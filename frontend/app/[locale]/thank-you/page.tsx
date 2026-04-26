@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { 
   CheckCircle2, 
@@ -12,7 +13,6 @@ import {
   Facebook, 
   Share2,
   Twitter,
-  ExternalLink
 } from 'lucide-react';
 
 const NextStepCard = ({ icon: Icon, title, desc, link, external = false }: { icon: any, title: string, desc: string, link: string, external?: boolean }) => {
@@ -42,6 +42,8 @@ const NextStepCard = ({ icon: Icon, title, desc, link, external = false }: { ico
 };
 
 export default function ThankYou() {
+  const t = useTranslations('ThankYou');
+
   useEffect(() => {
     // Scroll to top
     window.scrollTo(0, 0);
@@ -95,22 +97,23 @@ export default function ThankYou() {
             className="text-white mb-4" 
             style={{ fontSize: '48px', fontFamily: 'Playfair Display, serif' }}
           >
-            Cảm ơn bạn đã tin tưởng!
+            {t('title')}
           </h1>
           <p 
             className="text-white/80 text-xl mb-12 font-light" 
             style={{ fontFamily: 'Montserrat, sans-serif' }}
           >
-            Yêu cầu tư vấn của bạn đã được gửi thành công
+            {t('subtitle')}
           </p>
 
           <div className="bg-white p-8 md:p-12 shadow-xl border-t-4 border-[#D4AF37] inline-block text-left mb-16 max-w-2xl">
             <p className="text-[#1A1A1A] text-lg mb-4 font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Kiến trúc sư của XPRESS DESIGN sẽ liên hệ lại với bạn trong vòng 24 giờ.
+              {t('followUpLead')}
             </p>
             <div className="h-[1px] bg-gray-200 w-full mb-6" />
             <p className="text-gray-500 text-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Nếu cần hỗ trợ ngay, vui lòng liên hệ Hotline: <span className="text-[#D4AF37] font-bold">0900.XXX.XXX</span>
+              {t('hotlineIntro')}{' '}
+              <span className="text-[#D4AF37] font-bold">{t('hotlineNumber')}</span>
             </p>
           </div>
         </motion.div>
@@ -123,33 +126,33 @@ export default function ThankYou() {
           className="mt-12"
         >
           <h3 className="text-[#1A1A1A] text-xl mb-10 uppercase tracking-[0.2em] font-bold" style={{ fontSize: '18px' }}>
-            Trong khi chờ đợi, bạn có thể...
+            {t('nextStepsTitle')}
           </h3>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <NextStepCard 
               icon={LayoutGrid} 
-              title="Dự án tiêu biểu" 
-              desc="Khám phá những công trình kiến trúc đẳng cấp đã hoàn thành."
+              title={t('cardProjectsTitle')} 
+              desc={t('cardProjectsDesc')}
               link="/projects"
             />
             <NextStepCard 
               icon={BookOpen} 
-              title="Cẩm nang thiết kế" 
-              desc="Cập nhật xu hướng nội thất và kiến thức xây dựng mới nhất."
+              title={t('cardBlogTitle')} 
+              desc={t('cardBlogDesc')}
               link="/blog"
             />
             <NextStepCard 
               icon={MessageCircle} 
-              title="Kết nối Zalo" 
-              desc="Trò chuyện trực tiếp với đội ngũ tư vấn nhanh chóng."
+              title={t('cardZaloTitle')} 
+              desc={t('cardZaloDesc')}
               link="https://zalo.me"
               external
             />
             <NextStepCard 
               icon={Facebook} 
-              title="Theo dõi Fanpage" 
-              desc="Cập nhật những hình ảnh thi công thực tế mỗi ngày."
+              title={t('cardFacebookTitle')} 
+              desc={t('cardFacebookDesc')}
               link="https://facebook.com"
               external
             />
@@ -163,16 +166,16 @@ export default function ThankYou() {
           transition={{ delay: 0.7 }}
           className="mt-24 border-t border-gray-100 pt-16"
         >
-          <p className="text-gray-400 text-xs uppercase tracking-widest mb-6 font-bold">Chia sẻ cảm hứng với bạn bè</p>
+          <p className="text-gray-400 text-xs uppercase tracking-widest mb-6 font-bold">{t('shareLabel')}</p>
           <div className="flex justify-center gap-4">
-            <button className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-600 hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all text-xs font-bold uppercase tracking-widest">
-              <Facebook size={16} /> Facebook
+            <button type="button" className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-600 hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all text-xs font-bold uppercase tracking-widest">
+              <Facebook size={16} /> {t('shareFacebook')}
             </button>
-            <button className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-600 hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] transition-all text-xs font-bold uppercase tracking-widest">
-              <Share2 size={16} /> Zalo
+            <button type="button" className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-600 hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] transition-all text-xs font-bold uppercase tracking-widest">
+              <Share2 size={16} /> {t('shareZalo')}
             </button>
-            <button className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-600 hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all text-xs font-bold uppercase tracking-widest">
-              <Twitter size={16} /> Twitter
+            <button type="button" className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-gray-600 hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all text-xs font-bold uppercase tracking-widest">
+              <Twitter size={16} /> {t('shareTwitter')}
             </button>
           </div>
         </motion.div>
@@ -188,7 +191,7 @@ export default function ThankYou() {
             href="/" 
             className="inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#1A1A1A] transition-colors font-bold uppercase tracking-widest text-xs border-b border-[#D4AF37] pb-1"
           >
-            <ArrowLeft size={16} /> Về trang chủ
+            <ArrowLeft size={16} /> {t('backHome')}
           </Link>
         </motion.div>
       </section>

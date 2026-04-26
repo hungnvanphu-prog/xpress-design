@@ -9,6 +9,32 @@ import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { PageHero } from '@/components/PageHero';
 
+const SERVICE_OPTION_KEYS = [
+  'architecture',
+  'interior',
+  'full_package',
+  'renovation',
+] as const;
+
+const BUDGET_OPTION_KEYS = [
+  'under500',
+  'b500_1b',
+  'b1b_3b',
+  'over3b',
+] as const;
+
+type ServiceOption = (typeof SERVICE_OPTION_KEYS)[number];
+type BudgetOption = (typeof BUDGET_OPTION_KEYS)[number];
+
+type ContactFormState = {
+  name: string;
+  phone: string;
+  email: string;
+  service: ServiceOption;
+  budget: BudgetOption;
+  message: string;
+};
+
 export default function Contact() {
   const tNav = useTranslations('Nav');
   const tPage = useTranslations('PageTitles');
@@ -18,13 +44,13 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormState>({
     name: '',
     phone: '',
     email: '',
-    service: 'Thiết kế kiến trúc',
-    budget: 'Dưới 500 triệu',
-    message: ''
+    service: SERVICE_OPTION_KEYS[0],
+    budget: BUDGET_OPTION_KEYS[0],
+    message: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -36,8 +62,8 @@ export default function Contact() {
         name: formData.name.trim(),
         phone: formData.phone.trim() || undefined,
         email: formData.email.trim() || undefined,
-        service: formData.service,
-        budget: formData.budget,
+        service: tContact(`services.${formData.service}`),
+        budget: tContact(`budgets.${formData.budget}`),
         message: formData.message.trim() || undefined,
         locale,
       });
@@ -47,8 +73,8 @@ export default function Contact() {
         name: '',
         phone: '',
         email: '',
-        service: 'Thiết kế kiến trúc',
-        budget: 'Dưới 500 triệu',
+        service: SERVICE_OPTION_KEYS[0],
+        budget: BUDGET_OPTION_KEYS[0],
         message: '',
       });
     } catch {
@@ -59,7 +85,16 @@ export default function Contact() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'service') {
+      setFormData({ ...formData, service: value as ServiceOption });
+      return;
+    }
+    if (name === 'budget') {
+      setFormData({ ...formData, budget: value as BudgetOption });
+      return;
+    }
+    setFormData({ ...formData, [name]: value });
   };
 
   if (isSubmitted) {
@@ -77,15 +112,16 @@ export default function Contact() {
           <div className="w-20 h-20 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#D4AF37]">
             <CheckCircle2 size={40} />
           </div>
-          <h1 className="text-4xl mb-4 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>Cảm ơn bạn!</h1>
+          <h1 className="text-4xl mb-4 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>{tContact('successTitle')}</h1>
           <p className="text-gray-600 mb-10" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-            Thông tin của bạn đã được gửi thành công. Đội ngũ chuyên gia của Xpress Design sẽ liên hệ tư vấn cho bạn trong vòng 24 giờ làm việc.
+            {tContact('successBody')}
           </p>
           <button 
+            type="button"
             onClick={() => setIsSubmitted(false)}
             className="bg-[#D4AF37] text-white px-10 py-4 uppercase tracking-widest text-sm font-bold hover:bg-[#1A1A1A] transition-all duration-300"
           >
-            Gửi yêu cầu mới
+            {tContact('successNewRequest')}
           </button>
         </motion.div>
       </div>
@@ -100,7 +136,7 @@ export default function Contact() {
         breadcrumb={tNav('contact')}
         homeLabel={tNav('home')}
         tagline={tTag('contact')}
-        alt="Contact hero"
+        alt={tContact('heroImageAlt')}
       />
 
       <section className="py-24">
@@ -109,15 +145,15 @@ export default function Contact() {
             {/* Info Column */}
             <div className="lg:col-span-5 space-y-12">
               <div>
-                <h2 className="text-3xl mb-8 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>Thông tin liên hệ</h2>
+                <h2 className="text-3xl mb-8 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>{tContact('infoTitle')}</h2>
                 <div className="space-y-8">
                   <div className="flex items-start">
                     <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] mr-6 shrink-0">
                       <MapPin size={20} />
                     </div>
                     <div>
-                      <h4 className="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Địa chỉ văn phòng</h4>
-                      <p className="text-[#1A1A1A] font-medium">123 Đường Luxury, Quận 1, TP. Hồ Chí Minh</p>
+                      <h4 className="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">{tContact('addressLabel')}</h4>
+                      <p className="text-[#1A1A1A] font-medium">{tContact('addressValue')}</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -125,8 +161,8 @@ export default function Contact() {
                       <Phone size={20} />
                     </div>
                     <div>
-                      <h4 className="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Hotline tư vấn</h4>
-                      <p className="text-[#1A1A1A] font-medium">0987.654.321 (Zalo)</p>
+                      <h4 className="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">{tContact('hotlineLabel')}</h4>
+                      <p className="text-[#1A1A1A] font-medium">{tContact('hotlineValue')}</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -134,27 +170,27 @@ export default function Contact() {
                       <Mail size={20} />
                     </div>
                     <div>
-                      <h4 className="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Email liên hệ</h4>
-                      <p className="text-[#1A1A1A] font-medium">contact@xpressdesign.vn</p>
+                      <h4 className="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">{tContact('emailLabel')}</h4>
+                      <p className="text-[#1A1A1A] font-medium">{tContact('emailValue')}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="p-8 bg-[#1A1A1A] text-white">
-                <h3 className="text-2xl mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Giờ làm việc</h3>
+                <h3 className="text-2xl mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>{tContact('hoursTitle')}</h3>
                 <div className="space-y-4 text-white/60 text-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   <div className="flex justify-between border-b border-white/10 pb-4">
-                    <span>Thứ 2 - Thứ 6:</span>
-                    <span className="text-white">08:00 - 18:00</span>
+                    <span>{tContact('hoursWeekdays')}</span>
+                    <span className="text-white">{tContact('hoursWeekdaysTime')}</span>
                   </div>
                   <div className="flex justify-between border-b border-white/10 pb-4">
-                    <span>Thứ 7:</span>
-                    <span className="text-white">08:00 - 12:00</span>
+                    <span>{tContact('hoursSaturday')}</span>
+                    <span className="text-white">{tContact('hoursSaturdayTime')}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Chủ nhật:</span>
-                    <span className="text-[#D4AF37]">Nghỉ</span>
+                    <span>{tContact('hoursSunday')}</span>
+                    <span className="text-[#D4AF37]">{tContact('hoursSundayClosed')}</span>
                   </div>
                 </div>
               </div>
@@ -163,7 +199,7 @@ export default function Contact() {
             {/* Form Column */}
             <div className="lg:col-span-7">
               <div className="bg-white p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-50">
-                <h3 className="text-3xl mb-10 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>Gửi yêu cầu báo giá</h3>
+                <h3 className="text-3xl mb-10 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>{tContact('formTitle')}</h3>
                 
                 {submitError ? (
                   <p className="text-red-600 text-sm mb-4 font-['Montserrat',sans-serif]">{submitError}</p>
@@ -171,7 +207,7 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Họ và tên *</label>
+                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelName')}</label>
                       <input 
                         type="text" 
                         required
@@ -179,11 +215,11 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors"
-                        placeholder="Nguyễn Văn A"
+                        placeholder={tContact('placeholderName')}
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Số điện thoại *</label>
+                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelPhone')}</label>
                       <input 
                         type="tel" 
                         required
@@ -191,63 +227,61 @@ export default function Contact() {
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors"
-                        placeholder="09xx xxx xxx"
+                        placeholder={tContact('placeholderPhone')}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Email (Không bắt buộc)</label>
+                    <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelEmailOptional')}</label>
                     <input 
                       type="email" 
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors"
-                      placeholder="email@example.com"
+                      placeholder={tContact('placeholderEmail')}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Dịch vụ quan tâm</label>
+                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelService')}</label>
                       <select 
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
                         className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors bg-transparent cursor-pointer"
                       >
-                        <option>Thiết kế kiến trúc</option>
-                        <option>Thi công nội thất</option>
-                        <option>Thiết kế trọn gói</option>
-                        <option>Cải tạo nhà phố</option>
+                        {SERVICE_OPTION_KEYS.map((key) => (
+                          <option key={key} value={key}>{tContact(`services.${key}`)}</option>
+                        ))}
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Ngân sách dự kiến</label>
+                      <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelBudget')}</label>
                       <select 
                         name="budget"
                         value={formData.budget}
                         onChange={handleChange}
                         className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors bg-transparent cursor-pointer"
                       >
-                        <option>Dưới 500 triệu</option>
-                        <option>500 triệu - 1 tỷ</option>
-                        <option>1 tỷ - 3 tỷ</option>
-                        <option>Trên 3 tỷ</option>
+                        {BUDGET_OPTION_KEYS.map((key) => (
+                          <option key={key} value={key}>{tContact(`budgets.${key}`)}</option>
+                        ))}
                       </select>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Nội dung yêu cầu</label>
+                    <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelMessage')}</label>
                     <textarea 
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       rows={4}
                       className="w-full border border-gray-100 p-4 outline-none focus:border-[#D4AF37] transition-colors resize-none"
-                      placeholder="Mô tả sơ lược về nhu cầu của bạn..."
+                      placeholder={tContact('placeholderMessage')}
                     />
                   </div>
 
@@ -256,7 +290,7 @@ export default function Contact() {
                     disabled={submitting}
                     className="w-full bg-[#1A1A1A] text-white py-5 flex items-center justify-center gap-3 uppercase tracking-widest text-sm font-bold hover:bg-[#D4AF37] transition-all duration-500 group disabled:opacity-60"
                   >
-                    <span>{submitting ? tContact('submitting') : 'Gửi yêu cầu ngay'}</span>
+                    <span>{submitting ? tContact('submitting') : tContact('submitButton')}</span>
                     <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </button>
                 </form>
@@ -270,13 +304,14 @@ export default function Contact() {
       <section className="h-[450px] bg-gray-100 grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden relative">
         <ImageWithFallback 
           src="https://images.unsplash.com/photo-1758448756362-e323282ccbcc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBhcmNoaXRlY3R1cmUlMjBhcmNoaXRlY3R1cmUlMjBpbnRlcmlvciUyMGV4dGVyaW9yJTIwbWluaW1hbCUyMGRlc2lnbiUyMHZpbGxhJTIwaG91c2UlMjBnYWxsZXJ5fGVufDF8fHx8MTc3NTc0NjY1OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          alt={tContact('mapImageAlt')}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 flex items-center justify-center">
            <div className="bg-white p-6 shadow-xl border-t-4 border-[#D4AF37] max-w-xs">
-              <h5 className="font-bold text-[#1A1A1A] mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>XPRESS DESIGN HQ</h5>
-              <p className="text-xs text-gray-500 mb-4">Chúng tôi luôn sẵn sàng đón tiếp quý khách tại văn phòng.</p>
-              <a href="#" className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest hover:underline">Xem trên Google Maps</a>
+              <h5 className="font-bold text-[#1A1A1A] mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>{tContact('mapCardTitle')}</h5>
+              <p className="text-xs text-gray-500 mb-4">{tContact('mapCardBody')}</p>
+              <a href="#" className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest hover:underline">{tContact('mapLink')}</a>
            </div>
         </div>
       </section>

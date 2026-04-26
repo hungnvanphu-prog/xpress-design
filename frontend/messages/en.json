@@ -49,11 +49,107 @@
   "Home": {
     "heroTitle": "Designing your space reflects your style and values.",
     "heroSubtitle": "We don't just design – we shape how you experience the space every day.",
-    "heroCta": "Explore the project",
+    "heroCta": "Explore projects",
+    "heroImageAlt": "Minimal architectural interior with ambient light",
     "featured": {
       "title": "Signature works<br />by XPRESS",
       "viewAll": "All projects"
-    }
+    },
+    "philosophyEyebrow": "Design philosophy",
+    "philosophyQuote": "“We believe a great space is not only beautiful — it must fit how you live, work, and enjoy life.”",
+    "philosophyCta": "Discover our story",
+    "servicesEyebrow": "Services",
+    "servicesTitle": "End-to-end solutions",
+    "services": {
+      "architecture": {
+        "num": "01",
+        "title": "Architecture",
+        "desc": "Shaping living space from the first lines, in harmony with the landscape."
+      },
+      "interior": {
+        "num": "02",
+        "title": "Interior design",
+        "desc": "Giving soul to space through refined materials and light."
+      },
+      "construction": {
+        "num": "03",
+        "title": "Turnkey construction",
+        "desc": "Turning drawings into reality with precision and durability."
+      },
+      "renovation": {
+        "num": "04",
+        "title": "Renovation & upgrade",
+        "desc": "A new chapter for meaningful places, elevating how you live."
+      }
+    },
+    "insightsEyebrow": "Expert insights",
+    "insightsTitleLine1": "Knowledge &",
+    "insightsTitleLine2": "design trends",
+    "insightsViewAll": "View all",
+    "insights": {
+      "card1": {
+        "category": "Sustainability",
+        "title": "5 sustainable architecture trends for 2025",
+        "desc": "Five green-building approaches we use most in tropical projects, from envelope to structure.",
+        "imageAlt": "Reclaimed wood and sustainable architecture"
+      },
+      "card2": {
+        "category": "Interiors",
+        "title": "Minimal interior: less to breathe more",
+        "desc": "Proportion, palette and light — the three layers of a calm room.",
+        "imageAlt": "Minimal interior design"
+      },
+      "card3": {
+        "category": "Landscape",
+        "title": "Urban landscape & micro-climate",
+        "desc": "Tree shade, wind paths and cool paving — lowering felt heat in public space.",
+        "imageAlt": "Urban landscape"
+      }
+    },
+    "finalCtaTitleLine1": "Ready to write",
+    "finalCtaTitleLine2": "the next chapter of your story?",
+    "finalCtaBody": "Let us walk with you to create the living space you dream of — where every corner feels unmistakably yours.",
+    "finalCtaButton": "Contact us for a consultation"
+  },
+  "About": {
+    "heroImageAlt": "XPRESS DESIGN office",
+    "storyTitle": "The XPRESS DESIGN story",
+    "storyP1": "Born from a passion for crafting exceptional living environments, XPRESS DESIGN has grown for over a decade. We don't only build houses — we create bespoke works of art that carry each homeowner's signature.",
+    "storyP2": "Our design philosophy balances contemporary aesthetics with optimal function. Through luxury minimalism, we believe true elegance comes from refinement, material quality and meticulous architectural detail.",
+    "storyP3": "Our journey is one of relentless creativity, always putting client satisfaction and long-term resilience of every project first.",
+    "founderName": "Hong Anh Tu",
+    "founderRole": "Founder & Lead Architect",
+    "storyPhotoAlt": "Architectural story imagery",
+    "visionTitle": "Vision",
+    "visionText": "To be Vietnam's leading architecture and interior brand, recognised for bold creativity and international-quality standards in the premium real-estate segment.",
+    "missionTitle": "Mission",
+    "missionText": "To create spaces not merely to inhabit, but to honour human value. We deliver intelligent design, deep personalisation and lasting quality over time.",
+    "valuesHeading": "Core values — what defines XPRESS",
+    "valueCreativityTitle": "Creativity",
+    "valueCreativityDesc": "Constantly innovating and pushing boundaries in design.",
+    "valueQualityTitle": "Quality",
+    "valueQualityDesc": "Finest materials and rigorous quality control at every step.",
+    "valueCareTitle": "Dedication",
+    "valueCareDesc": "Listening closely to even the smallest wishes of our clients.",
+    "valueTrustTitle": "Integrity",
+    "valueTrustDesc": "On-time delivery and transparency across every phase.",
+    "teamHeading": "Our architects — the people behind the difference",
+    "team1Name": "Hong Anh Tu",
+    "team1Role": "Founder & Lead Architect",
+    "team1Desc": "Over 15 years designing villas and premium penthouses.",
+    "team2Name": "Nguyen Mai Lan",
+    "team2Role": "Senior Interior Designer",
+    "team2Desc": "A spatial storyteller with refined taste, focused on minimalist style.",
+    "team3Name": "Tran The Vinh",
+    "team3Role": "Technical Manager",
+    "team3Desc": "Expert in technical solutions and modern construction delivery.",
+    "milestoneYears": "Years of experience",
+    "milestoneProjects": "Projects delivered",
+    "milestonePartners": "Strategic partners",
+    "milestoneAwards": "Design awards",
+    "ctaTitle": "Have a project in mind?",
+    "ctaBody": "Reach out to XPRESS DESIGN for thoughtful support from our professional architect team.",
+    "ctaButton": "Get a free consultation"
   },
   "Projects": {
     "badge": "Featured projects",
@@ -96,6 +192,108 @@
     "services": "End-to-end solutions from idea to reality",
     "contact": "Crafting premium living spaces with Xpress Design"
   },
+  "ServicesPage": {
+    "heroImageAlt": "Services page hero image",
+    "overviewTitle": "Real value, drawn into every set of plans",
+    "overviewBody": "At XPRESS DESIGN we offer a closed-loop service ecosystem — from consulting and architecture to interiors and turnkey construction. With a dedicated architect team, we deliver work that meets rigorous technical standards and reaches for the art of living.",
+    "learnMore": "Learn more",
+    "processTitle": "Our professional process — in 5 steps",
+    "faqTitle": "Frequently asked questions",
+    "faqIntro": "We gathered the questions clients ask most often, so you can understand how XPRESS DESIGN works.",
+    "faqQuote": "“Client satisfaction is not only the final outcome — it is the experience across the entire collaboration.”",
+    "faqQuoteAttribution": "— The XPRESS DESIGN team",
+    "ctaTitleLine1": "Ready to create",
+    "ctaTitleLine2": "the space you dream of?",
+    "ctaBody": "Let us accompany you in building a home that feels premium and unmistakably yours.",
+    "ctaButton": "Request a quote",
+    "cards": {
+      "architecture": {
+        "title": "Architecture design",
+        "desc": "Shaping distinguished exteriors with optimised function and a contemporary aesthetic.",
+        "highlights": [
+          "Site analysis & feng shui alignment",
+          "3D exterior architecture",
+          "Technical construction drawings",
+          "Design-authority supervision"
+        ]
+      },
+      "interior": {
+        "title": "Interior design",
+        "desc": "Breathing life into interiors with refined taste, premium materials and quiet luxury.",
+        "highlights": [
+          "Spatial concept design",
+          "Materials & colour palette",
+          "Detailed interior drawings",
+          "Artistic styling"
+        ]
+      },
+      "turnkey": {
+        "title": "Turnkey construction",
+        "desc": "Turning drawings into reality with a professional site process, schedule and quality control.",
+        "highlights": [
+          "Dedicated project management",
+          "Transparent, detailed estimates",
+          "Build aligned to the approved design",
+          "Long-term warranty"
+        ]
+      },
+      "renovation": {
+        "title": "Renovation & restoration",
+        "desc": "Refreshing older spaces while honouring heritage and layering in modern comfort.",
+        "highlights": [
+          "Survey of existing structure",
+          "Optimising usable space",
+          "Upgrading MEP systems",
+          "A full visual renewal"
+        ]
+      }
+    },
+    "processSteps": [
+      {
+        "number": "01",
+        "title": "Consulting & survey",
+        "desc": "We listen to your goals and survey the site to outline first directions."
+      },
+      {
+        "number": "02",
+        "title": "Concept design",
+        "desc": "Spatial ideas take shape through clear, visual 3D studies."
+      },
+      {
+        "number": "03",
+        "title": "Detailed documentation",
+        "desc": "Technical packs, quantities and construction budgeting are finalised."
+      },
+      {
+        "number": "04",
+        "title": "Construction & supervision",
+        "desc": "On-site delivery with close architect supervision."
+      },
+      {
+        "number": "05",
+        "title": "Handover & aftercare",
+        "desc": "Formal acceptance and the commitments that follow construction."
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "How is design fee calculated?",
+        "answer": "At XPRESS DESIGN, design fees are based on usable floor area. The final figure depends on style (modern, classic, minimal…) and project complexity. We always provide a detailed quote and contract-scope clarity."
+      },
+      {
+        "question": "How long does a full design package take?",
+        "answer": "Typically, a complete set — architecture, interiors and MEP — needs 45–60 working days. Timing varies with project scale and how quickly decisions are aligned between you and the architect."
+      },
+      {
+        "question": "Do you take projects outside the city?",
+        "answer": "Yes, nationwide. For remote clients we combine online workflows with scheduled on-site surveys and supervision so execution stays true to the drawings."
+      },
+      {
+        "question": "What about warranty and maintenance?",
+        "answer": "For turnkey builds we offer 2 years on interior finishes and up to 5 years on structural work. After the warranty window, we still support lifetime maintenance for returning clients at preferential rates."
+      }
+    ]
+  },
   "Insights": {
     "authorCredit": "Xpress Design",
     "filterAll": "All",
@@ -111,7 +309,46 @@
     "signupError": "Could not submit. Please try again.",
     "signupReportOk": "Thank you — we will reach out by email.",
     "signupFooterOk": "You are subscribed to our newsletter.",
-    "signupSending": "Sending…"
+    "signupSending": "Sending…",
+    "heroImageAlt": "Insights page hero background",
+    "heroEyebrow": "Thought leadership",
+    "heroTitleBeforeBreak": "Insights —",
+    "heroTitleAfterBreak": "building resilient space",
+    "heroSubtitle": "Research, trends and deep expertise from the XPRESS DESIGN architect team. We do not only design rooms — we shape lasting value.",
+    "reportBadge": "Featured report",
+    "reportTitle": "Interior Trends Report 2026",
+    "reportSubtitle": "15 standout interior directions, distilled from 200+ projects",
+    "reportEmailPlaceholder": "Enter your email address…",
+    "reportDownloadCta": "Download the free report",
+    "reportSpamNote": "No spam — materials are sent directly by email.",
+    "reportCoverAlt": "Report cover visual",
+    "reportMockBrand": "XPRESS DESIGN",
+    "reportMockTitle": "Trend Report:\nLiving Space 2026",
+    "researchEyebrow": "Evidence in the work",
+    "researchTitleLine1": "Our research —",
+    "researchTitleLine2": "data from 200+ built projects",
+    "researchBody": "Every XPRESS DESIGN solution is grounded in real needs and backed by clear performance indicators.",
+    "stat1Value": "92%",
+    "stat1Text": "Clients satisfied with the lighting strategy",
+    "stat2Value": "35%",
+    "stat2Text": "Average 35% energy savings",
+    "stat3Value": "100%",
+    "stat3Text": "Projects handed over on schedule",
+    "webinarBadge": "XPRESS Masterclass",
+    "webinarTitle": "Webinar: open-plan craft for urban villas",
+    "webinarBody": "This month’s XPRESS Masterclass: lead architect Le Anh on solving “connected yet private” — one of the hardest puzzles when open plans meet tight inner-city villa footprints.",
+    "webinarDurationLabel": "Duration:",
+    "webinarDurationValue": "12 minutes",
+    "webinarSpeakerLabel": "Speaker:",
+    "webinarSpeakerValue": "Ar. Le Anh",
+    "webinarCta": "Browse the full series",
+    "webinarThumbAlt": "Webinar thumbnail",
+    "newsletterTitle": "Newsletter — trend notes every month",
+    "newsletterSubtitle": "Don’t miss expert perspectives from our team.",
+    "newsletterNamePlaceholder": "Your full name…",
+    "newsletterEmailPlaceholder": "Email address…",
+    "newsletterSubmit": "Subscribe",
+    "newsletterLegal": "By subscribing you agree to receive email from XPRESS DESIGN. You can unsubscribe at any time."
   },
   "InsightsDetail": {
     "breadcrumbHome": "Home",
@@ -121,6 +358,12 @@
     "relatedTitle": "Related articles",
     "followTitle": "Follow us",
     "shareTitle": "Share this article",
+    "breadcrumbAriaLabel": "Breadcrumb",
+    "networkFacebook": "Facebook",
+    "networkZalo": "Zalo",
+    "networkLinkedIn": "LinkedIn",
+    "networkTwitter": "Twitter",
+    "networkInstagram": "Instagram",
     "moreTitle": "More articles you may like",
     "commentsTitle": "Comments",
     "commentName": "Full name",
@@ -174,7 +417,103 @@
   },
   "ContactPage": {
     "submitError": "Could not send your request. Please try again.",
-    "submitting": "Sending…"
+    "submitting": "Sending…",
+    "submitButton": "Send request",
+    "heroImageAlt": "Contact page hero image",
+    "successTitle": "Thank you!",
+    "successBody": "Your details were sent successfully. The Xpress Design team will reach out within one business day.",
+    "successNewRequest": "Send another request",
+    "infoTitle": "Contact details",
+    "addressLabel": "Office address",
+    "addressValue": "123 Luxury Street, District 1, Ho Chi Minh City",
+    "hotlineLabel": "Consulting hotline",
+    "hotlineValue": "+84 987 654 321 (Zalo)",
+    "emailLabel": "Email",
+    "emailValue": "contact@xpressdesign.vn",
+    "hoursTitle": "Opening hours",
+    "hoursWeekdays": "Mon - Fri:",
+    "hoursWeekdaysTime": "08:00 - 18:00",
+    "hoursSaturday": "Saturday:",
+    "hoursSaturdayTime": "08:00 - 12:00",
+    "hoursSunday": "Sunday:",
+    "hoursSundayClosed": "Closed",
+    "formTitle": "Request a quote",
+    "labelName": "Full name *",
+    "labelPhone": "Phone number *",
+    "labelEmailOptional": "Email (optional)",
+    "labelService": "Service of interest",
+    "labelBudget": "Estimated budget",
+    "labelMessage": "Project notes",
+    "placeholderName": "Jane Doe",
+    "placeholderPhone": "+84 9xx xxx xxx",
+    "placeholderEmail": "you@example.com",
+    "placeholderMessage": "Briefly describe what you need…",
+    "mapImageAlt": "Map / office illustration",
+    "mapCardTitle": "XPRESS DESIGN HQ",
+    "mapCardBody": "We welcome you to visit our studio by appointment.",
+    "mapLink": "Open in Google Maps",
+    "services": {
+      "architecture": "Architecture design",
+      "interior": "Interior fit-out",
+      "full_package": "Full design package",
+      "renovation": "Townhouse renovation"
+    },
+    "budgets": {
+      "under500": "Under 500 million VND",
+      "b500_1b": "500 million - 1 billion VND",
+      "b1b_3b": "1 - 3 billion VND",
+      "over3b": "Over 3 billion VND"
+    }
+  },
+  "ThankYou": {
+    "title": "Thank you for your trust!",
+    "subtitle": "Your consultation request was sent successfully",
+    "followUpLead": "An XPRESS DESIGN architect will get back to you within 24 hours.",
+    "hotlineIntro": "Need help right away? Call our hotline:",
+    "hotlineNumber": "+84 987 654 321",
+    "nextStepsTitle": "While you wait, you could…",
+    "cardProjectsTitle": "Featured projects",
+    "cardProjectsDesc": "Explore completed architecture and interior work.",
+    "cardBlogTitle": "Design journal",
+    "cardBlogDesc": "Trends and practical guidance for your build.",
+    "cardZaloTitle": "Chat on Zalo",
+    "cardZaloDesc": "Reach our team quickly for short questions.",
+    "cardFacebookTitle": "Follow our page",
+    "cardFacebookDesc": "See real site photos and studio updates.",
+    "shareLabel": "Share the inspiration",
+    "shareFacebook": "Facebook",
+    "shareZalo": "Zalo",
+    "shareTwitter": "Twitter",
+    "backHome": "Back to home"
+  },
+  "Footer": {
+    "brandName": "Xpress Design",
+    "brandSubtitle": "Architecture & Interior",
+    "tagline": "Architecture and interior solutions with people at the centre. We shape space and lasting value for how you live.",
+    "addressLine1": "XPRESS Tower, 123 Nguyen Hue Street",
+    "addressLine2": "District 1, Ho Chi Minh City",
+    "emailLabel": "Email:",
+    "email": "contact@xpressdesign.vn",
+    "hotlineLabel": "Hotline:",
+    "hotlineDisplay": "+84 900 123 456",
+    "hotlineTel": "+84900123456",
+    "quickLinksTitle": "Quick links",
+    "servicesTitle": "Services",
+    "serviceArchitecture": "Architecture design",
+    "serviceInterior": "Interior design",
+    "serviceTurnkey": "Turnkey construction",
+    "serviceRenovation": "Renovation",
+    "connectTitle": "Connect with us",
+    "newsletterTitle": "Newsletter",
+    "newsletterPlaceholder": "Your email address…",
+    "newsletterSubmit": "Send",
+    "newsletterSending": "Sending…",
+    "newsletterThanks": "Thanks — you are subscribed.",
+    "newsletterError": "Could not subscribe. Please try again.",
+    "copyright": "© {year} XPRESS DESIGN — All rights reserved",
+    "ariaFacebook": "Facebook",
+    "ariaInstagram": "Instagram",
+    "zaloButton": "Zalo"
   },
   "NotFound": {
     "badge": "Coming soon",

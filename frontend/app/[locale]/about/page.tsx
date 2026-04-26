@@ -42,6 +42,7 @@ export default function About() {
   const tNav = useTranslations('Nav');
   const tPage = useTranslations('PageTitles');
   const tTag = useTranslations('HeroTaglines');
+  const tAbout = useTranslations('About');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,7 +56,7 @@ export default function About() {
         breadcrumb={tNav('about')}
         homeLabel={tNav('home')}
         tagline={tTag('about')}
-        alt="XPRESS DESIGN Office"
+        alt={tAbout('heroImageAlt')}
       />
 
       {/* Our Story Section */}
@@ -72,25 +73,19 @@ export default function About() {
                 className="text-[#1A1A1A] mb-8"
                 style={{ fontSize: '36px', fontFamily: 'Playfair Display, serif' }}
               >
-                Câu chuyện của XPRESS DESIGN
+                {tAbout('storyTitle')}
               </h2>
               <div className="space-y-6 text-gray-600 leading-relaxed text-lg" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                <p>
-                  Được thành lập từ niềm đam mê kiến tạo những không gian sống đẳng cấp, XPRESS DESIGN đã trải qua hơn một thập kỷ hình thành và phát triển. Chúng tôi không chỉ xây dựng những ngôi nhà, mà còn tạo nên những kiệt tác nghệ thuật mang đậm dấu ấn cá nhân của từng gia chủ.
-                </p>
-                <p>
-                  Triết lý thiết kế của chúng tôi dựa trên sự cân bằng hoàn hảo giữa tính thẩm mỹ hiện đại và công năng sử dụng tối ưu. Với phong cách Luxury Minimalism, chúng tôi tin rằng sự sang trọng thực sự đến từ sự tinh giản, chất lượng của vật liệu và sự tỉ mỉ trong từng đường nét kiến trúc.
-                </p>
-                <p>
-                  Hành trình của XPRESS DESIGN là hành trình của sự sáng tạo không ngừng nghỉ, luôn đặt sự hài lòng của khách hàng và tính bền vững của công trình lên hàng đầu.
-                </p>
+                <p>{tAbout('storyP1')}</p>
+                <p>{tAbout('storyP2')}</p>
+                <p>{tAbout('storyP3')}</p>
               </div>
               
               <div className="mt-12 flex flex-col items-start">
                 <p className="text-[#1A1A1A] font-bold italic text-2xl mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  Hồng Anh Tú
+                  {tAbout('founderName')}
                 </p>
-                <p className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold">Founder & Lead Architect</p>
+                <p className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold">{tAbout('founderRole')}</p>
               </div>
             </motion.div>
 
@@ -104,7 +99,7 @@ export default function About() {
               <div className="relative z-10 shadow-2xl overflow-hidden rounded-sm">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1679309981674-cef0e23a7864"
-                  alt="Architect Story"
+                  alt={tAbout('storyPhotoAlt')}
                   className="w-full aspect-[4/5] object-cover"
                 />
               </div>
@@ -133,10 +128,10 @@ export default function About() {
                 className="text-[#1A1A1A] mb-4"
                 style={{ fontSize: '28px', fontFamily: 'Playfair Display, serif' }}
               >
-                Tầm nhìn
+                {tAbout('visionTitle')}
               </h3>
               <p className="text-gray-500 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                Trở thành thương hiệu thiết kế kiến trúc và nội thất hàng đầu Việt Nam, được công nhận bởi sự sáng tạo đột phá và tiêu chuẩn chất lượng quốc tế trong phân khúc bất động sản cao cấp.
+                {tAbout('visionText')}
               </p>
             </motion.div>
 
@@ -154,10 +149,10 @@ export default function About() {
                 className="text-white mb-4"
                 style={{ fontSize: '28px', fontFamily: 'Playfair Display, serif' }}
               >
-                Sứ mệnh
+                {tAbout('missionTitle')}
               </h3>
               <p className="text-white/60 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                Kiến tạo không gian sống không chỉ để ở, mà để tôn vinh giá trị con người. Chúng tôi cam kết mang lại giải pháp thiết kế thông minh, cá nhân hóa tối đa và bền vững cùng thời gian.
+                {tAbout('missionText')}
               </p>
             </motion.div>
           </div>
@@ -177,17 +172,17 @@ export default function About() {
               className="text-[#1A1A1A] mb-4"
               style={{ fontSize: '36px', fontFamily: 'Playfair Display, serif' }}
             >
-              Giá trị cốt lõi — Điều làm nên XPRESS
+              {tAbout('valuesHeading')}
             </h2>
             <div className="w-24 h-1 bg-[#D4AF37] mx-auto" />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
-              { icon: <Lightbulb size={32} />, title: "Sáng tạo", desc: "Không ngừng đổi mới, bứt phá mọi giới hạn trong thiết kế." },
-              { icon: <ShieldCheck size={32} />, title: "Chất lượng", desc: "Sử dụng vật liệu tốt nhất và quy trình kiểm soát nghiêm ngặt." },
-              { icon: <Users size={32} />, title: "Tận tâm", desc: "Lắng nghe và thấu hiểu mọi mong muốn nhỏ nhất của khách hàng." },
-              { icon: <Award size={32} />, title: "Uy tín", desc: "Cam kết đúng tiến độ và minh bạch trong mọi khâu triển khai." },
+              { icon: <Lightbulb size={32} />, titleKey: 'valueCreativityTitle' as const, descKey: 'valueCreativityDesc' as const },
+              { icon: <ShieldCheck size={32} />, titleKey: 'valueQualityTitle' as const, descKey: 'valueQualityDesc' as const },
+              { icon: <Users size={32} />, titleKey: 'valueCareTitle' as const, descKey: 'valueCareDesc' as const },
+              { icon: <Award size={32} />, titleKey: 'valueTrustTitle' as const, descKey: 'valueTrustDesc' as const },
             ].map((item, idx) => (
               <motion.div
                 key={idx}
@@ -201,10 +196,10 @@ export default function About() {
                   {item.icon}
                 </div>
                 <h4 className="text-[#1A1A1A] font-bold uppercase tracking-widest text-sm mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {item.title}
+                  {tAbout(item.titleKey)}
                 </h4>
                 <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                  {item.desc}
+                  {tAbout(item.descKey)}
                 </p>
               </motion.div>
             ))}
@@ -225,7 +220,7 @@ export default function About() {
               className="text-[#1A1A1A] mb-4"
               style={{ fontSize: '36px', fontFamily: 'Playfair Display, serif' }}
             >
-              Đội ngũ kiến trúc sư — Những người tạo nên khác biệt
+              {tAbout('teamHeading')}
             </h2>
             <div className="w-24 h-1 bg-[#D4AF37]" />
           </motion.div>
@@ -233,22 +228,22 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               { 
-                name: "Hồng Anh Tú", 
-                role: "Founder & Lead Architect", 
+                nameKey: 'team1Name' as const, 
+                roleKey: 'team1Role' as const, 
                 img: "https://images.unsplash.com/photo-1589127114212-b159197ebe6c",
-                desc: "Hơn 15 năm kinh nghiệm trong thiết kế biệt thự và penthouse cao cấp."
+                descKey: 'team1Desc' as const,
               },
               { 
-                name: "Nguyễn Mai Lan", 
-                role: "Senior Interior Designer", 
+                nameKey: 'team2Name' as const, 
+                roleKey: 'team2Role' as const, 
                 img: "https://images.unsplash.com/photo-1619799090425-0efe92bd62a7",
-                desc: "Phù thủy không gian với gu thẩm mỹ tinh tế, chuyên về Minimalist Style."
+                descKey: 'team2Desc' as const,
               },
               { 
-                name: "Trần Thế Vinh", 
-                role: "Technical Manager", 
+                nameKey: 'team3Name' as const, 
+                roleKey: 'team3Role' as const, 
                 img: "https://images.unsplash.com/photo-1765371512992-843e6a92d7e6",
-                desc: "Chuyên gia về giải pháp kỹ thuật và thi công công trình hiện đại."
+                descKey: 'team3Desc' as const,
               },
             ].map((member, idx) => (
               <motion.div
@@ -264,14 +259,14 @@ export default function About() {
                   <div className="w-full h-full rounded-full overflow-hidden shadow-xl border-4 border-white">
                     <ImageWithFallback
                       src={member.img}
-                      alt={member.name}
+                      alt={tAbout(member.nameKey)}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                     />
                   </div>
                 </div>
-                <h4 className="text-xl mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>{member.name}</h4>
-                <p className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-4">{member.role}</p>
-                <p className="text-gray-500 text-sm px-4 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>{member.desc}</p>
+                <h4 className="text-xl mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>{tAbout(member.nameKey)}</h4>
+                <p className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-4">{tAbout(member.roleKey)}</p>
+                <p className="text-gray-500 text-sm px-4 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>{tAbout(member.descKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -283,10 +278,10 @@ export default function About() {
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
             {[
-              { value: 10, suffix: "+", label: "Năm kinh nghiệm" },
-              { value: 200, suffix: "+", label: "Dự án hoàn thành" },
-              { value: 50, suffix: "+", label: "Đối tác chiến lược" },
-              { value: 15, suffix: "+", label: "Giải thưởng thiết kế" },
+              { value: 10, suffix: "+", labelKey: 'milestoneYears' as const },
+              { value: 200, suffix: "+", labelKey: 'milestoneProjects' as const },
+              { value: 50, suffix: "+", labelKey: 'milestonePartners' as const },
+              { value: 15, suffix: "+", labelKey: 'milestoneAwards' as const },
             ].map((milestone, idx) => (
               <div key={idx}>
                 <div 
@@ -296,7 +291,7 @@ export default function About() {
                   <Counter value={milestone.value} suffix={milestone.suffix} />
                 </div>
                 <p className="text-white/50 text-xs uppercase tracking-[0.2em] font-bold">
-                  {milestone.label}
+                  {tAbout(milestone.labelKey)}
                 </p>
               </div>
             ))}
@@ -320,16 +315,16 @@ export default function About() {
               className="text-[#1A1A1A] mb-8"
               style={{ fontSize: '32px', fontFamily: 'Playfair Display, serif' }}
             >
-              Bạn có dự án cần tư vấn?
+              {tAbout('ctaTitle')}
             </h2>
             <p className="text-gray-500 mb-12 text-lg" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Đừng ngần ngại liên hệ với XPRESS DESIGN để nhận được sự hỗ trợ tận tình từ đội ngũ kiến trúc sư chuyên nghiệp.
+              {tAbout('ctaBody')}
             </p>
             <Link 
               href="/contact"
               className="bg-[#D4AF37] text-white px-10 py-4 uppercase tracking-[0.2em] text-sm font-bold hover:bg-[#1A1A1A] transition-all duration-300 inline-flex items-center gap-4 group"
             >
-              Nhận tư vấn miễn phí
+              {tAbout('ctaButton')}
               <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
             </Link>
           </motion.div>

@@ -307,12 +307,28 @@ async function syncLocalizationLink(strapi, uid, fromId, toId) {
 }
 
 async function seedCategories(strapi) {
-  // Category không bật i18n → upsert theo `name`
+  // Category không bật i18n → upsert theo `name`; `name_en` phục vụ hiển thị locale en trên FE
   const data = [
-    { name: 'Kiến trúc', description: 'Bài viết về kiến trúc' },
-    { name: 'Nội thất', description: 'Bài viết về nội thất' },
-    { name: 'Cảnh quan', description: 'Bài viết về cảnh quan' },
-    { name: 'Kiến thức xây dựng', description: 'Kiến thức chuyên sâu về xây dựng & ánh sáng' },
+    {
+      name: 'Kiến trúc',
+      name_en: 'Architecture',
+      description: 'Bài viết về kiến trúc',
+    },
+    {
+      name: 'Nội thất',
+      name_en: 'Interiors',
+      description: 'Bài viết về nội thất',
+    },
+    {
+      name: 'Cảnh quan',
+      name_en: 'Landscape',
+      description: 'Bài viết về cảnh quan',
+    },
+    {
+      name: 'Kiến thức xây dựng',
+      name_en: 'Construction knowledge',
+      description: 'Kiến thức chuyên sâu về xây dựng & ánh sáng',
+    },
   ];
   const created = [];
   for (const d of data) {

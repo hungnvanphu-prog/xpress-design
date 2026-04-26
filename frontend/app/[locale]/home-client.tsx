@@ -66,28 +66,12 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
     },
   };
 
-  const services = [
-    {
-      num: "01",
-      title: "Thiết kế Kiến trúc",
-      desc: "Định hình không gian sống từ những nét vẽ đầu tiên, hài hòa với cảnh quan.",
-    },
-    {
-      num: "02",
-      title: "Thiết kế Nội thất",
-      desc: "Thổi hồn vào không gian bằng sự tinh tế của chất liệu và ánh sáng.",
-    },
-    {
-      num: "03",
-      title: "Thi công Trọn gói",
-      desc: "Hiện thực hóa bản vẽ với độ chính xác tuyệt đối và sự bền bỉ.",
-    },
-    {
-      num: "04",
-      title: "Cải tạo & Nâng cấp",
-      desc: "Khoác lên màu áo mới cho những giá trị kỷ niệm, nâng tầm lối sống.",
-    },
-  ];
+  const serviceKeys = [
+    "architecture",
+    "interior",
+    "construction",
+    "renovation",
+  ] as const;
 
   return (
     <div className="w-full relative bg-[#F8F9FA] text-[#1A1A1A] font-['Montserrat',sans-serif]">
@@ -111,7 +95,7 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
           >
             <img
               src="https://images.unsplash.com/photo-1764083029048-75497d17f7eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmFsJTIwbGlnaHQlMjBzaGFkb3clMjBtaW5pbWFsJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzc2MzUzNDE2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt="Architectural ambient light"
+              alt={tHome("heroImageAlt")}
               className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
             />
           </motion.div>
@@ -274,16 +258,16 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             transition={{ duration: 1.2, ease: CUSTOM_EASE }}
           >
             <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.2em] uppercase mb-12 block">
-              Triết lý thiết kế
+              {tHome("philosophyEyebrow")}
             </span>
             <h2 className="font-['Playfair_Display',serif] text-[32px] md:text-[52px] leading-[1.3] text-[#1A1A1A] font-medium mb-16">
-              "Chúng tôi tin rằng một không gian tốt không chỉ đẹp – mà phải phù hợp với cách bạn sống, làm việc và tận hưởng cuộc sống."
+              {tHome("philosophyQuote")}
             </h2>
             <Link
               href="/about"
               className="inline-flex items-center gap-2 text-[#1A1A1A] font-bold text-[11px] uppercase tracking-[0.2em] hover:text-[#D4AF37] transition-colors pb-2 border-b border-[#1A1A1A] hover:border-[#D4AF37] group"
             >
-              Tìm hiểu câu chuyện{" "}
+              {tHome("philosophyCta")}{" "}
               <ArrowRight
                 size={16}
                 className="group-hover:translate-x-1 transition-transform"
@@ -304,17 +288,17 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             className="mb-16 md:mb-24"
           >
             <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block">
-              Dịch vụ
+              {tHome("servicesEyebrow")}
             </span>
             <h2 className="font-['Playfair_Display',serif] text-[36px] md:text-[56px] text-[#1A1A1A] font-medium">
-              Giải pháp toàn diện
+              {tHome("servicesTitle")}
             </h2>
           </motion.div>
 
           <div className="border-t border-gray-200">
-            {services.map((service, index) => (
+            {serviceKeys.map((key, index) => (
               <motion.div
-                key={index}
+                key={key}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -330,14 +314,14 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
                   className="flex flex-col md:flex-row md:items-center py-10 md:py-14 gap-6 md:gap-12 cursor-pointer"
                 >
                   <span className="text-gray-300 font-['Playfair_Display',serif] text-3xl md:text-5xl group-hover:text-[#D4AF37] transition-colors duration-500 w-[80px]">
-                    {service.num}
+                    {tHome(`services.${key}.num`)}
                   </span>
                   <div className="flex-1">
                     <h3 className="text-[28px] md:text-[40px] font-['Playfair_Display',serif] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors duration-500">
-                      {service.title}
+                      {tHome(`services.${key}.title`)}
                     </h3>
                     <p className="text-[#4A4A4A] text-[15px] font-light max-w-xl leading-relaxed">
-                      {service.desc}
+                      {tHome(`services.${key}.desc`)}
                     </p>
                   </div>
                   <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full border border-gray-200 group-hover:border-[#D4AF37] group-hover:bg-[#D4AF37] transition-all duration-500">
@@ -365,18 +349,19 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
           >
             <div>
               <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block">
-                Góc nhìn chuyên gia
+                {tHome("insightsEyebrow")}
               </span>
               <h2 className="font-['Playfair_Display',serif] text-[36px] md:text-[56px] text-[#1A1A1A] font-medium leading-tight">
-                Kiến thức &<br />
-                Xu hướng thiết kế
+                {tHome("insightsTitleLine1")}
+                <br />
+                {tHome("insightsTitleLine2")}
               </h2>
             </div>
             <Link
               href="/insights"
               className="inline-flex items-center gap-2 text-[#1A1A1A] text-[11px] font-bold uppercase tracking-[0.15em] hover:text-[#D4AF37] transition-colors pb-1 border-b border-transparent hover:border-[#D4AF37] group"
             >
-              Xem tất cả{" "}
+              {tHome("insightsViewAll")}{" "}
               <ArrowRight
                 size={14}
                 className="group-hover:translate-x-1 transition-transform"
@@ -402,24 +387,20 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               >
                 <img
                   src="https://images.unsplash.com/photo-1595939465372-9ffed94dd4dd?q=80&w=1080"
-                  alt="Gỗ tái chế"
+                  alt={tHome("insights.card1.imageAlt")}
                   className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
-                {locale === "en" ? "Sustainability" : "Kiến trúc 2025"}
+                {tHome("insights.card1.category")}
               </span>
               <Link href={`/insights/${insightSlugs[0]}`}>
                 <h3 className="font-['Playfair_Display',serif] text-[24px] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors leading-snug font-medium">
-                  {locale === "en"
-                    ? "5 Sustainable Architecture Trends 2025"
-                    : "5 xu hướng kiến trúc bền vững 2025"}
+                  {tHome("insights.card1.title")}
                 </h3>
               </Link>
               <p className="text-[#4A4A4A] text-[15px] leading-relaxed font-light">
-                {locale === "en"
-                  ? "A round-up of five green building approaches we apply most in tropical work."
-                  : "Năm hướng tiếp cận kiến trúc bền vững tại dự án nhiệt đới, từ mặt động tới cây cấu trúc."}
+                {tHome("insights.card1.desc")}
               </p>
             </motion.article>
 
@@ -434,24 +415,20 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               >
                 <img
                   src="https://images.unsplash.com/photo-1729335009895-bfe50bae5922?q=80&w=1080"
-                  alt="Nội thất tối giản"
+                  alt={tHome("insights.card2.imageAlt")}
                   className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
-                {locale === "en" ? "Interiors" : "Nội thất"}
+                {tHome("insights.card2.category")}
               </span>
               <Link href={`/insights/${insightSlugs[1]}`}>
                 <h3 className="font-['Playfair_Display',serif] text-[24px] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors leading-snug font-medium">
-                  {locale === "en"
-                    ? "Minimal Interior: Less to Breathe More"
-                    : "Nội thất tối giản: ít hơn để thở nhiều hơn"}
+                  {tHome("insights.card2.title")}
                 </h3>
               </Link>
               <p className="text-[#4A4A4A] text-[15px] leading-relaxed font-light">
-                {locale === "en"
-                  ? "Proportion, palette and light — what really defines calm rooms."
-                  : "Tỷ lệ không gian, bảng màu, ánh sáng: ba lớp của phong cách tĩnh lặng."}
+                {tHome("insights.card2.desc")}
               </p>
             </motion.article>
 
@@ -466,24 +443,20 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
               >
                 <img
                   src="https://images.unsplash.com/photo-1597280683904-95d07f4237eb?q=80&w=1080"
-                  alt="Cảnh quan đô thị"
+                  alt={tHome("insights.card3.imageAlt")}
                   className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
-                {locale === "en" ? "Landscape" : "Cảnh quan"}
+                {tHome("insights.card3.category")}
               </span>
               <Link href={`/insights/${insightSlugs[2]}`}>
                 <h3 className="font-['Playfair_Display',serif] text-[24px] text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors leading-snug font-medium">
-                  {locale === "en"
-                    ? "Urban landscape & micro-climate"
-                    : "Cảnh quan đô thị và vi khí hậu: tạo ra sự dễ chịu thật sự"}
+                  {tHome("insights.card3.title")}
                 </h3>
               </Link>
               <p className="text-[#4A4A4A] text-[15px] leading-relaxed font-light">
-                {locale === "en"
-                  ? "Shade layers, wind paths and cool pavements along dense streets."
-                  : "Bóng cây, dẫn gió, vỉa phản nhiệt — giảm nhiệt cảm nhận ở khu công cộng."}
+                {tHome("insights.card3.desc")}
               </p>
             </motion.article>
           </motion.div>
@@ -500,20 +473,18 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             transition={{ duration: 1.2, ease: CUSTOM_EASE }}
           >
             <h2 className="font-['Playfair_Display',serif] text-[40px] md:text-[64px] font-medium mb-10 leading-[1.1]">
-              Bạn đã sẵn sàng viết tiếp
+              {tHome("finalCtaTitleLine1")}
               <br />
-              câu chuyện của mình?
+              {tHome("finalCtaTitleLine2")}
             </h2>
             <p className="text-white/70 text-[16px] md:text-[20px] font-light mb-16 max-w-2xl mx-auto">
-              Hãy để chúng tôi đồng hành cùng bạn trong hành
-              trình kiến tạo không gian sống mơ ước, nơi mỗi góc
-              nhỏ đều mang đậm dấu ấn cá nhân.
+              {tHome("finalCtaBody")}
             </p>
             <Link
               href="/contact"
               className="group relative inline-flex items-center justify-center bg-[#D4AF37] text-[#1A1A1A] px-12 py-5 uppercase tracking-[0.2em] text-[13px] font-bold overflow-hidden transition-all duration-500 hover:bg-white hover:scale-105"
             >
-              <span>Liên hệ tư vấn</span>
+              <span>{tHome("finalCtaButton")}</span>
             </Link>
           </motion.div>
         </div>

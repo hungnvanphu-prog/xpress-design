@@ -4,25 +4,33 @@ import React, { useState } from 'react';
 import { Facebook, Instagram } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'motion/react';
+import { useLocale, useTranslations } from 'next-intl';
+import { api } from '@/lib/api';
 
 const QUICK_LINKS = [
-  { name: 'Về chúng tôi', href: '/about' },
-  { name: 'Dự án', href: '/projects' },
-  { name: 'Dịch vụ', href: '/services' },
-  { name: 'Góc nhìn', href: '/insights' },
-  { name: 'Tin tức', href: '/news' },
-  { name: 'Liên hệ', href: '/contact' },
-];
+  { href: '/about', navKey: 'about' },
+  { href: '/projects', navKey: 'projects' },
+  { href: '/services', navKey: 'services' },
+  { href: '/insights', navKey: 'insights' },
+  { href: '/news', navKey: 'news' },
+  { href: '/contact', navKey: 'contact' },
+] as const;
 
-const SERVICES = [
-  'Thiết kế Kiến trúc',
-  'Thiết kế Nội thất',
-  'Thi công trọn gói',
-  'Cải tạo',
-];
+const SERVICE_ITEMS = [
+  { msgKey: 'serviceArchitecture' as const },
+  { msgKey: 'serviceInterior' as const },
+  { msgKey: 'serviceTurnkey' as const },
+  { msgKey: 'serviceRenovation' as const },
+] as const;
 
 export const Footer: React.FC = () => {
+  const t = useTranslations('Footer');
+  const tNav = useTranslations('Nav');
+  const locale = useLocale();
   const [email, setEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<
+    'idle' | 'loading' | 'ok' | 'error'
+  >('idle');
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,12 +47,26 @@ export const Footer: React.FC = () => {
 
   const fontMont = { fontFamily: 'Montserrat, sans-serif' } as const;
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    console.log('Subscribe:', email);
-    setEmail('');
+    const em = email.trim();
+    if (!em) return;
+    setNewsletterStatus('loading');
+    try {
+      await api.cmsInsightSignup({
+        email: em,
+        source: 'insights_footer',
+        locale,
+      });
+      setEmail('');
+      setNewsletterStatus('ok');
+      setTimeout(() => setNewsletterStatus('idle'), 4000);
+    } catch {
+      setNewsletterStatus('error');
+    }
   };
+
+  const year = new Date().getFullYear();
 
   return (
     <footer className="bg-[#1A1A1A] text-white py-20 px-6 overflow-hidden">
@@ -64,13 +86,13 @@ export const Footer: React.FC = () => {
                 className="font-bold uppercase tracking-[0.05em] text-white"
                 style={{ ...fontMont, fontSize: '22px' }}
               >
-                Xpress Design
+                {t('brandName')}
               </span>
               <span
                 className="font-medium uppercase tracking-[0.2em] text-white/60 ml-2"
                 style={{ ...fontMont, fontSize: '10px' }}
               >
-                Architecture &amp; Interior
+                {t('brandSubtitle')}
               </span>
             </div>
 
@@ -78,33 +100,34 @@ export const Footer: React.FC = () => {
               className="text-white/55 leading-relaxed max-w-xs mb-6"
               style={{ ...fontMont, fontSize: '13px' }}
             >
-              Giải pháp kiến trúc &amp; nội thất lấy con người làm trung tâm. Chúng tôi kiến tạo không gian, kiến tạo giá trị bền vững cho cuộc sống.
+              {t('tagline')}
             </p>
 
             <address
               className="not-italic text-white/55 leading-relaxed mb-4"
               style={{ ...fontMont, fontSize: '13px' }}
             >
-              Tòa nhà XPRESS, 123 Đường Nguyễn Huệ<br />
-              Quận 1, TP. Hồ Chí Minh
+              {t('addressLine1')}
+              <br />
+              {t('addressLine2')}
             </address>
 
             <p className="text-white/55 mb-2" style={{ ...fontMont, fontSize: '13px' }}>
-              Email:{' '}
+              {t('emailLabel')}{' '}
               <a
-                href="mailto:contact@xpressdesign.com"
+                href={`mailto:${t('email')}`}
                 className="text-white/70 hover:text-[#D4AF37] transition-colors"
               >
-                contact@xpressdesign.com
+                {t('email')}
               </a>
             </p>
             <p
               className="text-[#D4AF37] font-bold"
               style={{ ...fontMont, fontSize: '14px' }}
             >
-              Hotline:{' '}
-              <a href="tel:0900123456" className="hover:underline">
-                0900 123 456
+              {t('hotlineLabel')}{' '}
+              <a href={`tel:${t('hotlineTel')}`} className="hover:underline">
+                {t('hotlineDisplay')}
               </a>
             </p>
           </motion.div>
@@ -115,17 +138,17 @@ export const Footer: React.FC = () => {
               className="text-white mb-8 uppercase tracking-[0.2em] font-bold"
               style={{ ...fontMont, fontSize: '14px' }}
             >
-              Liên kết nhanh
+              {t('quickLinksTitle')}
             </h4>
             <ul className="space-y-4">
               {QUICK_LINKS.map((item) => (
-                <li key={item.name}>
+                <li key={item.href}>
                   <Link
                     href={item.href}
                     className="text-white/55 hover:text-[#D4AF37] transition-colors duration-300"
                     style={{ ...fontMont, fontSize: '13px' }}
                   >
-                    {item.name}
+                    {tNav(item.navKey)}
                   </Link>
                 </li>
               ))}
@@ -138,18 +161,18 @@ export const Footer: React.FC = () => {
               className="text-white mb-8 uppercase tracking-[0.2em] font-bold"
               style={{ ...fontMont, fontSize: '14px' }}
             >
-              Dịch vụ
+              {t('servicesTitle')}
             </h4>
             <ul className="space-y-4">
-              {SERVICES.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
+              {SERVICE_ITEMS.map((item) => (
+                <li key={item.msgKey}>
+                  <Link
+                    href="/services"
                     className="text-white/55 hover:text-[#D4AF37] transition-colors duration-300"
                     style={{ ...fontMont, fontSize: '13px' }}
                   >
-                    {item}
-                  </a>
+                    {t(item.msgKey)}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -161,30 +184,30 @@ export const Footer: React.FC = () => {
               className="text-white mb-6 uppercase tracking-[0.2em] font-bold"
               style={{ ...fontMont, fontSize: '14px' }}
             >
-              Kết nối với chúng tôi
+              {t('connectTitle')}
             </h4>
             <div className="flex items-center space-x-3 mb-10">
               <a
                 href="#"
-                aria-label="Facebook"
+                aria-label={t('ariaFacebook')}
                 className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors"
               >
                 <Facebook size={16} />
               </a>
               <a
                 href="#"
-                aria-label="Instagram"
+                aria-label={t('ariaInstagram')}
                 className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors"
               >
                 <Instagram size={16} />
               </a>
               <a
                 href="#"
-                aria-label="Zalo"
+                aria-label={t('zaloButton')}
                 className="px-4 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center text-[#1A1A1A] font-bold hover:brightness-110 transition"
                 style={{ ...fontMont, fontSize: '12px' }}
               >
-                Zalo
+                {t('zaloButton')}
               </a>
             </div>
 
@@ -192,26 +215,39 @@ export const Footer: React.FC = () => {
               className="text-white mb-6 uppercase tracking-[0.2em] font-bold"
               style={{ ...fontMont, fontSize: '14px' }}
             >
-              Đăng ký nhận tin
+              {t('newsletterTitle')}
             </h4>
+            {newsletterStatus === 'ok' ? (
+              <p className="text-[#D4AF37] text-[13px] mb-2" style={fontMont}>
+                {t('newsletterThanks')}
+              </p>
+            ) : null}
+            {newsletterStatus === 'error' ? (
+              <p className="text-red-300 text-[13px] mb-2" style={fontMont}>
+                {t('newsletterError')}
+              </p>
+            ) : null}
             <form
               onSubmit={handleSubscribe}
               className="w-full flex items-center border-b border-white/20 focus-within:border-[#D4AF37] transition-colors"
             >
               <input
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Nhập email của bạn..."
-                className="flex-1 bg-transparent py-2 text-white/80 placeholder:text-white/40 focus:outline-none"
+                placeholder={t('newsletterPlaceholder')}
+                disabled={newsletterStatus === 'loading'}
+                className="flex-1 bg-transparent py-2 text-white/80 placeholder:text-white/40 focus:outline-none disabled:opacity-60"
                 style={{ ...fontMont, fontSize: '13px' }}
               />
               <button
                 type="submit"
-                className="px-2 py-2 text-white/70 hover:text-[#D4AF37] uppercase tracking-[0.2em] font-bold transition-colors"
+                disabled={newsletterStatus === 'loading'}
+                className="px-2 py-2 text-white/70 hover:text-[#D4AF37] uppercase tracking-[0.2em] font-bold transition-colors disabled:opacity-60"
                 style={{ ...fontMont, fontSize: '11px' }}
               >
-                Gửi
+                {newsletterStatus === 'loading' ? t('newsletterSending') : t('newsletterSubmit')}
               </button>
             </form>
           </motion.div>
@@ -227,7 +263,7 @@ export const Footer: React.FC = () => {
             className="text-white/40 uppercase tracking-[0.25em]"
             style={{ ...fontMont, fontSize: '11px' }}
           >
-            © 2025 XPRESS DESIGN — All rights reserved
+            {t('copyright', { year })}
           </p>
         </motion.div>
       </motion.div>

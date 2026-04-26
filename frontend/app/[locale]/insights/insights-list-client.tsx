@@ -207,7 +207,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
         <div className="absolute inset-0">
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1758565811522-86b7ba4d5300?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB2aWxsYSUyMHBvb2wlMjBvcGVuJTIwbGl2aW5nJTIwcm9vbXxlbnwxfHx8fDE3NzYyNDMxNjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Insights Hero"
+            alt={t('heroImageAlt')}
             className="w-full h-full object-cover scale-105 opacity-40 mix-blend-luminosity"
           />
         </div>
@@ -218,13 +218,15 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
           >
             <span className="text-[#D4AF37] text-[12px] uppercase tracking-[0.3em] font-bold mb-6 block">
-              Thought Leadership
+              {t('heroEyebrow')}
             </span>
             <h1 className="text-white mb-8 text-[40px] md:text-[56px] leading-[1.2] font-medium" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Góc nhìn — <br className="hidden md:block" />Kiến tạo không gian bền vững
+              {t('heroTitleBeforeBreak')}{' '}
+              <br className="hidden md:block" />
+              {t('heroTitleAfterBreak')}
             </h1>
             <p className="text-white/80 text-[16px] md:text-[18px] leading-[1.8] font-light max-w-3xl mx-auto" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Nghiên cứu, xu hướng và kiến thức chuyên sâu từ đội ngũ kiến trúc sư của XPRESS DESIGN. Chúng tôi không chỉ thiết kế không gian, chúng tôi kiến tạo giá trị.
+              {t('heroSubtitle')}
             </p>
           </motion.div>
         </div>
@@ -294,15 +296,15 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
               
               <div className="inline-flex items-center gap-2 bg-[#D4AF37] text-[#1A1A1A] text-[10px] font-bold uppercase tracking-[0.2em] mb-8 px-4 py-2 w-max">
-                BÁO CÁO ĐẶC BIỆT
+                {t('reportBadge')}
               </div>
               
               <h2 className="text-3xl md:text-[40px] text-white mb-6 leading-[1.2] font-medium" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Báo cáo Xu hướng Nội thất 2026
+                {t('reportTitle')}
               </h2>
               
               <p className="text-white/70 text-[15px] mb-10 leading-[1.8] font-light" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                15 xu hướng thiết kế nội thất nổi bật, phân tích từ 200+ dự án
+                {t('reportSubtitle')}
               </p>
               
               {signupError ? (
@@ -315,7 +317,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                     required
                     value={reportEmail}
                     onChange={(e) => setReportEmail(e.target.value)}
-                    placeholder="Nhập địa chỉ email của bạn..."
+                    placeholder={t('reportEmailPlaceholder')}
                     className="w-full bg-white/5 border border-white/20 text-white px-6 py-4 outline-none focus:border-[#D4AF37] transition-colors text-[14px] font-light placeholder:text-white/40"
                     style={{ fontFamily: 'Montserrat, sans-serif' }}
                     disabled={reportLoading}
@@ -327,27 +329,27 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                   className="bg-[#D4AF37] text-[#1A1A1A] px-8 py-4 uppercase tracking-[0.15em] text-[12px] font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60"
                 >
                   {reportOk ? <CheckCircle2 size={16} /> : reportLoading ? null : <Download size={16} />}
-                  {reportOk ? t('signupReportOk') : reportLoading ? t('signupSending') : 'Tải báo cáo miễn phí'}
+                  {reportOk ? t('signupReportOk') : reportLoading ? t('signupSending') : t('reportDownloadCta')}
                 </button>
               </form>
               <p className="text-white/40 text-[11px] mt-4 font-light flex items-center gap-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                <CheckCircle2 size={12} className="text-[#D4AF37]" /> Cam kết không spam, tài liệu sẽ được gửi trực tiếp qua email.
+                <CheckCircle2 size={12} className="text-[#D4AF37]" /> {t('reportSpamNote')}
               </p>
             </div>
             
             <div className="lg:w-1/2 relative h-[400px] lg:h-auto bg-[#2A2A2A]">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB2aWxsYSUyMGV4dGVyaW9yfGVufDF8fHx8MTc3NjI0MzM1Mnww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Report Cover"
+                alt={t('reportCoverAlt')}
                 className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-80"
               />
               {/* Mockup Book UI Overlay */}
               <div className="absolute inset-0 flex items-center justify-center p-12">
                 <div className="w-[280px] h-[380px] bg-white shadow-2xl flex flex-col border-l-[12px] border-[#1A1A1A] relative rotate-[-5deg] hover:rotate-0 transition-transform duration-700 ease-out origin-bottom-left cursor-pointer">
                   <div className="p-8 flex flex-col h-full bg-[#F8F9FA]">
-                    <span className="text-[#D4AF37] text-[8px] font-bold tracking-[0.2em] mb-4">XPRESS DESIGN</span>
-                    <h3 className="font-['Playfair_Display',serif] text-2xl text-[#1A1A1A] leading-tight mb-auto">
-                      Trend Report:<br/>Living Space 2026
+                    <span className="text-[#D4AF37] text-[8px] font-bold tracking-[0.2em] mb-4">{t('reportMockBrand')}</span>
+                    <h3 className="font-['Playfair_Display',serif] text-2xl text-[#1A1A1A] leading-tight mb-auto whitespace-pre-line">
+                      {t('reportMockTitle')}
                     </h3>
                     <div className="w-8 h-[2px] bg-[#D4AF37] mt-8" />
                   </div>
@@ -419,21 +421,23 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
         <div className="max-w-[1440px] mx-auto px-6 md:px-12">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-[#D4AF37] text-[11px] uppercase tracking-[0.2em] font-bold mb-4 block">
-              Hiệu quả được chứng minh
+              {t('researchEyebrow')}
             </span>
             <h2 className="text-[28px] md:text-[36px] text-[#1A1A1A] leading-[1.2] font-medium mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Nghiên cứu của chúng tôi —<br/>Dữ liệu từ 200+ dự án thực tế
+              {t('researchTitleLine1')}
+              <br />
+              {t('researchTitleLine2')}
             </h2>
             <p className="text-[#4A4A4A] text-[15px] font-light" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Tại XPRESS DESIGN, mọi giải pháp thiết kế đều được xây dựng dựa trên sự thấu hiểu nhu cầu thực tế và được chứng minh bằng các chỉ số đo lường hiệu năng rõ ràng.
+              {t('researchBody')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: TrendingUp, value: "92%", text: "Khách hàng hài lòng với giải pháp ánh sáng" },
-              { icon: Zap, value: "35%", text: "Tiết kiệm trung bình 35% điện năng" },
-              { icon: CheckCircle2, value: "100%", text: "Dự án bàn giao đúng tiến độ" }
+              { icon: TrendingUp, value: t('stat1Value'), text: t('stat1Text') },
+              { icon: Zap, value: t('stat2Value'), text: t('stat2Text') },
+              { icon: CheckCircle2, value: t('stat3Value'), text: t('stat3Text') },
             ].map((stat, idx) => (
               <motion.div 
                 key={idx}
@@ -487,20 +491,20 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <span className="inline-flex items-center gap-2 text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border border-[#D4AF37]/30 px-3 py-1">
-                <PlayCircle size={14} /> XPRESS Masterclass
+                <PlayCircle size={14} /> {t('webinarBadge')}
               </span>
               <h2 className="text-[32px] md:text-[40px] leading-[1.2] font-medium mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Webinar: Nghệ thuật tổ chức không gian mở cho Biệt thự phố
+                {t('webinarTitle')}
               </h2>
               <p className="text-white/70 text-[15px] font-light leading-[1.8] mb-8" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                Trong số XPRESS Masterclass tháng này, KTS trưởng Lê Anh sẽ chia sẻ bí quyết giải quyết bài toán "kết nối nhưng vẫn riêng tư" - một trong những thách thức lớn nhất khi thiết kế không gian mở cho các căn biệt thự có diện tích hạn chế tại trung tâm thành phố.
+                {t('webinarBody')}
               </p>
               <div className="flex flex-wrap gap-6 text-[12px] font-medium tracking-wider mb-10 text-white/90">
-                <span className="flex items-center gap-2"><Calendar size={16} className="text-[#D4AF37]" /> Thời lượng: 12 phút</span>
-                <span className="flex items-center gap-2"><User size={16} className="text-[#D4AF37]" /> Diễn giả: KTS Lê Anh</span>
+                <span className="flex items-center gap-2"><Calendar size={16} className="text-[#D4AF37]" /> {t('webinarDurationLabel')} {t('webinarDurationValue')}</span>
+                <span className="flex items-center gap-2"><User size={16} className="text-[#D4AF37]" /> {t('webinarSpeakerLabel')} {t('webinarSpeakerValue')}</span>
               </div>
-              <button className="bg-transparent border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] px-8 py-4 uppercase tracking-[0.15em] text-[12px] font-bold transition-all duration-300">
-                Xem toàn bộ series
+              <button type="button" className="bg-transparent border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] px-8 py-4 uppercase tracking-[0.15em] text-[12px] font-bold transition-all duration-300">
+                {t('webinarCta')}
               </button>
             </motion.div>
             
@@ -510,7 +514,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
             >
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg"
-                alt="Webinar Thumbnail"
+                alt={t('webinarThumbAlt')}
                 className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
               />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -527,8 +531,8 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
       <section className="py-24 bg-[#1A1A1A] text-white">
         <div className="max-w-[1440px] mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-[32px] md:text-[40px] text-white mb-4 font-medium" style={{ fontFamily: 'Playfair Display, serif' }}>Đăng ký nhận bản tin — Cập nhật xu hướng mỗi tháng</h2>
-            <p className="text-white/60 mb-12 text-[14px] uppercase tracking-widest font-semibold" style={{ fontFamily: 'Montserrat, sans-serif' }}>Đừng bỏ lỡ những chia sẻ chuyên môn từ các chuyên gia.</p>
+            <h2 className="text-[32px] md:text-[40px] text-white mb-4 font-medium" style={{ fontFamily: 'Playfair Display, serif' }}>{t('newsletterTitle')}</h2>
+            <p className="text-white/60 mb-12 text-[14px] uppercase tracking-widest font-semibold" style={{ fontFamily: 'Montserrat, sans-serif' }}>{t('newsletterSubtitle')}</p>
             <form className="flex flex-col gap-4" onSubmit={handleFooterSubscribe}>
               <div className="flex flex-col sm:flex-row gap-4">
                 <input 
@@ -537,7 +541,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                   name="footerName"
                   value={footerName}
                   onChange={(e) => setFooterName(e.target.value)}
-                  placeholder="Họ tên của bạn..."
+                  placeholder={t('newsletterNamePlaceholder')}
                   className="flex-1 px-8 py-4 bg-[#2A2A2A] border border-white/10 outline-none focus:border-[#D4AF37] text-white text-[14px] transition-colors"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
                   disabled={footerLoading}
@@ -548,7 +552,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                   name="footerEmail"
                   value={footerEmail}
                   onChange={(e) => setFooterEmail(e.target.value)}
-                  placeholder="Địa chỉ Email..."
+                  placeholder={t('newsletterEmailPlaceholder')}
                   className="flex-1 px-8 py-4 bg-[#2A2A2A] border border-white/10 outline-none focus:border-[#D4AF37] text-white text-[14px] transition-colors"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
                   disabled={footerLoading}
@@ -559,11 +563,11 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                 disabled={footerLoading}
                 className="bg-[#D4AF37] text-[#1A1A1A] w-full px-10 py-5 uppercase tracking-[0.2em] text-[12px] font-bold hover:bg-white transition-all duration-300 disabled:opacity-60"
               >
-                {footerOk ? t('signupFooterOk') : footerLoading ? t('signupSending') : 'Đăng ký'}
+                {footerOk ? t('signupFooterOk') : footerLoading ? t('signupSending') : t('newsletterSubmit')}
               </button>
             </form>
             <p className="text-white/40 text-[11px] mt-6 font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Bằng việc đăng ký, bạn đồng ý nhận email từ XPRESS DESIGN. Bạn có thể hủy đăng ký bất cứ lúc nào.
+              {t('newsletterLegal')}
             </p>
           </div>
         </div>
