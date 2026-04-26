@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
@@ -8,46 +8,39 @@ import { useSearchParams } from 'next/navigation';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { ArrowRight } from 'lucide-react';
 import type { toUiProject } from '@/lib/cms-transform';
+import ListPagination from '@/components/ListPagination';
 
 type UiProject = ReturnType<typeof toUiProject>;
 
 interface Props {
   projects: UiProject[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+  category: string;
 }
 
 const FILTER_KEYS = ['all', 'residential', 'commercial', 'public', 'interior', 'landscape'] as const;
 type FilterKey = (typeof FILTER_KEYS)[number];
 
-export default function ProjectsClient({ projects }: Props) {
+export default function ProjectsClient(props: Props) {
   return (
     <Suspense fallback={null}>
-      <Portfolio projects={projects} />
+      <Portfolio {...props} />
     </Suspense>
   );
 }
 
-function Portfolio({ projects }: Props) {
+function Portfolio({ projects, pagination, category: categoryProp }: Props) {
   const tProj = useTranslations('Projects');
   const tCommon = useTranslations('Common');
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const currentCategory = (searchParams.get('category') || 'all') as FilterKey;
-
-  // Chỉ hiển thị filter có dữ liệu (không hiện tab rỗng)
-  const availableFilters = useMemo<FilterKey[]>(() => {
-    const present = new Set<FilterKey>(['all']);
-    projects.forEach((p) => {
-      const key = (p.projectType as FilterKey | undefined) ?? 'residential';
-      if ((FILTER_KEYS as readonly string[]).includes(key)) present.add(key);
-    });
-    return FILTER_KEYS.filter((k) => present.has(k));
-  }, [projects]);
-
-  const filteredProjects = useMemo(() => {
-    if (currentCategory === 'all') return projects;
-    return projects.filter((p) => p.projectType === currentCategory);
-  }, [currentCategory, projects]);
+  const currentCategory = ((searchParams.get('category') || categoryProp || 'all') as FilterKey) || 'all';
 
   const handleFilter = (cat: FilterKey) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -56,6 +49,7 @@ function Portfolio({ projects }: Props) {
     } else {
       newParams.set('category', cat);
     }
+    newParams.delete('page');
     const qs = newParams.toString();
     router.push(qs ? `${pathname}?${qs}` : pathname);
   };
@@ -93,7 +87,7 @@ function Portfolio({ projects }: Props) {
       {/* Elegant Filter */}
       <section className="sticky top-[80px] z-30 bg-white/90 backdrop-blur-md border-b border-gray-100 py-6 transition-all duration-300">
         <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-wrap items-center justify-center gap-8 md:gap-16">
-          {availableFilters.map((cat) => (
+          {FILTER_KEYS.map((cat) => (
             <button
               key={cat}
               onClick={() => handleFilter(cat)}
@@ -118,7 +112,7 @@ function Portfolio({ projects }: Props) {
       <section className="py-24 px-6 md:px-12 max-w-[1440px] mx-auto">
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <motion.div
                 key={project.id}
                 layout
@@ -181,7 +175,15 @@ function Portfolio({ projects }: Props) {
           </AnimatePresence>
         </motion.div>
 
-        {filteredProjects.length === 0 && (
+        <ListPagination
+          page={pagination.page}
+          pageCount={pagination.pageCount}
+          extraParams={{
+            ...(currentCategory !== 'all' ? { category: currentCategory } : {}),
+          }}
+        />
+
+        {projects.length === 0 && (
           <div className="py-32 text-center">
             <p
               className="text-[24px] text-[#1A1A1A] mb-4"

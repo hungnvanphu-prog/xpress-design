@@ -7,6 +7,7 @@ import { Link } from '@/i18n/navigation';
 import { PageHero } from '@/components/PageHero';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { UiNewsListItem } from '@/lib/cms-article-news';
+import ListPagination from '@/components/ListPagination';
 
 type NewsTypeKey = 'news' | 'event' | 'community';
 
@@ -16,7 +17,13 @@ const typeTKey: Record<NewsTypeKey, 'typeNews' | 'typeEvent' | 'typeCommunity'> 
   community: 'typeCommunity',
 };
 
-export default function NewsListClient({ items }: { items: UiNewsListItem[] }) {
+export default function NewsListClient({
+  items,
+  pagination,
+}: {
+  items: UiNewsListItem[];
+  pagination: { page: number; pageSize: number; pageCount: number; total: number };
+}) {
   const tNav = useTranslations('Nav');
   const tPage = useTranslations('PageTitles');
   const tTag = useTranslations('HeroTaglines');
@@ -102,6 +109,7 @@ export default function NewsListClient({ items }: { items: UiNewsListItem[] }) {
           })}
         </div>
         )}
+        <ListPagination page={pagination.page} pageCount={pagination.pageCount} />
       </section>
 
     </div>

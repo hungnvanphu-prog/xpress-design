@@ -21,7 +21,13 @@
     "discover": "Khám phá không gian",
     "language": "Ngôn ngữ",
     "vietnamese": "Tiếng Việt",
-    "english": "English"
+    "english": "English",
+    "pagination": {
+      "prev": "Trang trước",
+      "next": "Trang sau",
+      "pageOf": "Trang {current} / {total}",
+      "ariaLabel": "Phân trang"
+    }
   },
   "PageTitles": {
     "projects": "Dự án",

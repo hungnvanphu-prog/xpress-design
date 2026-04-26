@@ -17,6 +17,33 @@ export const CMS_URL = isServer
 
 type FetchOptions = RequestInit & { revalidate?: number };
 
+export type CmsPaginationOpts = {
+  page?: number;
+  pageSize?: number;
+};
+
+function appendStrapiPagination(q: URLSearchParams, opts?: CmsPaginationOpts) {
+  if (opts?.page != null) q.set('pagination[page]', String(Math.max(1, opts.page)));
+  if (opts?.pageSize != null) q.set('pagination[pageSize]', String(Math.max(1, opts.pageSize)));
+}
+
+export function readCmsPagination(meta: unknown): {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+} {
+  const m = meta as { pagination?: Record<string, number> } | undefined;
+  const p = m?.pagination;
+  const pageCount = Math.max(1, Number(p?.pageCount) || 1);
+  return {
+    page: Math.max(1, Number(p?.page) || 1),
+    pageSize: Math.max(1, Number(p?.pageSize) || 25),
+    pageCount,
+    total: Math.max(0, Number(p?.total) || 0),
+  };
+}
+
 async function request<T>(base: string, path: string, opts: FetchOptions = {}): Promise<T> {
   const { revalidate, ...rest } = opts;
   const res = await fetch(`${base}${path}`, {
@@ -61,12 +88,17 @@ export const api = {
     request(API_URL, '/newsletter', { method: 'POST', body: JSON.stringify({ email }) }),
 
   // CMS proxy qua Nest (bảo mật hơn gọi thẳng Strapi từ FE)
-  cmsProjects: (locale?: string) =>
-    request<{ data: any[]; meta?: any }>(
-      API_URL,
-      `/cms/projects${locale ? `?locale=${encodeURIComponent(locale)}` : ''}`,
-      { revalidate: 60 },
-    ),
+  cmsProjects: (locale?: string, opts?: CmsPaginationOpts & { category?: string }) => {
+    const q = new URLSearchParams();
+    if (locale) q.set('locale', locale);
+    q.set('populate', '*');
+    q.set('sort', 'publishedAt:desc');
+    appendStrapiPagination(q, opts);
+    if (opts?.category && opts.category !== 'all') {
+      q.set('filters[project_type][$eq]', opts.category);
+    }
+    return request<{ data: any[]; meta?: any }>(API_URL, `/cms/projects?${q}`, { revalidate: 60 });
+  },
 
   cmsProjectBySlug: (slug: string, locale?: string) =>
     request<{ data: any[]; meta?: any }>(
@@ -77,11 +109,12 @@ export const api = {
       { revalidate: 60 },
     ),
 
-  cmsArticles: (locale?: string) => {
+  cmsArticles: (locale?: string, opts?: CmsPaginationOpts) => {
     const q = new URLSearchParams();
     q.set('populate', '*');
     q.set('sort', 'publishedAt:desc');
     if (locale) q.set('locale', locale);
+    appendStrapiPagination(q, opts);
     return request<{ data: any[]; meta?: any }>(API_URL, `/cms/articles?${q}`, { revalidate: 60 });
   },
 
@@ -96,11 +129,12 @@ export const api = {
     );
   },
 
-  cmsNews: (locale?: string) => {
+  cmsNews: (locale?: string, opts?: CmsPaginationOpts) => {
     const q = new URLSearchParams();
     q.set('populate', '*');
     q.set('sort', 'event_date:desc');
     if (locale) q.set('locale', locale);
+    appendStrapiPagination(q, opts);
     return request<{ data: any[]; meta?: any }>(API_URL, `/cms/news?${q}`, { revalidate: 60 });
   },
 

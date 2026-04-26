@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { api } from '@/lib/api';
@@ -16,5 +17,9 @@ export default async function InsightsPage({ params }: { params: Params }) {
   const raw = (res?.data ?? []) as StrapiArticle[];
   const authorCredit = t('authorCredit');
   const posts = raw.map((e) => toUiArticleListItem(e, locale, authorCredit));
-  return <InsightsListClient posts={posts} />;
+  return (
+    <Suspense fallback={null}>
+      <InsightsListClient posts={posts} />
+    </Suspense>
+  );
 }

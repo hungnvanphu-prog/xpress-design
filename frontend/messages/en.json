@@ -21,7 +21,13 @@
     "discover": "Discover the space",
     "language": "Language",
     "vietnamese": "Tiếng Việt",
-    "english": "English"
+    "english": "English",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "pageOf": "Page {current} of {total}",
+      "ariaLabel": "Pagination"
+    }
   },
   "PageTitles": {
     "projects": "Projects",

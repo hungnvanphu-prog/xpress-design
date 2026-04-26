@@ -1,17 +1,34 @@
 import { setRequestLocale } from 'next-intl/server';
-import { api } from '@/lib/api';
+import { api, readCmsPagination } from '@/lib/api';
 import { toUiNewsListItem, type StrapiNews } from '@/lib/cms-article-news';
 import NewsListClient from './news-list-client';
 
 type Params = Promise<{ locale: string }>;
+type SearchParams = Promise<{ page?: string }>;
 
 export const dynamic = 'force-dynamic';
 
-export default async function NewsPage({ params }: { params: Params }) {
+const PAGE_SIZE = 8;
+
+export default async function NewsPage({
+  params,
+  searchParams,
+}: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const res = await api.cmsNews(locale).catch(() => ({ data: [] as StrapiNews[] }));
+  const sp = await searchParams;
+  const page = Math.max(1, parseInt(sp.page ?? '1', 10) || 1);
+
+  const res = await api.cmsNews(locale, { page, pageSize: PAGE_SIZE }).catch(() => ({
+    data: [] as StrapiNews[],
+    meta: {},
+  }));
   const raw = (res?.data ?? []) as StrapiNews[];
   const items = raw.map((e) => toUiNewsListItem(e, locale));
-  return <NewsListClient items={items} />;
+  const pagination = readCmsPagination(res?.meta);
+
+  return <NewsListClient items={items} pagination={pagination} />;
 }

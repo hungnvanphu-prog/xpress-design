@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'motion/react';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { UiArticleListItem } from '@/lib/cms-article-news';
+import ListPagination from '@/components/ListPagination';
 import { 
   Search, 
   Calendar, 
@@ -60,13 +62,26 @@ function BlogCard({ post, readMoreLabel }: { post: UiArticleListItem; readMoreLa
   );
 }
 
+const GRID_PAGE_SIZE = 9;
+
 export default function InsightsListClient({ posts }: { posts: UiArticleListItem[] }) {
   const t = useTranslations('Insights');
   const allLabel = t('filterAll');
+  const router = useRouter();
+  const pathname = usePathname();
+  const urlSearchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [activeCategory, setActiveCategory] = useState(allLabel);
+
+  const stripPageFromUrl = useCallback(() => {
+    const q = new URLSearchParams(urlSearchParams.toString());
+    if (!q.has('page')) return;
+    q.delete('page');
+    const s = q.toString();
+    router.replace(s ? `${pathname}?${s}` : pathname, { scroll: false });
+  }, [pathname, router, urlSearchParams]);
 
   useEffect(() => {
     setActiveCategory(allLabel);
@@ -94,8 +109,14 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
     return p;
   }, [posts, activeCategory, searchQuery, allLabel]);
 
-  const featuredArticles = filtered.slice(0, 2);
-  const listPosts = filtered.slice(2);
+  const remainder = Math.max(0, filtered.length - 2);
+  const totalGridPages = Math.max(1, Math.ceil(remainder / GRID_PAGE_SIZE) || 1);
+  const requestedPage = Math.max(1, parseInt(urlSearchParams.get('page') || '1', 10) || 1);
+  const currentPage = Math.min(requestedPage, totalGridPages);
+
+  const featuredArticles = currentPage === 1 ? filtered.slice(0, 2) : [];
+  const gridStart = 2 + (currentPage - 1) * GRID_PAGE_SIZE;
+  const listPosts = filtered.slice(gridStart, gridStart + GRID_PAGE_SIZE);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,7 +164,10 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
             {categories.map((cat) => (
               <button 
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  stripPageFromUrl();
+                }}
                 className={`pb-1 px-2 transition-colors ${
                   activeCategory === cat 
                     ? "text-[#1A1A1A] border-b-2 border-[#D4AF37]" 
@@ -342,23 +366,21 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
                 {t('sectionLibrary')}
               </h2>
             </div>
-            <div className="hidden md:flex gap-2">
-              <button className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] transition-colors"><ArrowRight size={16} className="rotate-180" /></button>
-              <button className="w-10 h-10 border border-gray-200 flex items-center justify-center hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] transition-colors"><ArrowRight size={16} /></button>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-            {posts.length === 0 ? (
+            {filtered.length === 0 ? (
               <p className="col-span-full text-center py-12 text-[#4A4A4A] text-[15px]" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                 {t('emptyList')}
               </p>
-            ) : (
+            ) : listPosts.length > 0 ? (
               listPosts.map((post) => (
                 <BlogCard key={post.id} post={post} readMoreLabel={t('readMoreLink')} />
               ))
-            )}
+            ) : null}
           </div>
+
+          <ListPagination page={currentPage} pageCount={totalGridPages} />
         </div>
       </section>
 
