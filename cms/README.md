@@ -5,7 +5,7 @@ Strapi CMS cho hệ thống website kiến trúc. Quản lý toàn bộ content 
 ## Content Types
 
 - **Project** (`/api/projects`) — dự án kiến trúc (title, slug, thumbnail, cover_image, content, location, client_name, project_type, year, gallery, featured, SEO)
-- **Article** (`/api/articles`) — blog/góc nhìn (title, slug, excerpt, content, thumbnail, tags, category)
+- **Article** (`/api/articles`) — blog/góc nhìn (title, slug, excerpt, **lead**, **reading_time_minutes**, **author_*** fields, **hero_image_url**, content, thumbnail, tags, category, SEO)
 - **Category** (`/api/categories`) — phân loại bài viết
 - **News** (`/api/news-items`) — tin tức & sự kiện (type: news/event/community)
 - **Page** (`/api/pages`) — landing page với **Dynamic Zone** `sections`

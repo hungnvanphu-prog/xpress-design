@@ -106,6 +106,26 @@
     "sectionFeatured": "Tiêu điểm chuyên môn",
     "sectionLibrary": "Thư viện kiến thức"
   },
+  "InsightsDetail": {
+    "breadcrumbHome": "Trang chủ",
+    "readTime": "{minutes} phút đọc",
+    "relatedTitle": "Bài viết liên quan",
+    "followTitle": "Theo dõi chúng tôi",
+    "shareTitle": "Chia sẻ bài viết này",
+    "moreTitle": "Bài viết khác bạn có thể quan tâm",
+    "commentsTitle": "Bình luận",
+    "commentName": "Họ tên",
+    "commentEmail": "Email",
+    "commentBody": "Nội dung bình luận",
+    "commentSubmit": "Gửi bình luận",
+    "commentNote": "Bình luận được kiểm duyệt. Nội dung sẽ hiển thị sau khi được duyệt.",
+    "sampleAuthor1": "Lan Anh",
+    "sampleDate1": "18/04/2025",
+    "sampleBody1": "Bài viết rất hay — phần giếng trời đúng thắc mắc nhà em đang sửa nhà phố.",
+    "sampleAuthor2": "Minh Tuấn",
+    "sampleDate2": "20/04/2025",
+    "sampleBody2": "Khối số liệu thuyết phục. Sẽ trao đổi với KTS về vật liệu phản quang mặt tây."
+  },
   "News": {
     "emptyList": "Chưa có tin tức. Vui lòng thêm nội dung trên CMS.",
     "typeNews": "Tin tức",

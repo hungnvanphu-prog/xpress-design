@@ -106,6 +106,26 @@
     "sectionFeatured": "Featured insights",
     "sectionLibrary": "Knowledge library"
   },
+  "InsightsDetail": {
+    "breadcrumbHome": "Home",
+    "readTime": "{minutes} min read",
+    "relatedTitle": "Related articles",
+    "followTitle": "Follow us",
+    "shareTitle": "Share this article",
+    "moreTitle": "More articles you may like",
+    "commentsTitle": "Comments",
+    "commentName": "Full name",
+    "commentEmail": "Email",
+    "commentBody": "Your comment",
+    "commentSubmit": "Post comment",
+    "commentNote": "Comments are moderated. Your message will appear after review.",
+    "sampleAuthor1": "Lan Anh",
+    "sampleDate1": "18 April 2025",
+    "sampleBody1": "Beautiful writing — the skylight section answered exactly what we were debating for our townhouse renovation.",
+    "sampleAuthor2": "Minh Tuấn",
+    "sampleDate2": "20 April 2025",
+    "sampleBody2": "The stats card is convincing. We will ask our architect about reflective materials for the west façade."
+  },
   "News": {
     "emptyList": "No news yet. Add content in the CMS.",
     "typeNews": "News",

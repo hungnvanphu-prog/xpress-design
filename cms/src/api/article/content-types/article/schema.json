@@ -31,6 +31,37 @@
       "type": "text",
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "lead": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "reading_time_minutes": {
+      "type": "integer",
+      "min": 1,
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "author_display_name": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "author_role": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "author_bio": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "author_avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "hero_image_url": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
     "content": {
       "type": "richtext",
       "pluginOptions": { "i18n": { "localized": true } }

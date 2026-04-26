@@ -168,7 +168,10 @@ async function upsertBilingual(strapi, uid, viData, enData) {
     where: { slug: viData.slug, locale: 'vi' },
   });
 
-  const viPayload = { ...viData, publishedAt: new Date() };
+  const viPayload = {
+    ...viData,
+    publishedAt: viData.publishedAt != null ? viData.publishedAt : new Date(),
+  };
   const viEntity = viExisting
     ? await strapi.entityService.update(uid, viExisting.id, { data: viPayload })
     : await strapi.entityService.create(uid, {
@@ -179,7 +182,10 @@ async function upsertBilingual(strapi, uid, viData, enData) {
     where: { slug: enData.slug, locale: 'en' },
   });
 
-  const enPayload = { ...enData, publishedAt: new Date() };
+  const enPayload = {
+    ...enData,
+    publishedAt: enData.publishedAt != null ? enData.publishedAt : new Date(),
+  };
   const enEntity = enExisting
     ? await strapi.entityService.update(uid, enExisting.id, { data: enPayload })
     : await strapi.entityService.create(uid, {
@@ -222,6 +228,7 @@ async function seedCategories(strapi) {
     { name: 'Kiến trúc', description: 'Bài viết về kiến trúc' },
     { name: 'Nội thất', description: 'Bài viết về nội thất' },
     { name: 'Cảnh quan', description: 'Bài viết về cảnh quan' },
+    { name: 'Kiến thức xây dựng', description: 'Kiến thức chuyên sâu về xây dựng & ánh sáng' },
   ];
   const created = [];
   for (const d of data) {
@@ -508,6 +515,14 @@ async function seedArticles(strapi, categories) {
   const catKienTruc = categories.find((c) => c.name === 'Kiến trúc')?.id;
   const catNoiThat = categories.find((c) => c.name === 'Nội thất')?.id;
   const catCanhQuan = categories.find((c) => c.name === 'Cảnh quan')?.id;
+  const catKienThucXD = categories.find((c) => c.name === 'Kiến thức xây dựng')?.id;
+
+  const heroLivingLight =
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80';
+  const imgSkylightDiagram =
+    'https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1200&q=80';
+  const imgBeforeAfter =
+    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80';
 
   const articles = [
     {
@@ -709,6 +724,143 @@ async function seedArticles(strapi, categories) {
         seo_description: 'Spa, acoustic and lighting for premium residential bathrooms.',
       },
       category: catNoiThat,
+    },
+    /* —— Góc nhìn: bài mẫu “ánh sáng” + 3 bài liên quan cùng chuyên mục —— */
+    {
+      vi: {
+        title: 'Phong thủy nhà phố: Nguyên tắc vàng cho sự thịnh vượng',
+        slug: 'phong-thuy-nha-pho-nguyen-tac-vang',
+        excerpt: 'Cách bố cục cửa, giếng trời và luồng khí ở nhà phố nhiệt đới — góc nhìn thực dụng từ hiện trường.',
+        content: '<p>Bài tóm tắt các nguyên tắc phong thủy ứng dụng mà chúng tôi dùng khi tư vấn nhà phố: trục chính, điểm tụ khí, và tránh xung sát thực tế.</p>',
+        tags: ['phong thủy', 'nhà phố'],
+        hero_image_url: heroLivingLight,
+        reading_time_minutes: 5,
+        author_display_name: 'KTS. Nguyễn Minh An',
+        author_role: 'Trưởng phòng Thiết kế Kiến trúc, XPRESS DESIGN',
+        author_bio: 'Hơn 12 năm kinh nghiệm trong thiết kế không gian sống.',
+      },
+      en: {
+        title: 'Townhouse Feng Shui: Golden rules for prosperity',
+        slug: 'townhouse-feng-shui-golden-rules',
+        excerpt: 'Door axis, skylight, and airflow in tropical townhouses — field notes from practice.',
+        content: '<p>A short guide to applied feng shui principles we use on narrow urban plots.</p>',
+        tags: ['feng shui', 'townhouse'],
+        hero_image_url: heroLivingLight,
+        reading_time_minutes: 5,
+        author_display_name: 'Arch. Minh An Nguyen',
+        author_role: 'Head of Architecture Design, XPRESS DESIGN',
+        author_bio: 'Over 12 years of experience in residential and light design.',
+      },
+      category: catKienThucXD,
+    },
+    {
+      vi: {
+        title: '5 Xu hướng thiết kế nội thất định hình năm tới',
+        slug: '5-xu-huong-thiet-ke-noi-that-nam-toi',
+        excerpt: 'Từ vật liệu thô tinh lọc đến ánh sáng đa lớp — những xu hướng chúng tôi đang triển khai cho khách hàng cao cấp.',
+        content: '<p>Danh sách xu hướng nội thất với ví dụ từ dự án thực tế của XPRESS DESIGN.</p>',
+        tags: ['xu hướng', 'nội thất'],
+        hero_image_url: imgBeforeAfter,
+        reading_time_minutes: 7,
+      },
+      en: {
+        title: '5 Interior design trends shaping next year',
+        slug: '5-interior-trends-next-year',
+        excerpt: 'Refined raw materials and layered light — what we specify for premium clients today.',
+        content: '<p>Trend notes with examples from recent Xpress projects.</p>',
+        tags: ['trends', 'interior'],
+        hero_image_url: imgBeforeAfter,
+        reading_time_minutes: 7,
+      },
+      category: catKienThucXD,
+    },
+    {
+      vi: {
+        title: 'Vật liệu tái chế: Xu hướng bền vững cho ngôi nhà hiện đại',
+        slug: 'vat-lieu-tai-che-xu-huong-ben-vung',
+        excerpt: 'Gạch nghiền, kính tái chế và gỗ tái sinh — chi phí, độ bền và cảm xúc bề mặt.',
+        content: '<p>Ứng dụng vật liệu tái chế trong kiến trúc dân dụng và những lưu ý thi công.</p>',
+        tags: ['bền vững', 'vật liệu'],
+        hero_image_url: imgSkylightDiagram,
+        reading_time_minutes: 6,
+      },
+      en: {
+        title: 'Recycled materials: A sustainable direction for modern homes',
+        slug: 'recycled-materials-modern-homes',
+        excerpt: 'Crushed brick, recycled glass, and reclaimed timber — cost, durability, and tactility.',
+        content: '<p>How we specify recycled content without sacrificing performance.</p>',
+        tags: ['sustainability', 'materials'],
+        hero_image_url: imgSkylightDiagram,
+        reading_time_minutes: 6,
+      },
+      category: catKienThucXD,
+    },
+    {
+      vi: {
+        title: 'Ánh sáng tự nhiên: Bản giao hưởng của không gian',
+        slug: 'anh-sang-tu-nhien-ban-giao-huong-cua-khong-gian',
+        excerpt:
+          'Ánh sáng không chỉ là nhu cầu vật lý, mà còn là chất liệu trang trí đắt giá nhất trong kiến trúc. Bài viết này sẽ hướng dẫn bạn cách bố trí giếng trời, cửa sổ và vật liệu phản quang để biến ngôi nhà thành một tác phẩm nghệ thuật đầy cảm xúc.',
+        lead: 'Ánh sáng tự nhiên là món quà vô giá mà thiên nhiên ban tặng cho mỗi ngôi nhà. Thế nhưng, không phải ai cũng biết cách tận dụng nó một cách tối ưu. Trong bài viết này, chúng tôi sẽ chia sẻ 3 bí quyết để biến ánh sáng thành “bản giao hưởng” cho không gian sống của bạn.',
+        reading_time_minutes: 6,
+        publishedAt: new Date('2025-04-15T02:00:00.000Z'),
+        hero_image_url: heroLivingLight,
+        author_display_name: 'KTS. Nguyễn Minh An',
+        author_role: 'Trưởng phòng Thiết kế Kiến trúc, XPRESS DESIGN',
+        author_bio:
+          'Hơn 12 năm kinh nghiệm trong lĩnh vực thiết kế không gian sống, chuyên sâu về tối ưu ánh sáng tự nhiên và phong thủy ứng dụng.',
+        tags: ['ánh sáng', 'kiến trúc', 'giếng trời'],
+        seo_title: 'Ánh sáng tự nhiên: Bản giao hưởng của không gian | XPRESS DESIGN',
+        seo_description:
+          'Bố trí giếng trời, cửa sổ và vật liệu phản quang để ngôi nhà tràn ngập ánh sáng và cảm xúc.',
+        content: [
+          `<p>Ánh sáng đi qua lớp rèm mỏng, đọng lại thành những mảng sáng mềm trên sàn gỗ — đó là khoảnh khắc mà nhiều gia chủ nhận ra: thiết kế thực sự bắt đầu từ việc dẫn dắt ánh sáng, chứ không phải từ đồ nội thất.</p>`,
+          `<figure class="my-8"><img src="${imgSkylightDiagram}" alt="Sơ đồ minh họa giếng trời" /><figcaption class="text-[13px] text-[#888888] mt-2 text-center">Minh họa: thông tầng và giếng trời như trục sáng trung tâm</figcaption></figure>`,
+          `<figure class="my-8"><img src="${imgBeforeAfter}" alt="Không gian trước và sau khi tối ưu ánh sáng" /><figcaption class="text-[13px] text-[#888888] mt-2 text-center">Ví dụ: cùng một phòng khách sau khi mở trục sáng và điều chỉnh vật liệu phản quang</figcaption></figure>`,
+          `<h2>1. Giếng trời - Ô cửa lấy sáng từ thiên nhiên</h2>`,
+          `<p>Giếng trời không chỉ đơn thuần là khoảng thông tầng. Nó là “lá phổi” và “con mắt” của ngôi nhà. Một giếng trời được bố trí đúng vị trí (thường là trung tâm hoặc giao thoa giữa các khối) có thể giúp ánh sáng khuếch tán đến mọi ngóc ngách, giảm phụ thuộc vào đèn nhân tạo ban ngày và tạo nhịp thở cho công trình.</p>`,
+          `<blockquote>Ánh sáng là chi phí thấp nhất nhưng giá trị thẩm mỹ cao nhất mà bạn có thể mang đến cho ngôi nhà của mình.</blockquote>`,
+          `<h2>2. Vật liệu phản quang - Nhân đôi hiệu ứng ánh sáng</h2>`,
+          `<p>Sơn tường màu sáng, gạch bóng kính, kính cường lực, hoặc các tấm panel nhôm mờ — là những “tấm gương” khổng lồ giúp phản xạ và khuếch tán ánh sáng. Chúng có thể tăng cường độ sáng cảm nhận trong phòng lên đáng kể so với vật liệu hút sáng thông thường, nếu được bố trí đúng góc và tránh chói lóa trực tiếp.</p>`,
+          `<div class="article-stats"><div><strong>Tăng 200% cường độ sáng</strong><span>So với nền hút sáng tiêu chuẩn (ước lượng dự án mẫu)</span></div><div><strong>Tiết kiệm 35% điện năng</strong><span>Chiếu sáng nhân tạo ban ngày</span></div><div><strong>Cải thiện 50%</strong><span>Tâm trạng & năng suất (khảo sát nội bộ không gian làm việc tại nhà)</span></div></div>`,
+          `<h2>3. Bố trí cửa sổ - Bản phối khí cho ngôi nhà</h2>`,
+          `<p>Cửa sổ không chỉ để lấy sáng. Hướng cửa, kích thước và vị trí sẽ quyết định luồng không khí, và theo đó, ánh sáng đi vào nhà như thế nào. Cửa sổ hướng Nam thường thân thiện với khí hậu nhiệt đới khi kết hợp mái hiên, lam chắn nắng và kính chọn lọc tia — tránh nóng trực tiếp nhưng vẫn giữ độ sáng mềm.</p>`,
+          `<p><strong>Kết luận:</strong> Ánh sáng tự nhiên không phải một phép màu, mà là tổng hòa của những giải pháp khoa học và nghệ thuật. Hãy bắt đầu bằng cách quan sát ngôi nhà của bạn dưới một góc nhìn hoàn toàn mới.</p>`,
+        ].join(''),
+      },
+      en: {
+        title: 'Natural light: A symphony of space',
+        slug: 'natural-light-symphony-of-space',
+        excerpt:
+          'Light is not only a physical need — it is the most precious finishing layer in architecture. This article walks through skylights, windows, and reflective materials that turn a house into an emotional work of art.',
+        lead: 'Natural light is a gift. Yet not every plan knows how to conduct it. Here are three moves we use to turn daylight into a symphony — skylight as the spine, materials as the chorus, and windows as the score.',
+        reading_time_minutes: 6,
+        publishedAt: new Date('2025-04-15T02:00:00.000Z'),
+        hero_image_url: heroLivingLight,
+        author_display_name: 'Arch. Minh An Nguyen',
+        author_role: 'Head of Architecture Design, XPRESS DESIGN',
+        author_bio:
+          'Over 12 years crafting residential spaces, with a focus on daylight optimization and applied spatial balance.',
+        tags: ['daylight', 'architecture', 'skylight'],
+        seo_title: 'Natural light: A symphony of space | XPRESS DESIGN',
+        seo_description:
+          'Skylights, windows, and reflective surfaces — how we choreograph daylight in tropical homes.',
+        content: [
+          `<p>When sheer curtains diffuse the morning sun across a timber floor, many owners realise: design truly begins with light, not with furniture.</p>`,
+          `<figure class="my-8"><img src="${imgSkylightDiagram}" alt="Skylight diagram" /><figcaption class="text-[13px] text-[#888888] mt-2 text-center">Diagram: the skylight as a vertical light spine</figcaption></figure>`,
+          `<figure class="my-8"><img src="${imgBeforeAfter}" alt="Living room before and after daylight intervention" /><figcaption class="text-[13px] text-[#888888] mt-2 text-center">Case note: the same living room after opening the light axis</figcaption></figure>`,
+          `<h2>1. Skylight — the opening score</h2>`,
+          `<p>A skylight is more than a shaft. It is the lung and the eye of the plan. Centrally placed or at the overlap of volumes, it lets daylight wash into corners that perimeter glazing cannot reach, and it gives the house a daily rhythm.</p>`,
+          `<blockquote>Light is the lowest-cost move with the highest perceptual return you can give a home.</blockquote>`,
+          `<h2>2. Reflective materials — doubling the chorus</h2>`,
+          `<p>Light-toned paint, glazed tile, tempered glass, and satin metal panels behave like large mirrors — they bounce and soften daylight. Used with care, they lift perceived brightness without harsh glare.</p>`,
+          `<div class="article-stats"><div><strong>Up to 200% brighter</strong><span>Vs. baseline matte surfaces (indicative study)</span></div><div><strong>35% less daytime electric light</strong><span>On monitored residential samples</span></div><div><strong>50% better focus</strong><span>Self-reported mood & productivity in home offices</span></div></div>`,
+          `<h2>3. Windows — wind and light orchestration</h2>`,
+          `<p>Windows choreograph both breeze and sun. In the tropics, south-facing glass wants brise-soleil, deep eaves, and selective coatings — enough sun to read by, not enough to bake the slab.</p>`,
+          `<p><strong>In closing:</strong> Natural light is not magic. It is the sum of deliberate moves. Start by looking at your house at three times of day — you may hear the symphony already.</p>`,
+        ].join(''),
+      },
+      category: catKienThucXD,
     },
   ];
 

@@ -17,6 +17,13 @@ export type StrapiArticle = {
     title: string;
     slug: string;
     excerpt?: string | null;
+    author_display_name?: string | null;
+    hero_image_url?: string | null;
+    lead?: string | null;
+    reading_time_minutes?: number | null;
+    author_role?: string | null;
+    author_bio?: string | null;
+    author_avatar?: StrapiMedia;
     content?: unknown;
     publishedAt?: string | null;
     createdAt?: string | null;
@@ -26,7 +33,10 @@ export type StrapiArticle = {
     seo_description?: string | null;
     thumbnail?: StrapiMedia;
     category?: {
-      data?: { attributes?: { name?: string } | null } | null;
+      data?: {
+        id?: number;
+        attributes?: { name?: string } | null;
+      } | null;
     } | null;
     localizations?: {
       data?: Array<{
@@ -59,6 +69,9 @@ export type StrapiNews = {
 
 const PLACEHOLDER =
   'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80';
+
+const AUTHOR_AVATAR_FALLBACK =
+  'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80';
 
 function pickThumb(media?: StrapiMedia | null): string {
   if (!media?.data) return PLACEHOLDER;
@@ -134,15 +147,16 @@ export type UiArticleListItem = {
 export function toUiArticleListItem(entity: StrapiArticle, locale: string, authorLabel: string): UiArticleListItem {
   const a = entity.attributes;
   const published = a.publishedAt || a.createdAt;
+  const hero = (a.hero_image_url || '').trim();
   return {
     id: entity.id,
     slug: a.slug,
     title: a.title,
     description: (a.excerpt || '').trim() || richtextToHtml(a.content).replace(/<[^>]+>/g, '').slice(0, 200),
-    image: pickThumb(a.thumbnail),
+    image: hero || pickThumb(a.thumbnail),
     date: formatListDate(published, locale),
     category: a.category?.data?.attributes?.name || '—',
-    author: authorLabel,
+    author: (a.author_display_name || '').trim() || authorLabel,
     localizedSlugs: buildLocalizedSlugs(a.locale, a.slug, a.localizations),
   };
 }
@@ -152,21 +166,47 @@ export type UiArticleDetail = UiArticleListItem & {
   seoTitle?: string;
   seoDescription?: string;
   tags: string[];
+  categoryId?: number;
+  lead?: string;
+  readingTimeMinutes?: number;
+  authorRole?: string;
+  authorBio?: string;
+  authorAvatar?: string;
 };
+
+function pickDetailImage(entity: StrapiArticle): string {
+  const a = entity.attributes;
+  const fromUrl = (a.hero_image_url || '').trim();
+  if (fromUrl) return fromUrl;
+  return pickThumb(a.thumbnail);
+}
 
 export function toUiArticleDetail(
   entity: StrapiArticle,
   locale: string,
   authorLabel: string,
 ): UiArticleDetail {
-  const list = toUiArticleListItem(entity, locale, authorLabel);
   const a = entity.attributes;
+  const displayAuthor = (a.author_display_name || '').trim() || authorLabel;
+  const list = toUiArticleListItem(entity, locale, displayAuthor);
+  const catId = a.category?.data?.id;
   return {
     ...list,
+    image: pickDetailImage(entity),
+    author: displayAuthor,
     contentHtml: richtextToHtml(a.content),
     seoTitle: a.seo_title || undefined,
     seoDescription: a.seo_description || undefined,
     tags: Array.isArray(a.tags) ? a.tags : [],
+    categoryId: typeof catId === 'number' ? catId : undefined,
+    lead: (a.lead || '').trim() || undefined,
+    readingTimeMinutes: a.reading_time_minutes ?? undefined,
+    authorRole: (a.author_role || '').trim() || undefined,
+    authorBio: (a.author_bio || '').trim() || undefined,
+    authorAvatar: (() => {
+      const u = pickThumb(a.author_avatar);
+      return u === PLACEHOLDER ? AUTHOR_AVATAR_FALLBACK : u;
+    })(),
   };
 }
 

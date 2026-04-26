@@ -22,6 +22,11 @@ export type CmsPaginationOpts = {
   pageSize?: number;
 };
 
+export type CmsArticlesQueryOpts = CmsPaginationOpts & {
+  categoryId?: number;
+  excludeSlug?: string;
+};
+
 function appendStrapiPagination(q: URLSearchParams, opts?: CmsPaginationOpts) {
   if (opts?.page != null) q.set('pagination[page]', String(Math.max(1, opts.page)));
   if (opts?.pageSize != null) q.set('pagination[pageSize]', String(Math.max(1, opts.pageSize)));
@@ -109,11 +114,17 @@ export const api = {
       { revalidate: 60 },
     ),
 
-  cmsArticles: (locale?: string, opts?: CmsPaginationOpts) => {
+  cmsArticles: (locale?: string, opts?: CmsArticlesQueryOpts) => {
     const q = new URLSearchParams();
     q.set('populate', '*');
     q.set('sort', 'publishedAt:desc');
     if (locale) q.set('locale', locale);
+    if (opts?.categoryId != null) {
+      q.set('filters[category][id][$eq]', String(opts.categoryId));
+    }
+    if (opts?.excludeSlug) {
+      q.set('filters[slug][$ne]', opts.excludeSlug);
+    }
     appendStrapiPagination(q, opts);
     return request<{ data: any[]; meta?: any }>(API_URL, `/cms/articles?${q}`, { revalidate: 60 });
   },

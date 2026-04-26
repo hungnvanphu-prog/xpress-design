@@ -3,7 +3,12 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { api } from '@/lib/api';
-import { toUiArticleDetail, type StrapiArticle } from '@/lib/cms-article-news';
+import {
+  toUiArticleDetail,
+  toUiArticleListItem,
+  type StrapiArticle,
+  type UiArticleListItem,
+} from '@/lib/cms-article-news';
 import { routing } from '@/i18n/routing';
 import { localizedPath } from '@/lib/metadata';
 import ArticleDetailClient from './article-detail-client';
@@ -60,10 +65,26 @@ export default async function ArticleDetailPage({ params }: { params: Params }) 
   const article = await fetchArticle(slug, locale, t('authorCredit'));
   if (!article) notFound();
 
+  let relatedPosts: UiArticleListItem[] = [];
+  if (article.categoryId != null) {
+    const rel = await api
+      .cmsArticles(locale, {
+        page: 1,
+        pageSize: 4,
+        categoryId: article.categoryId,
+        excludeSlug: article.slug,
+      })
+      .catch(() => ({ data: [] as StrapiArticle[] }));
+    const authorCredit = t('authorCredit');
+    relatedPosts = ((rel?.data ?? []) as StrapiArticle[])
+      .map((e) => toUiArticleListItem(e, locale, authorCredit))
+      .slice(0, 3);
+  }
+
   return (
     <>
       <LocalizedRouteSetter basePath="/insights" slugs={article.localizedSlugs ?? {}} />
-      <ArticleDetailClient article={article} />
+      <ArticleDetailClient article={article} relatedPosts={relatedPosts} />
     </>
   );
 }
