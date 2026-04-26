@@ -17,6 +17,12 @@ Strapi CMS cho hệ thống website kiến trúc. Quản lý toàn bộ content 
 - `sections.stats` — repeatable `shared.stat-item` (label, value)
 - `sections.cta` — title, description, button
 
+## Rich text (TipTap)
+
+Trường `richtext` (ví dụ **content** trên Article, News, Project) dùng plugin cộng đồng [`strapi-tiptap-editor`](https://github.com/dasmikko/strapi-tiptap-editor) (giấy phép **MIT**, dựa trên [TipTap](https://tiptap.dev/)): nhiều định dạng hơn editor mặc định, xuất **HTML thuần**, không cần license thương mại. Maintainer ghi chú dự án ít maintain hơn; nếu sau này cần hỗ trợ dài hạn có thể cân nhắc tự bảo trì fork hoặc [TinyMCE](https://www.tiny.cloud/) / [Quill](https://quilljs.com/) (tự host, BSD).
+
+Cần `src/admin/webpack.config.js` (trong repo) vì tippy.js — bản `npm run build` sẽ gom vào admin.
+
 ## Chạy local
 
 ```bash
@@ -26,6 +32,8 @@ npm run develop
 ```
 
 Admin: http://localhost:1337/admin
+
+Dùng **Node 18–20** (theo `engines` của Strapi 4).
 
 ## Seed admin
 
