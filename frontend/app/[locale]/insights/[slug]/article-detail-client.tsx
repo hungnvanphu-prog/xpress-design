@@ -248,6 +248,15 @@ export default function ArticleDetailClient({
               ) : null}
             </motion.article>
 
+            {article.tags.length > 0 ? (
+              <div className="mt-14 pt-10 border-t border-[#1A1A1A]/10 max-w-[42rem]">
+                <p className="text-[11px] uppercase tracking-[0.2em] text-[#888888] mb-4 font-semibold">
+                  {tInsights('tagsLabel')}
+                </p>
+                <ContentTagLinks tags={article.tags} />
+              </div>
+            ) : null}
+
             <ShareRow title={article.title} />
 
             <section className="mt-20 pt-14 border-t border-[#1A1A1A]/10">
@@ -311,15 +320,6 @@ export default function ArticleDetailClient({
                 </li>
               </ul>
             </section>
-
-            {article.tags.length > 0 ? (
-              <div className="mt-16 pt-10 border-t border-[#1A1A1A]/10 max-w-[42rem]">
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[#888888] mb-4 font-semibold">
-                  {tInsights('tagsLabel')}
-                </p>
-                <ContentTagLinks tags={article.tags} />
-              </div>
-            ) : null}
           </div>
 
           <aside className="lg:col-span-4 order-2 space-y-10">

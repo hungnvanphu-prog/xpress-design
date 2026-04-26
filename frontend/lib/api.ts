@@ -140,6 +140,7 @@ export const api = {
 
   cmsArticleBySlug: (slug: string, locale?: string) => {
     const q = new URLSearchParams();
+    q.set('populate', '*');
     if (locale) q.set('locale', locale);
     const suffix = q.toString() ? `?${q}` : '';
     return request<{ data: any[]; meta?: any }>(

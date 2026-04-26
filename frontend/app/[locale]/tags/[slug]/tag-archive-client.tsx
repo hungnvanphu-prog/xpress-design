@@ -10,60 +10,81 @@ import type { TagArchiveCard } from './page';
 export default function TagArchiveClient({
   tagName,
   cards,
+  heroImage,
 }: {
   tagName: string;
   cards: TagArchiveCard[];
+  heroImage: string;
 }) {
   const t = useTranslations('TagArchive');
   const tNav = useTranslations('Nav');
+  const heroAlt = t('heroImageAlt', { tag: tagName });
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-[#1A1A1A]">
       <header className="relative overflow-hidden border-b border-[#1A1A1A]/08">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(90deg, #1A1A1A 0, #1A1A1A 1px, transparent 1px, transparent 80px)',
-          }}
-        />
-        <div className="relative max-w-6xl mx-auto px-5 md:px-8 pt-16 pb-14 md:pt-24 md:pb-20">
-          <nav className="mb-10 text-[10px] uppercase tracking-[0.22em] text-[#4A4A4A] font-['Montserrat',sans-serif]">
-            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
-              <li>
-                <Link href="/" className="hover:text-[#D4AF37] transition-colors">
-                  {t('breadcrumbHome')}
-                </Link>
-              </li>
-              <li aria-hidden className="text-[#1A1A1A]/25">
-                /
-              </li>
-              <li>
-                <span className="text-[#1A1A1A]/70">{t('breadcrumbTags')}</span>
-              </li>
-            </ol>
-          </nav>
-          <p
-            className="text-[11px] md:text-xs uppercase tracking-[0.35em] text-[#D4AF37] mb-4 font-['Montserrat',sans-serif] font-semibold"
-            style={{ letterSpacing: '0.28em' }}
-          >
-            {t('sectionEyebrow')}
-          </p>
-          <h1
-            className="text-[clamp(2rem,5vw,3.25rem)] leading-[1.12] font-medium text-[#1A1A1A] max-w-4xl mb-6"
-            style={{ fontFamily: 'Playfair Display, serif' }}
-          >
-            {tagName}
-          </h1>
-          <p className="text-[#4A4A4A] text-sm md:text-base max-w-2xl leading-relaxed font-light font-['Montserrat',sans-serif]">
-            {t('fallbackDescription', { tag: tagName })}
-          </p>
-          <p className="mt-8 text-[10px] uppercase tracking-[0.28em] text-[#4A4A4A]/80 font-['Montserrat',sans-serif]">
-            {t('philosophyLine')}
-          </p>
-          <p className="mt-3 text-[11px] text-[#1A1A1A]/55 font-['Montserrat',sans-serif]">
-            {t('countLabel', { count: cards.length })}
-          </p>
+        <div className="relative w-full min-h-[min(52vh,520px)] md:min-h-[540px]">
+          <div className="absolute inset-0">
+            <ImageWithFallback
+              src={heroImage}
+              alt={heroAlt}
+              className="w-full h-full object-cover scale-[1.03] opacity-90"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/94 via-[#1A1A1A]/72 to-[#1A1A1A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent pointer-events-none" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(90deg, #fff 0, #fff 1px, transparent 1px, transparent 72px)',
+            }}
+          />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 pt-16 pb-14 md:pt-24 md:pb-20 min-h-[min(52vh,520px)] md:min-h-[540px] flex flex-col justify-end">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <nav className="mb-10 text-[10px] uppercase tracking-[0.22em] text-white/65 font-['Montserrat',sans-serif]">
+                <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <li>
+                    <Link href="/" className="hover:text-[#D4AF37] transition-colors">
+                      {t('breadcrumbHome')}
+                    </Link>
+                  </li>
+                  <li aria-hidden className="text-white/35">
+                    /
+                  </li>
+                  <li>
+                    <span className="text-white/80">{t('breadcrumbTags')}</span>
+                  </li>
+                </ol>
+              </nav>
+              <p
+                className="text-[11px] md:text-xs uppercase tracking-[0.35em] text-[#D4AF37] mb-4 font-['Montserrat',sans-serif] font-semibold"
+                style={{ letterSpacing: '0.28em' }}
+              >
+                {t('sectionEyebrow')}
+              </p>
+              <h1
+                className="text-[clamp(2rem,5vw,3.25rem)] leading-[1.12] font-medium text-white max-w-4xl mb-6 drop-shadow-sm"
+                style={{ fontFamily: 'Playfair Display, serif' }}
+              >
+                {tagName}
+              </h1>
+              <p className="text-white/88 text-sm md:text-base max-w-2xl leading-relaxed font-light font-['Montserrat',sans-serif]">
+                {t('fallbackDescription', { tag: tagName })}
+              </p>
+              <p className="mt-8 text-[10px] uppercase tracking-[0.28em] text-white/55 font-['Montserrat',sans-serif]">
+                {t('philosophyLine')}
+              </p>
+              <p className="mt-3 text-[11px] text-white/70 font-['Montserrat',sans-serif]">
+                {t('countLabel', { count: cards.length })}
+              </p>
+            </motion.div>
+          </div>
         </div>
       </header>
 

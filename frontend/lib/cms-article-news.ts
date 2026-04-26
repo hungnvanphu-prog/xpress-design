@@ -193,30 +193,44 @@ function normalizeArticleTags(raw: unknown): ArticleTag[] {
   return out;
 }
 
+/** Strapi M2M thường là { data: [...] }; một số trường hợp `data` là một phần tử đơn. */
+function normalizeRelationDataArray(data: unknown): unknown[] {
+  if (data == null) return [];
+  if (Array.isArray(data)) return data;
+  if (typeof data === 'object') return [data];
+  return [];
+}
+
+function mapStrapiTagEntry(item: unknown, locale: string): ArticleTag | null {
+  if (item == null || typeof item !== 'object') return null;
+  const rec = item as Record<string, unknown>;
+  const id = typeof rec.id === 'number' && Number.isFinite(rec.id) ? rec.id : undefined;
+  const attrs =
+    rec.attributes && typeof rec.attributes === 'object'
+      ? (rec.attributes as Record<string, unknown>)
+      : rec;
+  const slugRaw = String(attrs.slug ?? '').trim().toLowerCase();
+  const nameVi = String(attrs.name ?? '').trim();
+  const nameEn = String(attrs.name_en ?? '').trim();
+  const name = locale === 'en' ? nameEn || nameVi : nameVi;
+  const slug = slugRaw || slugifyTag(name || String(id ?? 'tag'));
+  if (!name && !slug) return null;
+  return { id, name: name || slug, slug };
+}
+
 function entityTagsFromAttributes(
   a: { tags?: StrapiTagsRelation | unknown },
   locale: string,
 ): ArticleTag[] {
   const raw = a.tags;
-  if (
-    raw &&
-    typeof raw === 'object' &&
-    'data' in raw &&
-    Array.isArray((raw as StrapiTagsRelation).data)
-  ) {
-    const items = (raw as StrapiTagsRelation).data ?? [];
-    return items
-      .map((item) => {
-        const attr = item.attributes ?? {};
-        const slugRaw = (attr.slug || '').trim().toLowerCase();
-        const slug = slugRaw || slugifyTag(attr.name || String(item.id));
-        const name =
-          locale === 'en'
-            ? (attr.name_en || '').trim() || (attr.name || '').trim()
-            : (attr.name || '').trim();
-        return { id: item.id, name, slug };
-      })
-      .filter((t) => t.name);
+  if (raw && typeof raw === 'object' && 'data' in raw) {
+    const items = normalizeRelationDataArray((raw as StrapiTagsRelation).data);
+    if (items.length > 0) {
+      return items.map((item) => mapStrapiTagEntry(item, locale)).filter((t): t is ArticleTag => t != null);
+    }
+  }
+  if (Array.isArray(raw)) {
+    return raw.map((item) => mapStrapiTagEntry(item, locale)).filter((t): t is ArticleTag => t != null);
   }
   return normalizeArticleTags(raw);
 }

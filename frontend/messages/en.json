@@ -165,7 +165,8 @@
     "countLabel": "{count} pieces",
     "empty": "No articles or news use this tag yet.",
     "readMore": "Read more",
-    "fallbackDescription": "A curated flow of insights and news under “{tag}” — rhythm of architecture, light, and the art of dwelling."
+    "fallbackDescription": "A curated flow of insights and news under “{tag}” — rhythm of architecture, light, and the art of dwelling.",
+    "heroImageAlt": "Topic hero background — {tag}"
   },
   "NotFound": {
     "badge": "Coming soon",

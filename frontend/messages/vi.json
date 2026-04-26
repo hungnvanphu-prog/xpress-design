@@ -165,7 +165,8 @@
     "countLabel": "{count} bài",
     "empty": "Chưa có bài viết hay tin tức nào gắn nhãn này.",
     "readMore": "Đọc tiếp",
-    "fallbackDescription": "Tuyển tập bài viết và tin tức dưới nhãn “{tag}” — nhịp điệu kiến trúc, ánh sáng và nghệ thuật an cư."
+    "fallbackDescription": "Tuyển tập bài viết và tin tức dưới nhãn “{tag}” — nhịp điệu kiến trúc, ánh sáng và nghệ thuật an cư.",
+    "heroImageAlt": "Ảnh nền chủ đề {tag}"
   },
   "NotFound": {
     "badge": "Đang phát triển",

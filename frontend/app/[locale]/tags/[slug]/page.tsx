@@ -18,6 +18,9 @@ export const dynamic = 'force-dynamic';
 
 const PAGE_SIZE = 100;
 
+const TAG_HERO_FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80';
+
 export type TagArchiveCard = {
   key: string;
   kind: 'insight' | 'news';
@@ -150,5 +153,8 @@ export default async function TagArchivePage({ params }: { params: Params }) {
     return card;
   });
 
-  return <TagArchiveClient tagName={tagDisplayName} cards={cards} />;
+  const heroImage =
+    (cards[0]?.image && String(cards[0].image).trim()) || TAG_HERO_FALLBACK_IMAGE;
+
+  return <TagArchiveClient tagName={tagDisplayName} cards={cards} heroImage={heroImage} />;
 }
