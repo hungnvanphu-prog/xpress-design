@@ -27,6 +27,23 @@ export function buildLanguageAlternates(pathname: string) {
 }
 
 /**
+ * hreflang khi slug khác nhau theo locale (vd. /services/thiet-ke-kien-truc vs /en/services/architectural-design).
+ * `viPathname` / `enPathname`: path không gồm prefix locale, bắt đầu bằng /.
+ */
+export function buildServiceLanguageAlternates(
+  viPathname: string,
+  enPathname: string,
+): Record<string, string> {
+  const languages: Record<string, string> = {};
+  for (const locale of routing.locales) {
+    const path = locale === routing.defaultLocale ? viPathname : enPathname;
+    languages[locale] = localizedPath(path, locale);
+  }
+  languages['x-default'] = localizedPath(viPathname, routing.defaultLocale);
+  return languages;
+}
+
+/**
  * Sinh Metadata cho một trang tĩnh trong namespace PageTitles.
  */
 export async function pageMetadata({
