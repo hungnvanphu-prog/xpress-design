@@ -9,6 +9,7 @@ import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { ArrowRight } from 'lucide-react';
 import type { toUiProject } from '@/lib/cms-transform';
 import ListPagination from '@/components/ListPagination';
+import { sanitizeCmsHtml } from '@/lib/sanitize-cms-html';
 
 type UiProject = ReturnType<typeof toUiProject>;
 
@@ -76,7 +77,7 @@ function Portfolio({ projects, pagination, category: categoryProp }: Props) {
           </span>
           <h1
             className="font-['Playfair_Display',serif] text-[40px] md:text-[72px] leading-[1.1] text-[#1A1A1A] font-medium mb-8"
-            dangerouslySetInnerHTML={{ __html: tProj('heroTitle') }}
+            dangerouslySetInnerHTML={{ __html: sanitizeCmsHtml(tProj('heroTitle')) }}
           />
           <p className="text-[#4A4A4A] text-[16px] font-light max-w-2xl mx-auto leading-relaxed">
             {tProj('heroSubtitle')}

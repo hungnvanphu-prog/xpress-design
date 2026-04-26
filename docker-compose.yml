@@ -50,6 +50,9 @@ services:
     container_name: backend
     env_file:
       - .env
+    environment:
+      # Bắt buộc khi backend NODE_ENV=production — override trong .env nếu cần
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost,http://127.0.0.1,http://localhost:80,http://localhost:3000}
     expose:
       - "4000"
     ports:

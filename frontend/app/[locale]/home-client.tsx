@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { sanitizeCmsHtml } from "@/lib/sanitize-cms-html";
 import type { toUiProject } from "@/lib/cms-transform";
 
 type UiProject = ReturnType<typeof toUiProject>;
@@ -201,7 +202,7 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
           >
             <h2
               className="font-['Playfair_Display',serif] text-[36px] md:text-[56px] leading-[1.1] font-medium max-w-2xl text-white"
-              dangerouslySetInnerHTML={{ __html: tHome("featured.title") }}
+              dangerouslySetInnerHTML={{ __html: sanitizeCmsHtml(tHome("featured.title")) }}
             />
             <Link
               href="/projects"

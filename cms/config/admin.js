@@ -7,7 +7,8 @@ module.exports = ({ env }) => ({
   },
   transfer: {
     token: {
-      salt: env('TRANSFER_TOKEN_SALT', 'tobemodified'),
+      /** Bắt buộc set trong .env; không dùng salt mặc định đã biết. */
+      salt: env('TRANSFER_TOKEN_SALT'),
     },
   },
 });

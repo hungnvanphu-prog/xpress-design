@@ -8,6 +8,7 @@ import { ArrowRight, ChevronRight, LayoutGrid } from 'lucide-react';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import { sanitizeCmsHtml } from '@/lib/sanitize-cms-html';
 import type { Project } from '@/data/projects';
 
 type UiProject = Project & {
@@ -179,7 +180,7 @@ export default function ProjectDetailClient({ project, nextProject }: Props) {
             {project.content ? (
               <div
                 className="text-[#4A4A4A] text-[15px] leading-[1.8] font-light mt-8 max-w-md prose prose-sm"
-                dangerouslySetInnerHTML={{ __html: project.content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeCmsHtml(project.content) }}
               />
             ) : null}
           </motion.div>

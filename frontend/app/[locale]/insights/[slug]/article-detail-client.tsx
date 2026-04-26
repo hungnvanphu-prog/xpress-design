@@ -8,6 +8,7 @@ import { ArrowLeft, Facebook, Instagram, Linkedin, MessageCircle } from 'lucide-
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { UiArticleDetail, UiArticleListItem } from '@/lib/cms-article-news';
 import { ContentTagLinks } from '@/components/ContentTagLinks';
+import { sanitizeCmsHtml } from '@/lib/sanitize-cms-html';
 
 const fade = {
   hidden: { opacity: 0, y: 18 },
@@ -250,7 +251,7 @@ export default function ArticleDetailClient({
               "
             >
               {article.contentHtml ? (
-                <div dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeCmsHtml(article.contentHtml) }} />
               ) : null}
             </motion.article>
 

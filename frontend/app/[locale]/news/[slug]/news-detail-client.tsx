@@ -8,6 +8,7 @@ import { Calendar, ChevronLeft, MapPin, Share2, Trophy } from 'lucide-react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { UiNewsDetail } from '@/lib/cms-article-news';
 import { ContentTagLinks } from '@/components/ContentTagLinks';
+import { sanitizeCmsHtml } from '@/lib/sanitize-cms-html';
 
 type NewsTypeKey = 'news' | 'event' | 'community';
 
@@ -153,7 +154,9 @@ export default function NewsDetailClient({ item }: { item: UiNewsDetail }) {
             [&_em]:italic [&_strong]:font-semibold [&_strong]:text-[#1A1A1A]
           "
         >
-          {item.contentHtml ? <div dangerouslySetInnerHTML={{ __html: item.contentHtml }} /> : null}
+          {item.contentHtml ? (
+            <div dangerouslySetInnerHTML={{ __html: sanitizeCmsHtml(item.contentHtml) }} />
+          ) : null}
         </motion.article>
 
         {item.eventInfo ? (
