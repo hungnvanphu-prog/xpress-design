@@ -10,7 +10,7 @@ import { LocalizedRouteSetter } from '@/lib/localized-route';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-// Không SSG trước: slug phụ thuộc locale; dùng ISR (revalidate trong lib/api)
+// Dữ liệu CMS: render theo request (tránh cache tĩnh rỗng khi build không có API)
 export const dynamic = 'force-dynamic';
 
 async function fetchProject(slug: string, locale: string) {

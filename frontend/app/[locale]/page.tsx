@@ -5,6 +5,10 @@ import HomeClient from './home-client';
 
 type Params = Promise<{ locale: string }>;
 
+/**
+ * Cần render theo từng request: dữ liệu Strapi lấy khi gọi API;
+ * dùng `revalidate` ở segment dễ khiến bản build tĩnh cache rỗng nếu backend không có lúc `next build`.
+ */
 export const dynamic = 'force-dynamic';
 
 const FEATURED_LIMIT = 4;

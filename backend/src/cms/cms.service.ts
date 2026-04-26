@@ -1,12 +1,14 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
+import { isAxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
 import type { CreateInsightSignupDto } from './dto/create-insight-signup.dto';
 import type { CreateContactRequestDto } from './dto/create-contact-request.dto';
 
 @Injectable()
 export class CmsService {
+  private readonly logger = new Logger(CmsService.name);
   private readonly baseUrl: string;
   private readonly token?: string;
 
@@ -17,6 +19,28 @@ export class CmsService {
     this.baseUrl =
       this.config.get<string>('STRAPI_URL') || 'http://cms:1337';
     this.token = this.config.get<string>('STRAPI_TOKEN');
+  }
+
+  private mapProxyError(err: unknown, method: 'GET' | 'POST', path: string): never {
+    if (isAxiosError(err)) {
+      const status = err.response?.status ?? HttpStatus.BAD_GATEWAY;
+      const fromCms = err.response?.data;
+      this.logger.warn(
+        `Strapi ${method} ${path} -> ${String(status)} ${err.message}`,
+      );
+      throw new HttpException(
+        fromCms ?? { error: { message: 'CMS proxy error' } },
+        status,
+      );
+    }
+    this.logger.error(
+      `Unexpected proxy error ${method} ${path}`,
+      err instanceof Error ? err.stack : undefined,
+    );
+    throw new HttpException(
+      { error: { message: 'CMS proxy error' } },
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
   }
 
   private async proxyGet(path: string, params?: Record<string, any>) {
@@ -30,10 +54,8 @@ export class CmsService {
         }),
       );
       return res.data;
-    } catch (err: any) {
-      const status = err?.response?.status || 500;
-      const data = err?.response?.data || { error: 'CMS proxy error' };
-      throw new HttpException(data, status);
+    } catch (err) {
+      this.mapProxyError(err, 'GET', path);
     }
   }
 
@@ -48,10 +70,8 @@ export class CmsService {
         }),
       );
       return res.data;
-    } catch (err: any) {
-      const status = err?.response?.status || 500;
-      const data = err?.response?.data || { error: 'CMS proxy error' };
-      throw new HttpException(data, status);
+    } catch (err) {
+      this.mapProxyError(err, 'POST', path);
     }
   }
 
@@ -182,6 +202,12 @@ export class CmsService {
     return out;
   }
 
+  /** Expected to fail occasionally; used for observability only. */
+  private logTagEnrichFailure(context: string, err: unknown): void {
+    const msg = err instanceof Error ? err.message : String(err);
+    this.logger.debug(`Tag enrich (${context}): ${msg}`);
+  }
+
   private async enrichArticleTags(
     body: any,
     slugFallback?: string,
@@ -215,8 +241,8 @@ export class CmsService {
           attrs.tags = t;
           return body;
         }
-      } catch {
-        /* ignore */
+      } catch (e) {
+        this.logTagEnrichFailure('article id retry', e);
       }
     }
 
@@ -241,8 +267,8 @@ export class CmsService {
     for (const aid of idsToTry) {
       try {
         await pullTags({ 'filters[articles][id][$eq]': aid });
-      } catch {
-        /* ignore tag lookup errors */
+      } catch (e) {
+        this.logTagEnrichFailure('article tag by id', e);
       }
     }
 
@@ -252,8 +278,8 @@ export class CmsService {
       if (articleSlug) {
         try {
           await pullTags({ 'filters[articles][slug][$eq]': articleSlug });
-        } catch {
-          /* ignore */
+        } catch (e) {
+          this.logTagEnrichFailure('article tag by slug', e);
         }
       }
     }
@@ -299,8 +325,8 @@ export class CmsService {
     for (const nid of idsToTry) {
       try {
         await pullTags({ 'filters[news_items][id][$eq]': nid });
-      } catch {
-        /* ignore */
+      } catch (e) {
+        this.logTagEnrichFailure('news tag by id', e);
       }
     }
 
@@ -310,8 +336,8 @@ export class CmsService {
       if (newsSlug) {
         try {
           await pullTags({ 'filters[news_items][slug][$eq]': newsSlug });
-        } catch {
-          /* ignore */
+        } catch (e) {
+          this.logTagEnrichFailure('news tag by slug', e);
         }
       }
     }

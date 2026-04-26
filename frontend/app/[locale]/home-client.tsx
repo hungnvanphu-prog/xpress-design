@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
@@ -10,8 +11,73 @@ import type { toUiProject } from "@/lib/cms-transform";
 
 type UiProject = ReturnType<typeof toUiProject>;
 
+const CUSTOM_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: CUSTOM_EASE },
+  },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
+const serviceKeys = [
+  "architecture",
+  "interior",
+  "construction",
+  "renovation",
+] as const;
+
+const MOBILE_BREAKPOINT_MQ = "(max-width: 767px)";
+
+const INSIGHT_SLUGS: Record<string, [string, string, string]> = {
+  en: [
+    "5-sustainable-architecture-trends-2025",
+    "minimal-interior",
+    "urban-landscape-micro-climate",
+  ],
+  vi: [
+    "5-xu-huong-kien-truc-ben-vung-2025",
+    "noi-that-toi-gian",
+    "canh-quan-do-thi-va-vi-khi-hau",
+  ],
+};
+
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1764083029048-75497d17f7eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmFsJTIwbGlnaHQlMjBzaGFkb3clMjBtaW5pbWFsJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzc2MzUzNDE2fDA&ixlib=rb-4.1.0&q=80&w=1920";
+const INSIGHT_IMAGES: [string, string, string] = [
+  "https://images.unsplash.com/photo-1595939465372-9ffed94dd4dd?q=80&w=1200",
+  "https://images.unsplash.com/photo-1729335009895-bfe50bae5922?q=80&w=1200",
+  "https://images.unsplash.com/photo-1597280683904-95d07f4237eb?q=80&w=1200",
+];
+
 interface HomeClientProps {
   featuredProjects: UiProject[];
+}
+
+/**
+ * Fires when crossing 767px, not on every window resize — avoids re-renders while dragging the viewport.
+ * Initial render stays `false` until mount (matches SSR) to avoid parallax style hydration mismatch.
+ */
+function useMobileLayoutForParallax() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_BREAKPOINT_MQ);
+    const apply = () => setIsMobile(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+  return isMobile;
 }
 
 export default function HomeClient({ featuredProjects }: HomeClientProps) {
@@ -19,59 +85,15 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
   const tProj = useTranslations("Projects");
   const tCommon = useTranslations("Common");
   const locale = useLocale();
-  const insightSlugs =
-    locale === "en"
-      ? [
-          "5-sustainable-architecture-trends-2025",
-          "minimal-interior",
-          "urban-landscape-micro-climate",
-        ]
-      : [
-          "5-xu-huong-kien-truc-ben-vung-2025",
-          "noi-that-toi-gian",
-          "canh-quan-do-thi-va-vi-khi-hau",
-        ];
+  const insightSlugs = INSIGHT_SLUGS[locale] ?? INSIGHT_SLUGS.en;
 
   const { scrollY } = useScroll();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useMobileLayoutForParallax();
 
   const y = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 300]);
   const heroOpacity = useTransform(scrollY, [0, 600], [0.3, 0.9]);
   const textY = useTransform(scrollY, [0, 500], [0, 100]);
   const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  const CUSTOM_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-  const fadeUpVariant = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1.2, ease: CUSTOM_EASE },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const serviceKeys = [
-    "architecture",
-    "interior",
-    "construction",
-    "renovation",
-  ] as const;
 
   return (
     <div className="w-full relative bg-[#F8F9FA] text-[#1A1A1A] font-['Montserrat',sans-serif]">
@@ -93,11 +115,17 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             }}
             className="w-full h-full"
           >
-            <img
-              src="https://images.unsplash.com/photo-1764083029048-75497d17f7eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmFsJTIwbGlnaHQlMjBzaGFkb3clMjBtaW5pbWFsJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzc2MzUzNDE2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt={tHome("heroImageAlt")}
-              className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
-            />
+            <div className="relative h-full w-full">
+              <Image
+                src={HERO_IMAGE}
+                alt={tHome("heroImageAlt")}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover opacity-60 mix-blend-luminosity"
+                quality={85}
+              />
+            </div>
           </motion.div>
         </motion.div>
 
@@ -379,16 +407,18 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             {/* Bài 1 */}
             <motion.article
               variants={fadeUpVariant}
-              className="group cursor-pointer flex flex-col h-full"
+              className="group cursor-pointer flex h-full flex-col"
             >
               <Link
                 href={`/insights/${insightSlugs[0]}`}
-                className="block relative aspect-[4/5] overflow-hidden mb-8 bg-gray-100"
+                className="relative mb-8 block aspect-[4/5] overflow-hidden bg-gray-100"
               >
-                <img
-                  src="https://images.unsplash.com/photo-1595939465372-9ffed94dd4dd?q=80&w=1080"
+                <Image
+                  src={INSIGHT_IMAGES[0]}
                   alt={tHome("insights.card1.imageAlt")}
-                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
@@ -407,16 +437,18 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             {/* Bài 2 */}
             <motion.article
               variants={fadeUpVariant}
-              className="group cursor-pointer flex flex-col h-full"
+              className="group cursor-pointer flex h-full flex-col"
             >
               <Link
                 href={`/insights/${insightSlugs[1]}`}
-                className="block relative aspect-[4/5] overflow-hidden mb-8 bg-gray-100"
+                className="relative mb-8 block aspect-[4/5] overflow-hidden bg-gray-100"
               >
-                <img
-                  src="https://images.unsplash.com/photo-1729335009895-bfe50bae5922?q=80&w=1080"
+                <Image
+                  src={INSIGHT_IMAGES[1]}
                   alt={tHome("insights.card2.imageAlt")}
-                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
@@ -435,16 +467,18 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
             {/* Bài 3 */}
             <motion.article
               variants={fadeUpVariant}
-              className="group cursor-pointer flex flex-col h-full"
+              className="group cursor-pointer flex h-full flex-col"
             >
               <Link
                 href={`/insights/${insightSlugs[2]}`}
-                className="block relative aspect-[4/5] overflow-hidden mb-8 bg-gray-100"
+                className="relative mb-8 block aspect-[4/5] overflow-hidden bg-gray-100"
               >
-                <img
-                  src="https://images.unsplash.com/photo-1597280683904-95d07f4237eb?q=80&w=1080"
+                <Image
+                  src={INSIGHT_IMAGES[2]}
                   alt={tHome("insights.card3.imageAlt")}
-                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
               </Link>
               <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
