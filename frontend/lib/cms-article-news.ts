@@ -11,6 +11,18 @@ type StrapiMedia = {
   } | null;
 };
 
+/** Quan hệ manyToMany api::tag.tag (populate) hoặc legacy JSON */
+export type StrapiTagsRelation = {
+  data?: Array<{
+    id: number;
+    attributes?: {
+      name?: string;
+      name_en?: string | null;
+      slug?: string;
+    };
+  }>;
+};
+
 export type StrapiArticle = {
   id: number;
   attributes: {
@@ -27,7 +39,7 @@ export type StrapiArticle = {
     content?: unknown;
     publishedAt?: string | null;
     createdAt?: string | null;
-    tags?: string[] | null;
+    tags?: StrapiTagsRelation | unknown;
     locale?: string;
     seo_title?: string | null;
     seo_description?: string | null;
@@ -64,6 +76,7 @@ export type StrapiNews = {
     publishedAt?: string | null;
     type?: 'news' | 'event' | 'community' | null;
     location?: string | null;
+    tags?: StrapiTagsRelation | unknown;
     locale?: string;
     thumbnail?: StrapiMedia;
     localizations?: {
@@ -140,6 +153,74 @@ function formatListDate(iso: string | undefined, locale: string): string {
   }).format(d);
 }
 
+/** Tag trên bài Insights — hỗ trợ JSON Strapi: string[] hoặc { id?, name, slug? }[] */
+export type ArticleTag = { id?: number; name: string; slug: string };
+
+function slugifyTag(label: string): string {
+  const s = label
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return s || 'tag';
+}
+
+function normalizeArticleTags(raw: unknown): ArticleTag[] {
+  if (raw == null) return [];
+  if (!Array.isArray(raw)) return [];
+  const out: ArticleTag[] = [];
+  let autoId = 0;
+  for (const item of raw) {
+    if (typeof item === 'string') {
+      const name = item.trim();
+      if (!name) continue;
+      out.push({ id: ++autoId, name, slug: slugifyTag(name) });
+      continue;
+    }
+    if (item && typeof item === 'object' && 'name' in item) {
+      const name = String((item as { name: unknown }).name ?? '').trim();
+      if (!name) continue;
+      const slugIn = (item as { slug?: unknown }).slug;
+      const slug =
+        typeof slugIn === 'string' && slugIn.trim() ? slugIn.trim().toLowerCase() : slugifyTag(name);
+      const idIn = (item as { id?: unknown }).id;
+      const id = typeof idIn === 'number' && Number.isFinite(idIn) ? idIn : ++autoId;
+      out.push({ id, name, slug });
+    }
+  }
+  return out;
+}
+
+function entityTagsFromAttributes(
+  a: { tags?: StrapiTagsRelation | unknown },
+  locale: string,
+): ArticleTag[] {
+  const raw = a.tags;
+  if (
+    raw &&
+    typeof raw === 'object' &&
+    'data' in raw &&
+    Array.isArray((raw as StrapiTagsRelation).data)
+  ) {
+    const items = (raw as StrapiTagsRelation).data ?? [];
+    return items
+      .map((item) => {
+        const attr = item.attributes ?? {};
+        const slugRaw = (attr.slug || '').trim().toLowerCase();
+        const slug = slugRaw || slugifyTag(attr.name || String(item.id));
+        const name =
+          locale === 'en'
+            ? (attr.name_en || '').trim() || (attr.name || '').trim()
+            : (attr.name || '').trim();
+        return { id: item.id, name, slug };
+      })
+      .filter((t) => t.name);
+  }
+  return normalizeArticleTags(raw);
+}
+
 export type UiArticleListItem = {
   id: number;
   slug: string;
@@ -149,6 +230,7 @@ export type UiArticleListItem = {
   date: string;
   category: string;
   author: string;
+  tags: ArticleTag[];
   localizedSlugs: Record<string, string>;
 };
 
@@ -165,6 +247,7 @@ export function toUiArticleListItem(entity: StrapiArticle, locale: string, autho
     date: formatListDate(published, locale),
     category: a.category?.data?.attributes?.name || '—',
     author: (a.author_display_name || '').trim() || authorLabel,
+    tags: entityTagsFromAttributes(a, locale),
     localizedSlugs: buildLocalizedSlugs(a.locale, a.slug, a.localizations),
   };
 }
@@ -173,7 +256,6 @@ export type UiArticleDetail = UiArticleListItem & {
   contentHtml: string;
   seoTitle?: string;
   seoDescription?: string;
-  tags: string[];
   categoryId?: number;
   lead?: string;
   readingTimeMinutes?: number;
@@ -205,7 +287,6 @@ export function toUiArticleDetail(
     contentHtml: richtextToHtml(a.content),
     seoTitle: a.seo_title || undefined,
     seoDescription: a.seo_description || undefined,
-    tags: Array.isArray(a.tags) ? a.tags : [],
     categoryId: typeof catId === 'number' ? catId : undefined,
     lead: (a.lead || '').trim() || undefined,
     readingTimeMinutes: a.reading_time_minutes ?? undefined,
@@ -228,6 +309,7 @@ export type UiNewsListItem = {
   monthYear: string;
   categoryKey: 'news' | 'event' | 'community';
   location?: string;
+  tags: ArticleTag[];
   localizedSlugs: Record<string, string>;
 };
 
@@ -265,6 +347,7 @@ export function toUiNewsListItem(entity: StrapiNews, locale: string): UiNewsList
     monthYear,
     categoryKey: typeKey,
     location: a.location || undefined,
+    tags: entityTagsFromAttributes(a, locale),
     localizedSlugs: buildLocalizedSlugs(a.locale, a.slug, a.localizations),
   };
 }

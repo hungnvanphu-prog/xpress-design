@@ -79,6 +79,22 @@
     "location": {
       "type": "string",
       "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "news_items"
+    },
+    "tag_multiselect": {
+      "type": "customField",
+      "customField": "plugin::article-tag-picker.tag-multiselect",
+      "private": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

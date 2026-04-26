@@ -7,6 +7,7 @@ import { motion } from 'motion/react';
 import { Calendar, ChevronLeft, MapPin, Share2, Trophy } from 'lucide-react';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import type { UiNewsDetail } from '@/lib/cms-article-news';
+import { ContentTagLinks } from '@/components/ContentTagLinks';
 
 type NewsTypeKey = 'news' | 'event' | 'community';
 
@@ -188,6 +189,12 @@ export default function NewsDetailClient({ item }: { item: UiNewsDetail }) {
               </p>
             ) : null}
           </aside>
+        ) : null}
+
+        {item.tags.length > 0 ? (
+          <div className="mt-14 pt-10 border-t border-gray-200">
+            <ContentTagLinks tags={item.tags} label={tNews('tagsLabel')} listHrefBase="/news" />
+          </div>
         ) : null}
 
         <div className="mt-14 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between pt-10 border-t border-gray-200">

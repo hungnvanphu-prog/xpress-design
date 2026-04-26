@@ -17,8 +17,50 @@ module.exports = {
     await seedLocales(strapi);
     await grantPublicPermissions(strapi);
     await seedContent(strapi);
+    await hideRelationTagsInContentManager(strapi, 'api::article.article', 'Article');
+    await hideRelationTagsInContentManager(strapi, 'api::news.news', 'News');
   },
 };
+
+/** Ẩn field quan hệ `tags` mặc định trong CM; biên tập dùng `tag_multiselect`. */
+async function hideRelationTagsInContentManager(strapi, uid, label) {
+  const contentType = strapi.contentTypes[uid];
+  if (!contentType) return;
+
+  try {
+    const cmContentTypes = strapi.plugin('content-manager').service('content-types');
+    const config = await cmContentTypes.findConfiguration(contentType);
+    if (!config?.metadatas?.tags?.edit) return;
+
+    const editRelations = config.layouts?.editRelations || [];
+    const tagsHidden = config.metadatas.tags.edit.visible === false;
+    const tagsOutOfRelations = !editRelations.includes('tags');
+    if (tagsHidden && tagsOutOfRelations) return;
+
+    const nextMetadatas = {
+      ...config.metadatas,
+      tags: {
+        ...config.metadatas.tags,
+        edit: {
+          ...config.metadatas.tags.edit,
+          visible: false,
+        },
+      },
+    };
+    const nextLayouts = {
+      ...config.layouts,
+      editRelations: editRelations.filter((r) => r !== 'tags'),
+    };
+    await cmContentTypes.updateConfiguration(contentType, {
+      ...config,
+      metadatas: nextMetadatas,
+      layouts: nextLayouts,
+    });
+    strapi.log.info(`[cms] Đã ẩn field quan hệ tags mặc định trên ${label} (Content Manager)`);
+  } catch (err) {
+    strapi.log.warn(`[cms] Không chỉnh CM layout ${label} (tags): ${err.message}`);
+  }
+}
 
 /* ============================================================
  * 1) SUPER ADMIN
@@ -120,6 +162,8 @@ async function grantPublicPermissions(strapi) {
     'api::article.article.findOne',
     'api::category.category.find',
     'api::category.category.findOne',
+    'api::tag.tag.find',
+    'api::tag.tag.findOne',
     'api::news.news.find',
     'api::news.news.findOne',
     'api::page.page.find',
@@ -143,14 +187,51 @@ async function grantPublicPermissions(strapi) {
 /* ============================================================
  * 4) SEED CONTENT (vi + en)
  * ============================================================ */
+async function seedTags(strapi) {
+  const defs = [
+    { slug: 'ben-vung', name: 'Bền vững', name_en: 'Sustainability' },
+    { slug: 'xu-huong', name: 'Xu hướng', name_en: 'Trends' },
+    { slug: 'nam-2025', name: '2025', name_en: '2025' },
+    { slug: 'toi-gian', name: 'Tối giản', name_en: 'Minimal' },
+    { slug: 'noi-that', name: 'Nội thất', name_en: 'Interior' },
+    { slug: 'canh-quan', name: 'Cảnh quan', name_en: 'Landscape' },
+    { slug: 'vi-khi-hau', name: 'Vi khí hậu', name_en: 'Micro-climate' },
+    { slug: 'do-thi', name: 'Đô thị', name_en: 'Urban' },
+    { slug: 'wellness', name: 'Wellness', name_en: 'Wellness' },
+    { slug: 'spa', name: 'Spa', name_en: 'Spa' },
+    { slug: 'phong-thuy', name: 'Phong thủy', name_en: 'Feng shui' },
+    { slug: 'nha-pho', name: 'Nhà phố', name_en: 'Townhouse' },
+    { slug: 'vat-lieu', name: 'Vật liệu', name_en: 'Materials' },
+    { slug: 'anh-sang', name: 'Ánh sáng', name_en: 'Daylight' },
+    { slug: 'kien-truc', name: 'Kiến trúc', name_en: 'Architecture' },
+    { slug: 'gieng-troi', name: 'Giếng trời', name_en: 'Skylight' },
+  ];
+  const map = new Map();
+  for (const d of defs) {
+    const existing = await strapi.db.query('api::tag.tag').findOne({ where: { slug: d.slug } });
+    const payload = {
+      name: d.name,
+      name_en: d.name_en || null,
+      slug: d.slug,
+    };
+    const row = existing
+      ? await strapi.entityService.update('api::tag.tag', existing.id, { data: payload })
+      : await strapi.entityService.create('api::tag.tag', { data: payload });
+    map.set(d.slug, row.id);
+    strapi.log.info(`[seed] ✅ Tag: ${d.name} (${d.slug})`);
+  }
+  return map;
+}
+
 async function seedContent(strapi) {
   try {
     strapi.log.info('[seed] 🌱 Bắt đầu upsert dữ liệu mẫu song ngữ...');
 
+    const tagMap = await seedTags(strapi);
     const categories = await seedCategories(strapi);
     await seedProjects(strapi);
-    await seedArticles(strapi, categories);
-    await seedNews(strapi);
+    await seedArticles(strapi, categories, tagMap);
+    await seedNews(strapi, tagMap);
     await seedPages(strapi);
 
     strapi.log.info('[seed] ✅ Hoàn tất upsert dữ liệu mẫu');
@@ -511,7 +592,7 @@ async function seedProjects(strapi) {
   }
 }
 
-async function seedArticles(strapi, categories) {
+async function seedArticles(strapi, categories, tagMap) {
   const catKienTruc = categories.find((c) => c.name === 'Kiến trúc')?.id;
   const catNoiThat = categories.find((c) => c.name === 'Nội thất')?.id;
   const catCanhQuan = categories.find((c) => c.name === 'Cảnh quan')?.id;
@@ -548,7 +629,6 @@ async function seedArticles(strapi, categories) {
           '<h2>Dành cho ai, và bắt đầu từ đâu</h2>',
           '<p>Nếu bạn là chủ đầu tư dự án dưới 1.000 m² sàn: hãy yêu cầu tư vấn viết rõ số nhiệt/điện ước tính theo từng mặt, và từ chối bản thiết kế không mô tả tuyến gió. Nếu bạn là KTS đối tác: trao với cơ điện sớm, trước hình khối, cố định mảng tường tải nhiệt tây trước khi bàn về cột–dầm.</p>',
         ].join(''),
-        tags: ['bền vững', 'xu hướng', '2025'],
         seo_title: '5 xu hướng kiến trúc bền vững 2025',
         seo_description: 'Khám phá 5 xu hướng kiến trúc xanh nổi bật năm 2025.',
       },
@@ -574,10 +654,10 @@ async function seedArticles(strapi, categories) {
           '<h2>Who it is for, and the first line on the RFP</h2>',
           '<p>If you are a sub-1,000 m² GFA client: require heat balance assumptions per orientation and a written ventilation narrative before reviewing aesthetics. If you are the architect: lock west-wall treatments with the MEP team before the column grid hardens — it saves everyone a retrofit.</p>',
         ].join(''),
-        tags: ['sustainability', 'trends', '2025'],
         seo_title: '5 Sustainable Architecture Trends 2025',
         seo_description: 'Discover 5 outstanding green architecture trends in 2025.',
       },
+      tagSlugs: ['ben-vung', 'xu-huong', 'nam-2025'],
       category: catKienTruc,
     },
     {
@@ -600,7 +680,6 @@ async function seedArticles(strapi, categories) {
           '<h2>Checklist 10 phút cho gia chủ trước khi bấm màu tường</h2>',
           '<ul><li>Bạn cần bao nhiêu ổ cắm che — không ổ nào lộ ở vùng thấp sightline?</li><li>Bạn có 5 phút rút vật từ tủ mà không với tay ngược?</li><li>Chụp 3 ảnh đêm với ánh 2700/3000K — tường còn “nhám” tốt không, hay tự phát ánh sáng xám?</li></ul>',
         ].join(''),
-        tags: ['tối giản', 'nội thất'],
         seo_title: 'Nội thất tối giản',
         seo_description: 'Hiểu đúng về phong cách nội thất tối giản.',
       },
@@ -623,10 +702,10 @@ async function seedArticles(strapi, categories) {
           '<h2>A 10-minute owner self-check</h2>',
           '<ul><li>Count hidden outlets, not more visible ones in low sightlines — none?</li><li>Can you pull daily items in under five seconds without a twist?</li><li>Take three night photos: does the wall read soft with 2700/3000K, or go grey-luminous and cheap?</li></ul>',
         ].join(''),
-        tags: ['minimal', 'interior'],
         seo_title: 'Minimal Interior',
         seo_description: 'Understanding the minimal interior style.',
       },
+      tagSlugs: ['toi-gian', 'noi-that'],
       category: catNoiThat,
     },
     {
@@ -648,7 +727,6 @@ async function seedArticles(strapi, categories) {
           '<h2>5. Từ mảng tới tài chính: phân kỳ, không đòi tất cả ngay</h2>',
           '<p>Chúng tôi thường đề nghị 3 mốc: (1) tán + vỉa, (2) cầu cảnh + tưới, (3) tối ưu cảnh thấp, thủy, đèn nền. CĐT thấy rõ phần nào giải nhiệt thật, phần nào còn ở tầm “cải thiện hình ảnh dài hạn”.</p>',
         ].join(''),
-        tags: ['cảnh quan', 'vi khí hậu', 'đô thị'],
         seo_title: 'Cảnh quan đô thị & vi khí hậu',
         seo_description: 'Giải pháp cảnh quan giảm nhiệt cảm nhận ở đô thị nhiệt đới.',
       },
@@ -670,10 +748,10 @@ async function seedArticles(strapi, categories) {
           '<p>Three gates keep CAPEX clear: (1) canopy and cool pavement, (2) the bridge and irrigation backbone, (3) ornamental layers and night ambient. The owner sees the load drop before the “Instagram layer.”</p>',
         ].join(''),
         slug: 'urban-landscape-micro-climate',
-        tags: ['landscape', 'micro-climate', 'urban'],
         seo_title: 'Urban landscape & micro-climate',
         seo_description: 'Landscape strategies that reduce felt heat in tropical blocks.',
       },
+      tagSlugs: ['canh-quan', 'vi-khi-hau', 'do-thi'],
       category: catCanhQuan,
     },
     {
@@ -696,7 +774,6 @@ async function seedArticles(strapi, categories) {
           '<h2>5. Lộ trình triển khai: concept → bản vẽ nước tĩnh → mẫu 1/1 3m2</h2>',
           '<p>Chúng tôi dựng 3m2 mẫu cạnh ốp thật, thử: tiếng nước, ánh, dim, mùi sơn/keo, trước khi ốp 80m2 thật. Chi phí mẫu 1% ngân sách hoàn thiện, thường trả 6–8% lãng phí vận hành 5 năm.</p>',
         ].join(''),
-        tags: ['wellness', 'nội thất', 'spa'],
         seo_title: 'Tĩnh lặng & wellness tại gia',
         seo_description: 'Thiết kế spa, âm trường và ánh sáng phòng tắm cao cấp.',
       },
@@ -719,10 +796,10 @@ async function seedArticles(strapi, categories) {
           '<p>We build a 3m² test cell with real stone, real mixer, real dim, real sound — not mood boards. Cost is about 1% of fit-out, often pays back 6–8% in first-five-year waste.</p>',
         ].join(''),
         slug: 'silence-home-spa-wellness',
-        tags: ['wellness', 'interior', 'spa'],
         seo_title: 'Silence in home spa & wellness design',
         seo_description: 'Spa, acoustic and lighting for premium residential bathrooms.',
       },
+      tagSlugs: ['wellness', 'noi-that', 'spa'],
       category: catNoiThat,
     },
     /* —— Góc nhìn: bài mẫu “ánh sáng” + 3 bài liên quan cùng chuyên mục —— */
@@ -746,7 +823,6 @@ async function seedArticles(strapi, categories) {
           '<p>Khi chủ nhà muốn “hợp phong thủ” nhưng vẫn tin vào số liệu, chúng tôi đặt song song: cùng một bản vẽ vừa thỏa trục truyền thống, vừa đạt mục tiêu thông gió chéo và giảm nhiệt tường tây. Hai ngôn ngữ — một thực tại sống.</p>',
           '<p><strong>Kết luận:</strong> Phong thủy nhà phố là bài toán về <em>trật tự và dư âm</em>. XPRESS DESIGN ưu tiên giải pháp có thể giải thích cho cả gia chủ và đội thi công, để ngôi nhà không chỉ đẹp trên hình, mà ổn trong nhiều năm.</p>',
         ].join(''),
-        tags: ['phong thủy', 'nhà phố'],
         hero_image_url: heroLivingLight,
         reading_time_minutes: 8,
         author_display_name: 'KTS. Nguyễn Minh An',
@@ -772,13 +848,13 @@ async function seedArticles(strapi, categories) {
           '<p>When owners want cultural alignment and data, we design once for both: the same plan can respect traditional axes and hit cross-vent plus west-wall relief. Two languages, one lived reality.</p>',
           '<p><strong>In closing:</strong> Townhouse feng shui, in our practice, is the discipline of <em>order and afterglow</em>. XPRESS DESIGN prefers moves you can explain to the builder — beauty on paper and calm for years.</p>',
         ].join(''),
-        tags: ['feng shui', 'townhouse'],
         hero_image_url: heroLivingLight,
         reading_time_minutes: 8,
         author_display_name: 'Arch. Minh An Nguyen',
         author_role: 'Head of Architecture Design, XPRESS DESIGN',
         author_bio: 'Over 12 years in premium residential and spatial design.',
       },
+      tagSlugs: ['phong-thuy', 'nha-pho'],
       category: catKienThucXD,
     },
     {
@@ -802,7 +878,6 @@ async function seedArticles(strapi, categories) {
           '<p>Ray cửa lùa chìm, thoát nước dọc mép, và đá sàn trong–ngoài cùng tông: biên giới phòng khách–hiên được làm mờ có chủ đích. Đây là xu hướng sống phổ biến ở biệt thự nhiệt đới sau dịch.</p>',
           '<p><strong>Tổng kết:</strong> Năm xu hướng trên không thay thế nhau — chúng được cân theo <em>quy mô, hướng nắng và nhịp gia đình</em>. XPRESS DESIGN dùng chúng như bảng màu hành vi, không như checklist Instagram.</p>',
         ].join(''),
-        tags: ['xu hướng', 'nội thất'],
         hero_image_url: imgBeforeAfter,
         reading_time_minutes: 9,
       },
@@ -826,10 +901,10 @@ async function seedArticles(strapi, categories) {
           '<p>Recessed sliders, linear drain at the edge, and inside–outside stone in one tone: the living room and the terrace share one plane by intent. Post-pandemic tropical villas ask for this daily.</p>',
           '<p><strong>Wrap:</strong> These five do not cancel each other — we weight them against orientation, scale, and family rhythm. XPRESS DESIGN treats them as a behavioural palette, not an Instagram checklist.</p>',
         ].join(''),
-        tags: ['trends', 'interior'],
         hero_image_url: imgBeforeAfter,
         reading_time_minutes: 9,
       },
+      tagSlugs: ['xu-huong', 'noi-that'],
       category: catKienThucXD,
     },
     {
@@ -854,7 +929,6 @@ async function seedArticles(strapi, categories) {
           '<ul><li>Giấy tờ tỷ lệ tái chế tối thiểu theo sản phẩm (%) và phương pháp thử.</li><li>Bảo hành song song: vật liệu + thi công (ai chịu nếu bong sau 6 tháng?).</li><li>Kế hoạch bảo trì: keo, gioăng, sơn bảo vệ — lịch 12/24/60 tháng.</li></ul>',
           '<p><strong>Kết luận:</strong> Vật liệu tái chế không làm giảm đẳng cấp nếu được tích hợp vào <em>hệ chi tiết</em> rõ ràng. XPRESS DESIGN dùng chúng để kể câu chuyện trách nhiệm dài hạn của ngôi nhà.</p>',
         ].join(''),
-        tags: ['bền vững', 'vật liệu'],
         hero_image_url: imgSkylightDiagram,
         reading_time_minutes: 9,
       },
@@ -879,10 +953,10 @@ async function seedArticles(strapi, categories) {
           '<ul><li>Declared recycled content (%) and test method.</li><li>Split warranty: material vs installer — who owns a six-month delamination?</li><li>Maintenance calendar: sealants, gaskets, protective coats at 12/24/60 months.</li></ul>',
           '<p><strong>In closing:</strong> Recycled content does not cheapen luxury when embedded in a <em>detail system</em>. XPRESS DESIGN uses it to narrate long-term stewardship.</p>',
         ].join(''),
-        tags: ['sustainability', 'materials'],
         hero_image_url: imgSkylightDiagram,
         reading_time_minutes: 9,
       },
+      tagSlugs: ['ben-vung', 'vat-lieu'],
       category: catKienThucXD,
     },
     {
@@ -899,7 +973,6 @@ async function seedArticles(strapi, categories) {
         author_role: 'Trưởng phòng Thiết kế Kiến trúc, XPRESS DESIGN',
         author_bio:
           'Hơn 12 năm kinh nghiệm trong lĩnh vực thiết kế không gian sống, chuyên sâu về tối ưu ánh sáng tự nhiên và phong thủy ứng dụng.',
-        tags: ['ánh sáng', 'kiến trúc', 'giếng trời'],
         seo_title: 'Ánh sáng tự nhiên: Bản giao hưởng của không gian | XPRESS DESIGN',
         seo_description:
           'Bố trí giếng trời, cửa sổ và vật liệu phản quang để ngôi nhà tràn ngập ánh sáng và cảm xúc.',
@@ -931,7 +1004,6 @@ async function seedArticles(strapi, categories) {
         author_role: 'Head of Architecture Design, XPRESS DESIGN',
         author_bio:
           'Over 12 years crafting residential spaces, with a focus on daylight optimization and applied spatial balance.',
-        tags: ['daylight', 'architecture', 'skylight'],
         seo_title: 'Natural light: A symphony of space | XPRESS DESIGN',
         seo_description:
           'Skylights, windows, and reflective surfaces — how we choreograph daylight in tropical homes.',
@@ -950,22 +1022,25 @@ async function seedArticles(strapi, categories) {
           `<p><strong>In closing:</strong> Natural light is not magic. It is the sum of deliberate moves. Start by looking at your house at three times of day — you may hear the symphony already.</p>`,
         ].join(''),
       },
+      tagSlugs: ['anh-sang', 'kien-truc', 'gieng-troi'],
       category: catKienThucXD,
     },
   ];
 
   for (const a of articles) {
+    const tagIds = (a.tagSlugs || []).map((s) => tagMap.get(s)).filter(Boolean);
+    const tagMultiselect = tagIds.length ? tagIds.join(',') : '';
     await upsertBilingual(
       strapi,
       'api::article.article',
-      { ...a.vi, category: a.category },
-      { ...a.en, category: a.category },
+      { ...a.vi, category: a.category, tags: tagIds, tag_multiselect: tagMultiselect },
+      { ...a.en, category: a.category, tags: tagIds, tag_multiselect: tagMultiselect },
     );
     strapi.log.info(`[seed] ✅ Article: ${a.vi.title} / ${a.en.title}`);
   }
 }
 
-async function seedNews(strapi) {
+async function seedNews(strapi, tagMap) {
   const heroAward =
     'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=80';
   const imgStageAward =
@@ -1036,6 +1111,7 @@ async function seedNews(strapi) {
         event_date: new Date('2025-04-14T12:00:00.000Z'),
         show_event_info_box: true,
       },
+      tagSlugs: ['ben-vung', 'kien-truc', 'nam-2025'],
     },
     {
       vi: {
@@ -1089,6 +1165,7 @@ async function seedNews(strapi) {
         event_date: new Date('2025-03-10T09:00:00.000Z'),
         show_event_info_box: true,
       },
+      tagSlugs: ['xu-huong', 'vat-lieu', 'ben-vung'],
     },
     {
       vi: {
@@ -1137,6 +1214,7 @@ async function seedNews(strapi) {
         type: 'news',
         event_date: new Date('2025-06-01T10:00:00.000Z'),
       },
+      tagSlugs: ['ben-vung', 'kien-truc', 'xu-huong'],
     },
     {
       vi: {
@@ -1188,6 +1266,7 @@ async function seedNews(strapi) {
         event_date: new Date('2025-08-20T14:00:00.000Z'),
         show_event_info_box: true,
       },
+      tagSlugs: ['vat-lieu', 'xu-huong'],
     },
     {
       vi: {
@@ -1240,17 +1319,54 @@ async function seedNews(strapi) {
         type: 'community',
         event_date: new Date('2024-10-12T08:00:00.000Z'),
       },
+      tagSlugs: ['ben-vung', 'do-thi', 'wellness'],
     },
   ];
 
   for (const n of items) {
+    const tagIds = (n.tagSlugs || []).map((s) => tagMap.get(s)).filter(Boolean);
+    const tagMultiselect = tagIds.length ? tagIds.join(',') : '';
     await upsertBilingual(
       strapi,
       'api::news.news',
-      { ...n.vi, ...n.shared },
-      { ...n.en, ...n.shared },
+      { ...n.vi, ...n.shared, tags: tagIds, tag_multiselect: tagMultiselect },
+      { ...n.en, ...n.shared, tags: tagIds, tag_multiselect: tagMultiselect },
     );
     strapi.log.info(`[seed] ✅ News: ${n.vi.title} / ${n.en.title}`);
+  }
+
+  await syncNewsTagsInDatabase(strapi, tagMap, items);
+}
+
+/**
+ * Ghi chắc chắn quan hệ `tags` + cột `tag_multiselect` lên DB cho từng bản vi/en
+ * (kể cả bản ghi đã có từ trước khi thêm tag — upsert đôi khi không cập nhật M2M đúng).
+ */
+async function syncNewsTagsInDatabase(strapi, tagMap, items) {
+  try {
+    for (const n of items) {
+      const tagIds = (n.tagSlugs || []).map((s) => tagMap.get(s)).filter(Boolean);
+      const tagMultiselect = tagIds.length ? tagIds.join(',') : '';
+      const pairs = [
+        { slug: n.vi.slug, locale: 'vi' },
+        { slug: n.en.slug, locale: 'en' },
+      ];
+      for (const { slug, locale } of pairs) {
+        const row = await strapi.db.query('api::news.news').findOne({
+          where: { slug, locale },
+        });
+        if (!row) {
+          strapi.log.warn(`[seed] News không tìm thấy để gán tag: ${slug} (${locale})`);
+          continue;
+        }
+        await strapi.entityService.update('api::news.news', row.id, {
+          data: { tags: tagIds, tag_multiselect: tagMultiselect },
+        });
+      }
+    }
+    strapi.log.info('[seed] ✅ Đã đồng bộ tag tin tức vào DB (tags + tag_multiselect, vi/en)');
+  } catch (err) {
+    strapi.log.error('[seed] Lỗi đồng bộ tag News vào DB:', err.message);
   }
 }
 

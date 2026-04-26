@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, X } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { PageHero } from '@/components/PageHero';
@@ -20,9 +20,11 @@ const typeTKey: Record<NewsTypeKey, 'typeNews' | 'typeEvent' | 'typeCommunity'> 
 export default function NewsListClient({
   items,
   pagination,
+  activeTagSlug,
 }: {
   items: UiNewsListItem[];
   pagination: { page: number; pageSize: number; pageCount: number; total: number };
+  activeTagSlug?: string;
 }) {
   const tNav = useTranslations('Nav');
   const tPage = useTranslations('PageTitles');
@@ -33,6 +35,10 @@ export default function NewsListClient({
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
   };
+
+  const activeTagName = activeTagSlug
+    ? items.flatMap((i) => i.tags).find((t) => t.slug === activeTagSlug)?.name ?? activeTagSlug
+    : '';
 
   return (
     <div className="w-full relative bg-[#F8F9FA] min-h-screen">
@@ -47,6 +53,19 @@ export default function NewsListClient({
       />
 
       <section className="py-16 md:py-32 px-6 md:px-12 max-w-[1200px] mx-auto relative">
+        {activeTagSlug ? (
+          <div className="mb-10 flex flex-wrap items-center gap-3 text-[13px] text-[#4A4A4A]">
+            <span>
+              {tNews('filterByTag')}: <strong className="text-[#1A1A1A]">{activeTagName}</strong>
+            </span>
+            <Link
+              href="/news"
+              className="inline-flex items-center gap-1 px-3 py-1.5 border border-[#1A1A1A]/15 text-[11px] font-semibold uppercase tracking-wider hover:border-[#D4AF37] transition-colors"
+            >
+              <X size={14} /> {tNews('clearTagFilter')}
+            </Link>
+          </div>
+        ) : null}
         {items.length === 0 ? (
           <p className="text-center text-[#4A4A4A] text-[15px] py-12">{tNews('emptyList')}</p>
         ) : (
@@ -97,6 +116,20 @@ export default function NewsListClient({
                 <p className="text-[#4A4A4A] text-[15px] leading-relaxed mb-6 font-light">
                   {item.summary}
                 </p>
+                {item.tags.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {item.tags.slice(0, 5).map((tag) => (
+                      <Link
+                        key={tag.slug}
+                        href={`/news?tag=${encodeURIComponent(tag.slug)}`}
+                        className="text-[9px] uppercase tracking-wider text-[#888888] hover:text-[#D4AF37] px-2 py-0.5 border border-[#1A1A1A]/10 hover:border-[#D4AF37]/50 bg-[#F8F9FA]/80 transition-colors font-['Montserrat',sans-serif]"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {tag.name}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="mt-auto">
                   <span className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.1em] text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors pb-1 border-b border-transparent group-hover:border-[#D4AF37]">
                     {tCommon('readMore')} <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -109,7 +142,11 @@ export default function NewsListClient({
           })}
         </div>
         )}
-        <ListPagination page={pagination.page} pageCount={pagination.pageCount} />
+        <ListPagination
+          page={pagination.page}
+          pageCount={pagination.pageCount}
+          extraParams={activeTagSlug ? { tag: activeTagSlug } : {}}
+        />
       </section>
 
     </div>

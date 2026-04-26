@@ -50,9 +50,24 @@ function BlogCard({ post, readMoreLabel }: { post: UiArticleListItem; readMoreLa
         {post.title}
       </h3>
     </Link>
-    <p className="text-[#4A4A4A] text-[14px] line-clamp-3 leading-[1.6] mb-6 font-light" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+    <p className="text-[#4A4A4A] text-[14px] line-clamp-3 leading-[1.6] mb-4 font-light" style={{ fontFamily: 'Montserrat, sans-serif' }}>
       {post.description}
     </p>
+    {post.tags.length > 0 ? (
+      <div className="flex flex-wrap gap-1.5 mb-5">
+        {post.tags.slice(0, 4).map((tag) => (
+          <Link
+            key={tag.slug}
+            href={`/insights?tag=${encodeURIComponent(tag.slug)}`}
+            className="text-[9px] uppercase tracking-wider text-[#888888] hover:text-[#D4AF37] px-2 py-0.5 border border-[#1A1A1A]/10 hover:border-[#D4AF37]/50 bg-[#F8F9FA]/80 transition-colors"
+            style={{ fontFamily: 'Montserrat, sans-serif' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {tag.name}
+          </Link>
+        ))}
+      </div>
+    ) : null}
     <div className="mt-auto">
       <Link href={`/insights/${post.slug}`} className="inline-flex items-center gap-2 text-[#1A1A1A] text-[11px] font-semibold uppercase tracking-[0.15em] group-hover:text-[#D4AF37] transition-colors pb-1 border-b border-[#1A1A1A] group-hover:border-[#D4AF37]">
         {readMoreLabel} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -70,6 +85,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
   const router = useRouter();
   const pathname = usePathname();
   const urlSearchParams = useSearchParams();
+  const tagSlug = (urlSearchParams.get('tag') || '').trim().toLowerCase();
   const [searchQuery, setSearchQuery] = useState('');
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -96,9 +112,21 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
     [allLabel, posts],
   );
 
+  const activeTagName = useMemo(() => {
+    if (!tagSlug) return '';
+    for (const p of posts) {
+      const hit = p.tags.find((t) => t.slug === tagSlug);
+      if (hit) return hit.name;
+    }
+    return tagSlug;
+  }, [posts, tagSlug]);
+
   const filtered = useMemo(() => {
     let p = posts;
     if (activeCategory !== allLabel) p = p.filter((x) => x.category === activeCategory);
+    if (tagSlug) {
+      p = p.filter((x) => x.tags.some((t) => t.slug === tagSlug));
+    }
     const q = searchQuery.trim().toLowerCase();
     if (q) {
       p = p.filter(
@@ -107,7 +135,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
       );
     }
     return p;
-  }, [posts, activeCategory, searchQuery, allLabel]);
+  }, [posts, activeCategory, searchQuery, allLabel, tagSlug]);
 
   const remainder = Math.max(0, filtered.length - 2);
   const totalGridPages = Math.max(1, Math.ceil(remainder / GRID_PAGE_SIZE) || 1);
@@ -192,6 +220,23 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
           </div>
         </div>
       </section>
+
+      {tagSlug ? (
+        <div className="bg-[#F8F9FA] border-b border-[#1A1A1A]/8 py-3.5">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-wrap items-center justify-center gap-3 text-[13px] font-['Montserrat',sans-serif]">
+            <span className="text-[#4A4A4A]">
+              {t('filteringByTag')}:{' '}
+              <strong className="text-[#1A1A1A] font-semibold">{activeTagName}</strong>
+            </span>
+            <Link
+              href="/insights"
+              className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.14em] hover:underline"
+            >
+              {t('clearTagFilter')}
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       {/* 3. Báo cáo đặc biệt (Feature Report) */}
       <section className="py-20 md:py-24 bg-white relative z-30">

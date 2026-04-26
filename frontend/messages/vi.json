@@ -104,10 +104,15 @@
     "readMoreLink": "Đọc thêm",
     "readFullArticle": "Đọc bài viết",
     "sectionFeatured": "Tiêu điểm chuyên môn",
-    "sectionLibrary": "Thư viện kiến thức"
+    "sectionLibrary": "Thư viện kiến thức",
+    "filteringByTag": "Đang lọc theo chủ đề",
+    "clearTagFilter": "Xóa bộ lọc",
+    "tagsLabel": "Chủ đề"
   },
   "InsightsDetail": {
     "breadcrumbHome": "Trang chủ",
+    "philosophyLine": "Nơi lưu giữ những giá trị vượt thời gian",
+    "tagsLabel": "Chủ đề",
     "readTime": "{minutes} phút đọc",
     "relatedTitle": "Bài viết liên quan",
     "followTitle": "Theo dõi chúng tôi",
@@ -130,7 +135,10 @@
     "emptyList": "Chưa có tin tức. Vui lòng thêm nội dung trên CMS.",
     "typeNews": "Tin tức",
     "typeEvent": "Sự kiện",
-    "typeCommunity": "Cộng đồng"
+    "typeCommunity": "Cộng đồng",
+    "filterByTag": "Chủ đề",
+    "clearTagFilter": "Xem tất cả",
+    "tagsLabel": "Thẻ"
   },
   "NewsDetail": {
     "breadcrumbHome": "Trang chủ",

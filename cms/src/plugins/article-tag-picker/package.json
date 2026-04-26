@@ -1,0 +1,17 @@
+{
+  "name": "strapi-plugin-article-tag-picker",
+  "version": "1.0.0",
+  "private": true,
+  "strapi": {
+    "name": "article-tag-picker",
+    "displayName": "Article tag picker",
+    "description": "Multi-select combobox for article tags",
+    "kind": "plugin"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.25.0"
+  }
+}

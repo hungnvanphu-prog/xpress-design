@@ -27,6 +27,11 @@ export type CmsArticlesQueryOpts = CmsPaginationOpts & {
   excludeSlug?: string;
 };
 
+export type CmsNewsQueryOpts = CmsPaginationOpts & {
+  /** Lọc tin có tag (slug Strapi) */
+  tagSlug?: string;
+};
+
 function appendStrapiPagination(q: URLSearchParams, opts?: CmsPaginationOpts) {
   if (opts?.page != null) q.set('pagination[page]', String(Math.max(1, opts.page)));
   if (opts?.pageSize != null) q.set('pagination[pageSize]', String(Math.max(1, opts.pageSize)));
@@ -140,17 +145,20 @@ export const api = {
     );
   },
 
-  cmsNews: (locale?: string, opts?: CmsPaginationOpts) => {
+  cmsNews: (locale?: string, opts?: CmsNewsQueryOpts) => {
     const q = new URLSearchParams();
     q.set('populate', '*');
     q.set('sort', 'event_date:desc');
     if (locale) q.set('locale', locale);
+    const tag = opts?.tagSlug?.trim().toLowerCase();
+    if (tag) q.set('filters[tags][slug][$eq]', tag);
     appendStrapiPagination(q, opts);
     return request<{ data: any[]; meta?: any }>(API_URL, `/cms/news?${q}`, { revalidate: 60 });
   },
 
   cmsNewsBySlug: (slug: string, locale?: string) => {
     const q = new URLSearchParams();
+    q.set('populate', '*');
     if (locale) q.set('locale', locale);
     const suffix = q.toString() ? `?${q}` : '';
     return request<{ data: any[]; meta?: any }>(

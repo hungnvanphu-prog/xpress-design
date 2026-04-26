@@ -5,6 +5,7 @@
 import i18N from "@strapi/plugin-i18n/strapi-admin";
 import usersPermissions from "@strapi/plugin-users-permissions/strapi-admin";
 import strapiTiptapEditor from "strapi-tiptap-editor/strapi-admin";
+import articleTagPicker from "../../src/plugins/article-tag-picker/strapi-admin";
 import { renderAdmin } from "@strapi/strapi/admin";
 
 renderAdmin(document.getElementById("strapi"), {
@@ -12,5 +13,6 @@ renderAdmin(document.getElementById("strapi"), {
     i18n: i18N,
     "users-permissions": usersPermissions,
     "strapi-tiptap-editor": strapiTiptapEditor,
+    "article-tag-picker": articleTagPicker,
   },
 });
