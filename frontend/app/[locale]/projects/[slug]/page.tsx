@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { api } from '@/lib/api';
+import { getCmsProjectBySlugResponse } from '@/lib/cms-rsc-cache';
 import { toUiProject, toUiProjects, type StrapiProject } from '@/lib/cms-transform';
 import { routing } from '@/i18n/routing';
 import { localizedPath } from '@/lib/metadata';
@@ -14,7 +15,7 @@ type Params = Promise<{ locale: string; slug: string }>;
 export const dynamic = 'force-dynamic';
 
 async function fetchProject(slug: string, locale: string) {
-  const res = await api.cmsProjectBySlug(slug, locale).catch(() => null);
+  const res = await getCmsProjectBySlugResponse(slug, locale);
   const entity = res?.data?.[0] as StrapiProject | undefined;
   return entity ? toUiProject(entity) : null;
 }

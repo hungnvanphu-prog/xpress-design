@@ -6,6 +6,8 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  /** Tránh bundle DOMPurify+jsdom gây ENOENT `default-stylesheet.css` lúc SSR. */
+  serverExternalPackages: ['isomorphic-dompurify', 'jsdom'],
   async headers() {
     return [
       {

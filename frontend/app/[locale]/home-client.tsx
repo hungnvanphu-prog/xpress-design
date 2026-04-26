@@ -39,6 +39,7 @@ const serviceKeys = [
 ] as const;
 
 const MOBILE_BREAKPOINT_MQ = "(max-width: 767px)";
+const REDUCED_MOTION_MQ = "(prefers-reduced-motion: reduce)";
 
 const INSIGHT_SLUGS: Record<string, [string, string, string]> = {
   en: [
@@ -81,6 +82,18 @@ function useMobileLayoutForParallax() {
   return isMobile;
 }
 
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(REDUCED_MOTION_MQ);
+    const apply = () => setReduced(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+  return reduced;
+}
+
 export default function HomeClient({ featuredProjects }: HomeClientProps) {
   const tHome = useTranslations("Home");
   const tProj = useTranslations("Projects");
@@ -90,11 +103,23 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
 
   const { scrollY } = useScroll();
   const isMobile = useMobileLayoutForParallax();
+  const reduceMotion = usePrefersReducedMotion();
+  const noParallax = isMobile || reduceMotion;
 
-  const y = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 300]);
-  const heroOpacity = useTransform(scrollY, [0, 600], [0.3, 0.9]);
-  const textY = useTransform(scrollY, [0, 500], [0, 100]);
-  const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const y = useTransform(scrollY, (v) => (noParallax ? 0 : (Math.min(1000, Math.max(0, v)) / 1000) * 300));
+  const heroOpacity = useTransform(scrollY, (v) => {
+    if (noParallax) return 0.6;
+    if (v <= 0) return 0.3;
+    if (v >= 600) return 0.9;
+    return 0.3 + (v / 600) * 0.6;
+  });
+  const textY = useTransform(scrollY, (v) => (noParallax ? 0 : (Math.min(500, Math.max(0, v)) / 500) * 100));
+  const textOpacity = useTransform(scrollY, (v) => {
+    if (noParallax) return 1;
+    if (v <= 0) return 1;
+    if (v >= 300) return 0;
+    return 1 - v / 300;
+  });
 
   return (
     <div className="w-full relative bg-[#F8F9FA] text-[#1A1A1A] font-['Montserrat',sans-serif]">
@@ -106,14 +131,18 @@ export default function HomeClient({ featuredProjects }: HomeClientProps) {
           style={{ y, opacity: heroOpacity }}
         >
           <motion.div
-            initial={{ scale: 1.05 }}
-            animate={{ scale: 1.15 }}
-            transition={{
-              duration: 30,
-              ease: "linear",
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
+            initial={reduceMotion ? false : { scale: 1.05 }}
+            animate={{ scale: reduceMotion ? 1 : 1.15 }}
+            transition={
+              reduceMotion
+                ? { duration: 0.2 }
+                : {
+                    duration: 30,
+                    ease: "linear",
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                  }
+            }
             className="w-full h-full"
           >
             <div className="relative h-full w-full">

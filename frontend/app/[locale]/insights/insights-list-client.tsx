@@ -201,7 +201,7 @@ export default function InsightsListClient({ posts }: { posts: UiArticleListItem
   };
 
   return (
-    <div className="bg-white w-full">
+    <div className="bg-white w-full" data-e2e="page-insights">
       {/* 1. Hero Section (Upgraded) */}
       <section className="relative h-[60vh] min-h-[500px] w-full flex items-center justify-center overflow-hidden bg-[#1A1A1A]">
         <div className="absolute inset-0">

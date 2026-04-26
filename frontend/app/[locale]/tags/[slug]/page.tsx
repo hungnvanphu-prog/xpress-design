@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { api } from '@/lib/api';
+import { getCmsTagBySlugResponse } from '@/lib/cms-rsc-cache';
 import {
   toUiArticleListItem,
   toUiNewsListItem,
@@ -48,7 +49,7 @@ function newsSortTs(n: StrapiNews): number {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
   const tArchive = await getTranslations({ locale, namespace: 'TagArchive' });
-  const res = await api.cmsTagBySlug(slug).catch(() => null);
+  const res = await getCmsTagBySlugResponse(slug);
   const raw = res?.data?.[0] as { attributes?: { name?: string; name_en?: string | null } } | undefined;
   if (!raw?.attributes) {
     return { title: tArchive('notFoundTitle') };
@@ -81,7 +82,7 @@ export default async function TagArchivePage({ params }: { params: Params }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const tagRes = await api.cmsTagBySlug(slug).catch(() => null);
+  const tagRes = await getCmsTagBySlugResponse(slug);
   const tagEntity = tagRes?.data?.[0] as
     | { attributes: { name?: string; name_en?: string | null; slug?: string } }
     | undefined;

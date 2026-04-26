@@ -43,16 +43,25 @@ export default async function LocaleLayout({
 
   // Quan trọng cho static rendering — inform next-intl locale
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'Common' });
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="min-h-screen bg-[#F8F9FA] selection:bg-[#D4AF37] selection:text-white">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-[#1A1A1A] focus:px-4 focus:py-2 focus:text-[13px] focus:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white"
+        >
+          {t('skipToMain')}
+        </a>
         <NextIntlClientProvider>
           <LocalizedRouteProvider>
             <TrackingScripts />
             <ScrollReset />
             <Header />
-            <main>{children}</main>
+            <main id="main" data-e2e="app-main">
+              {children}
+            </main>
             <Footer />
             <FloatingActions />
           </LocalizedRouteProvider>

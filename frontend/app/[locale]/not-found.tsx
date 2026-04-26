@@ -10,7 +10,10 @@ export default function NotFound() {
   const t = useTranslations('NotFound');
 
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-[#F8F9FA] px-6 py-32">
+    <div
+      className="min-h-[80vh] flex flex-col items-center justify-center bg-[#F8F9FA] px-6 py-32"
+      data-e2e="not-found"
+    >
       <div className="text-center max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

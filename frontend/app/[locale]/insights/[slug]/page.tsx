@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { api } from '@/lib/api';
+import { getCmsArticleBySlugResponse } from '@/lib/cms-rsc-cache';
 import {
   toUiArticleDetail,
   toUiArticleListItem,
@@ -18,16 +20,23 @@ type Params = Promise<{ locale: string; slug: string }>;
 
 export const dynamic = 'force-dynamic';
 
-async function fetchArticle(slug: string, locale: string, authorLabel: string) {
-  const res = await api.cmsArticleBySlug(slug, locale).catch(() => null);
+/** Một lần / request: metadata + page dùng chung bài + i18n (tránh 2× fetch + 2× map). */
+const loadUiArticle = cache(async (locale: string, slug: string) => {
+  const [t, res] = await Promise.all([
+    getTranslations({ locale, namespace: 'Insights' }),
+    getCmsArticleBySlugResponse(slug, locale),
+  ]);
+  const credit = t('authorCredit');
   const entity = res?.data?.[0] as StrapiArticle | undefined;
-  return entity ? toUiArticleDetail(entity, locale, authorLabel) : null;
-}
+  return {
+    t,
+    article: entity ? toUiArticleDetail(entity, locale, credit) : null,
+  };
+});
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const t = await getTranslations({ locale, namespace: 'Insights' });
-  const article = await fetchArticle(slug, locale, t('authorCredit'));
+  const { article } = await loadUiArticle(locale, slug);
   if (!article) return { title: 'Not found' };
 
   const path = `/insights/${slug}`;
@@ -61,8 +70,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function ArticleDetailPage({ params }: { params: Params }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: 'Insights' });
-  const article = await fetchArticle(slug, locale, t('authorCredit'));
+  const { t, article } = await loadUiArticle(locale, slug);
   if (!article) notFound();
 
   let relatedPosts: UiArticleListItem[] = [];

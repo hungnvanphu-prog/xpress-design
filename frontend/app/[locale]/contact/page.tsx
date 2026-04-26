@@ -99,7 +99,10 @@ export default function Contact() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-white min-h-screen relative flex items-center justify-center px-6">
+      <div
+        className="bg-white min-h-screen relative flex items-center justify-center px-6"
+        data-e2e="contact-success"
+      >
         <div className="absolute inset-0 h-[450px] w-full overflow-hidden">
           <div className="absolute inset-0 bg-[#1A1A1A]"></div>
           <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#D4AF37 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
@@ -202,9 +205,14 @@ export default function Contact() {
                 <h3 className="text-3xl mb-10 text-[#1A1A1A]" style={{ fontFamily: 'Playfair Display, serif' }}>{tContact('formTitle')}</h3>
                 
                 {submitError ? (
-                  <p className="text-red-600 text-sm mb-4 font-['Montserrat',sans-serif]">{submitError}</p>
+                  <p
+                    className="text-red-600 text-sm mb-4 font-['Montserrat',sans-serif]"
+                    data-e2e="contact-error"
+                  >
+                    {submitError}
+                  </p>
                 ) : null}
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" data-e2e="contact-form">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-gray-400">{tContact('labelName')}</label>
@@ -216,6 +224,7 @@ export default function Contact() {
                         onChange={handleChange}
                         className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors"
                         placeholder={tContact('placeholderName')}
+                        data-e2e="contact-name"
                       />
                     </div>
                     <div className="space-y-2">
@@ -228,6 +237,7 @@ export default function Contact() {
                         onChange={handleChange}
                         className="w-full border-b border-gray-200 py-3 outline-none focus:border-[#D4AF37] transition-colors"
                         placeholder={tContact('placeholderPhone')}
+                        data-e2e="contact-phone"
                       />
                     </div>
                   </div>
@@ -289,6 +299,7 @@ export default function Contact() {
                     type="submit"
                     disabled={submitting}
                     className="w-full bg-[#1A1A1A] text-white py-5 flex items-center justify-center gap-3 uppercase tracking-widest text-sm font-bold hover:bg-[#D4AF37] transition-all duration-500 group disabled:opacity-60"
+                    data-e2e="contact-submit"
                   >
                     <span>{submitting ? tContact('submitting') : tContact('submitButton')}</span>
                     <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

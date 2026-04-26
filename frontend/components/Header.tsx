@@ -48,6 +48,7 @@ export const Header: React.FC = () => {
             <Link
               key={item.key}
               href={item.href}
+              data-e2e={`nav-link-${item.key}`}
               className="text-[11px] uppercase tracking-[0.2em] font-bold text-white/85 hover:text-[#D4AF37] transition-colors duration-300"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             >
@@ -74,6 +75,7 @@ export const Header: React.FC = () => {
             <Link
               key={item.key}
               href={item.href}
+              data-e2e={`nav-link-${item.key}`}
               className="text-white text-sm uppercase tracking-[0.2em] font-bold hover:text-[#D4AF37] transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ fontFamily: 'Montserrat, sans-serif' }}

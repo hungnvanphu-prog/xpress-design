@@ -14,6 +14,7 @@
     "contact": "Contact"
   },
   "Common": {
+    "skipToMain": "Skip to main content",
     "readMore": "View details",
     "viewAll": "View all",
     "backToList": "Back to list",
@@ -30,6 +31,8 @@
     }
   },
   "PageTitles": {
+    "home": "Home",
+    "homeDescription": "Premium architecture, interior design and spaces shaped around how you live — by Xpress Design.",
     "projects": "Projects",
     "projectsDescription": "A curated collection of Xpress's premium architecture and interior spaces.",
     "blog": "Journal",

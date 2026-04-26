@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { api } from '@/lib/api';
+import { getCmsNewsBySlugResponse } from '@/lib/cms-rsc-cache';
 import { toUiNewsDetail, type StrapiNews } from '@/lib/cms-article-news';
 import { routing } from '@/i18n/routing';
 import { localizedPath } from '@/lib/metadata';
@@ -13,7 +13,7 @@ type Params = Promise<{ locale: string; slug: string }>;
 export const dynamic = 'force-dynamic';
 
 async function fetchNews(slug: string, locale: string) {
-  const res = await api.cmsNewsBySlug(slug, locale).catch(() => null);
+  const res = await getCmsNewsBySlugResponse(slug, locale);
   const entity = res?.data?.[0] as StrapiNews | undefined;
   return entity ? toUiNewsDetail(entity, locale) : null;
 }

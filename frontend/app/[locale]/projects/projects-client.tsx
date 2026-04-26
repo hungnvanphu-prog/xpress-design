@@ -63,7 +63,10 @@ function Portfolio({ projects, pagination, category: categoryProp }: Props) {
   };
 
   return (
-    <div className="bg-white min-h-screen text-[#1A1A1A] font-['Montserrat',sans-serif]">
+    <div
+      className="bg-white min-h-screen text-[#1A1A1A] font-['Montserrat',sans-serif]"
+      data-e2e="page-projects"
+    >
       {/* Hero Header Minimalist */}
       <section className="pt-40 pb-20 px-6 md:px-12 max-w-[1440px] mx-auto text-center">
         <motion.div

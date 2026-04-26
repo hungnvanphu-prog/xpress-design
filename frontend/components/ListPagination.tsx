@@ -5,39 +5,11 @@ import { Link, usePathname } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/components/ui/utils';
-
-type ExtraQuery = Record<string, string | undefined>;
-/** Preserved search params with no empty or undefined values. */
-type PreservedQuery = Record<string, string>;
-
-function omitEmptyQueryValues(params: ExtraQuery): PreservedQuery {
-  const out: PreservedQuery = {};
-  for (const [key, value] of Object.entries(params)) {
-    if (value != null && value !== '') {
-      out[key] = value;
-    }
-  }
-  return out;
-}
-
-function buildPaginationHref(
-  pathname: string,
-  page: number,
-  extra: PreservedQuery,
-  pageParam: string,
-): string {
-  const q = new URLSearchParams();
-  for (const [k, v] of Object.entries(extra)) {
-    q.set(k, v);
-  }
-  if (page <= 1) {
-    q.delete(pageParam);
-  } else {
-    q.set(pageParam, String(page));
-  }
-  const search = q.toString();
-  return search ? `${pathname}?${search}` : pathname;
-}
+import {
+  buildPaginationHref,
+  omitEmptyQueryValues,
+  type ExtraQuery,
+} from '@/lib/list-pagination.utils';
 
 const controlLinkBase =
   'inline-flex items-center gap-1.5 border px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors';
@@ -69,11 +41,47 @@ type Props = {
   /** Query params to preserve (e.g. category, search). Omit empty values. */
   extraParams?: ExtraQuery;
   pageParam?: string;
+  /** While list meta is loading; shows accessible busy state */
+  isLoading?: boolean;
+  /** Show error from parent fetch instead of controls */
+  errorMessage?: string | null;
 };
 
-export default function ListPagination({ page, pageCount, extraParams = {}, pageParam = 'page' }: Props) {
+export default function ListPagination({
+  page,
+  pageCount,
+  extraParams = {},
+  pageParam = 'page',
+  isLoading = false,
+  errorMessage = null,
+}: Props) {
   const pathname = usePathname();
   const t = useTranslations('Common.pagination');
+
+  if (isLoading) {
+    return (
+      <nav
+        className="flex flex-wrap items-center justify-center gap-4 pt-12 pb-4"
+        aria-busy="true"
+        aria-label={t('ariaLabel')}
+        data-testid="list-pagination-loading"
+      >
+        <div className="h-4 w-48 max-w-full animate-pulse rounded bg-gray-200" aria-hidden />
+      </nav>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <div
+        role="alert"
+        className="pt-12 pb-4 text-center text-sm text-red-600"
+        data-testid="list-pagination-error"
+      >
+        {errorMessage}
+      </div>
+    );
+  }
 
   if (pageCount <= 1) {
     return null;
@@ -89,6 +97,7 @@ export default function ListPagination({ page, pageCount, extraParams = {}, page
     <nav
       className="flex flex-wrap items-center justify-center gap-4 pt-12 pb-4"
       aria-label={t('ariaLabel')}
+      data-testid="list-pagination"
     >
       <ControlLink
         href={buildPaginationHref(pathname, prevPage, cleanExtra, pageParam)}
