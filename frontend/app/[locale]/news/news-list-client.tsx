@@ -75,13 +75,13 @@ export default function NewsListClient({
           {items.map((item, index) => {
             const typeKey = typeTKey[item.categoryKey] ?? 'typeNews';
             return (
-            <Link key={item.id} href={`/news/${item.slug}`} className="block">
             <motion.article
+              key={item.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-20 items-start group cursor-pointer"
+              className="flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-20 items-start group"
             >
               <div className="flex-shrink-0 w-auto md:w-24 lg:w-32 flex flex-row md:flex-col items-baseline md:items-end gap-2 md:gap-1 text-left md:text-right relative">
                 <div className="hidden md:block absolute right-[-24px] lg:right-[-40px] top-6 w-3 h-3 bg-[#D4AF37] rounded-full ring-4 ring-white transition-transform duration-300 group-hover:scale-150 group-hover:bg-[#1A1A1A]" />
@@ -93,7 +93,10 @@ export default function NewsListClient({
                 </span>
               </div>
 
-              <div className="w-full md:w-1/3 lg:w-1/4 aspect-[4/3] overflow-hidden bg-gray-100 flex-shrink-0 relative">
+              <Link
+                href={`/news/${item.slug}`}
+                className="block w-full md:w-1/3 lg:w-1/4 aspect-[4/3] overflow-hidden bg-gray-100 flex-shrink-0 relative"
+              >
                 <ImageWithFallback
                   src={item.image}
                   alt={item.title}
@@ -102,12 +105,14 @@ export default function NewsListClient({
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]">
                   {tNews(typeKey)}
                 </div>
-              </div>
+              </Link>
 
               <div className="flex-1 flex flex-col justify-center pt-2 md:pt-4">
-                <h2 className="font-['Playfair_Display',serif] text-2xl md:text-3xl text-[#1A1A1A] mb-4 group-hover:text-[#D4AF37] transition-colors line-clamp-2 md:line-clamp-none font-medium">
-                  {item.title}
-                </h2>
+                <Link href={`/news/${item.slug}`} className="block mb-4">
+                  <h2 className="font-['Playfair_Display',serif] text-2xl md:text-3xl text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors line-clamp-2 md:line-clamp-none font-medium">
+                    {item.title}
+                  </h2>
+                </Link>
                 {item.location ? (
                   <p className="flex items-center gap-1.5 text-[12px] text-gray-500 mb-2">
                     <MapPin size={14} className="text-[#D4AF37] shrink-0" /> {item.location}
@@ -131,13 +136,15 @@ export default function NewsListClient({
                   </div>
                 ) : null}
                 <div className="mt-auto">
-                  <span className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.1em] text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors pb-1 border-b border-transparent group-hover:border-[#D4AF37]">
+                  <Link
+                    href={`/news/${item.slug}`}
+                    className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.1em] text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors pb-1 border-b border-transparent group-hover:border-[#D4AF37]"
+                  >
                     {tCommon('readMore')} <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                  </Link>
                 </div>
               </div>
             </motion.article>
-            </Link>
             );
           })}
         </div>

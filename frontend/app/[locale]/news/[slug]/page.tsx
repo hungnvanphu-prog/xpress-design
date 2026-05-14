@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+import { api } from '@/lib/api';
 import { getCmsNewsBySlugResponse } from '@/lib/cms-rsc-cache';
-import { toUiNewsDetail, type StrapiNews } from '@/lib/cms-article-news';
+import {
+  toUiNewsDetail,
+  toUiNewsListItem,
+  type StrapiNews,
+  type UiNewsListItem,
+} from '@/lib/cms-article-news';
 import { routing } from '@/i18n/routing';
 import { localizedPath } from '@/lib/metadata';
 import NewsDetailClient from './news-detail-client';
@@ -56,10 +62,44 @@ export default async function NewsDetailPage({ params }: { params: Params }) {
   const item = await fetchNews(slug, locale);
   if (!item) notFound();
 
+  const relatedBySlug = new Map<string, UiNewsListItem>();
+  const primaryTag = item.tags[0]?.slug;
+
+  if (primaryTag) {
+    const rel = await api
+      .cmsNews(locale, {
+        page: 1,
+        pageSize: 4,
+        tagSlug: primaryTag,
+        excludeSlug: item.slug,
+      })
+      .catch(() => ({ data: [] as StrapiNews[] }));
+    for (const entity of (rel?.data ?? []) as StrapiNews[]) {
+      const related = toUiNewsListItem(entity, locale);
+      if (related.slug !== item.slug) relatedBySlug.set(related.slug, related);
+    }
+  }
+
+  if (relatedBySlug.size < 3) {
+    const rel = await api
+      .cmsNews(locale, {
+        page: 1,
+        pageSize: 5,
+        type: item.categoryKey,
+        excludeSlug: item.slug,
+      })
+      .catch(() => ({ data: [] as StrapiNews[] }));
+    for (const entity of (rel?.data ?? []) as StrapiNews[]) {
+      const related = toUiNewsListItem(entity, locale);
+      if (related.slug !== item.slug) relatedBySlug.set(related.slug, related);
+      if (relatedBySlug.size >= 3) break;
+    }
+  }
+
   return (
     <>
       <LocalizedRouteSetter basePath="/news" slugs={item.localizedSlugs ?? {}} />
-      <NewsDetailClient item={item} />
+      <NewsDetailClient item={item} relatedPosts={[...relatedBySlug.values()].slice(0, 3)} />
     </>
   );
 }

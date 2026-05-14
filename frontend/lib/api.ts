@@ -32,6 +32,10 @@ export type CmsArticlesQueryOpts = CmsPaginationOpts & {
 export type CmsNewsQueryOpts = CmsPaginationOpts & {
   /** Lọc tin có tag (slug Strapi) */
   tagSlug?: string;
+  /** Loại trừ bài hiện tại khi lấy danh sách liên quan */
+  excludeSlug?: string;
+  /** Lọc theo loại tin */
+  type?: 'news' | 'event' | 'community';
 };
 
 function appendStrapiPagination(q: URLSearchParams, opts?: CmsPaginationOpts) {
@@ -182,6 +186,12 @@ export const api = {
     if (locale) q.set('locale', locale);
     const tag = opts?.tagSlug?.trim().toLowerCase();
     if (tag) q.set('filters[tags][slug][$eq]', tag);
+    if (opts?.excludeSlug) {
+      q.set('filters[slug][$ne]', opts.excludeSlug);
+    }
+    if (opts?.type) {
+      q.set('filters[type][$eq]', opts.type);
+    }
     appendStrapiPagination(q, opts);
     return request<{ data: any[]; meta?: any }>(API_URL, `/cms/news?${q}`, { revalidate: 60 });
   },

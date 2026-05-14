@@ -32,10 +32,10 @@ function Breadcrumb({
 }) {
   return (
     <nav
-      className="max-w-[1200px] mx-auto px-5 md:px-10 pt-6 pb-2"
+      className="absolute left-0 right-0 top-24 z-10 max-w-[1200px] mx-auto px-5 md:px-10"
       aria-label={ariaLabel}
     >
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-['Montserrat',sans-serif] text-[#888888]">
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-['Montserrat',sans-serif] text-white/72">
         <li>
           <Link href="/" className="hover:text-[#D4AF37] transition-colors">
             {homeLabel}
@@ -52,7 +52,7 @@ function Breadcrumb({
         <li className="text-[#D4AF37]" aria-hidden>
           /
         </li>
-        <li className="text-[#1A1A1A] line-clamp-2 max-w-[70vw] md:max-w-[36rem]">{title}</li>
+        <li className="text-white line-clamp-2 max-w-[70vw] md:max-w-[36rem]">{title}</li>
       </ol>
     </nav>
   );
@@ -147,13 +147,6 @@ export default function ArticleDetailClient({
 
   return (
     <div className="bg-[#F8F9FA] text-[#1A1A1A] w-full min-h-screen font-['Montserrat',sans-serif]">
-      <Breadcrumb
-        homeLabel={tDetail('breadcrumbHome')}
-        insightsLabel={tNav('insights')}
-        title={article.title}
-        ariaLabel={tDetail('breadcrumbAriaLabel')}
-      />
-
       {/* Hero — timeless, emotional */}
       <section className="relative w-full min-h-[420px] h-[min(52vh,520px)] overflow-hidden">
         <ImageWithFallback
@@ -163,6 +156,12 @@ export default function ArticleDetailClient({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/92 via-[#1A1A1A]/45 to-[#1A1A1A]/15" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/25 to-transparent pointer-events-none" />
+        <Breadcrumb
+          homeLabel={tDetail('breadcrumbHome')}
+          insightsLabel={tNav('insights')}
+          title={article.title}
+          ariaLabel={tDetail('breadcrumbAriaLabel')}
+        />
         <div className="absolute bottom-0 left-0 right-0 max-w-[1200px] mx-auto px-5 md:px-10 pb-11 md:pb-14">
           <motion.div
             initial="hidden"

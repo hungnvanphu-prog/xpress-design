@@ -7,3 +7,4 @@ data-run/**/*
 !data-run/**/
 !data-run/**/.gitkeep
 infra/nginx/auth/.htpasswd
+backup

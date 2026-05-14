@@ -1,6 +1,6 @@
 # Cấu trúc code — hướng dẫn quản lý & maintain
 
-Tài liệu này mô tả bối cảnh monorepo **fullstack-app** (Next.js + NestJS + Strapi + Docker/Nginx) để đọc code và sửa đỡ lạc hướng.
+Tài liệu này mô tả bối cảnh monorepo **xpress-design** (Next.js + NestJS + Strapi + Docker/Nginx) để đọc code và sửa đỡ lạc hướng.
 
 ---
 
