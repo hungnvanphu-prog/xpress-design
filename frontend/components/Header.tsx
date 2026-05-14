@@ -32,11 +32,11 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-[#1A1A1A] py-4 shadow-lg' : 'bg-transparent py-6'
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+        isScrolled || isMobileMenuOpen ? 'bg-[#1A1A1A] py-4 shadow-lg' : 'bg-transparent py-6'
       }`}
     >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="relative z-[120] container mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
           <Logo color="white" className="!items-start cursor-pointer hover:opacity-80 transition-opacity" />
@@ -70,7 +70,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#1A1A1A] border-t border-white/10 px-6 py-8 flex flex-col space-y-6">
+        <div className="lg:hidden fixed left-0 right-0 top-[72px] z-[110] max-h-[calc(100vh-72px)] overflow-y-auto bg-[#1A1A1A] border-t border-white/10 px-6 py-8 flex flex-col space-y-6 shadow-2xl">
           {menuItems.map((item) => (
             <Link
               key={item.key}
