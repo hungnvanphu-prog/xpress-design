@@ -1010,8 +1010,8 @@ async function seedArticles(strapi, categories, tagMap) {
         title: 'Ánh sáng tự nhiên: Bản giao hưởng của không gian',
         slug: 'anh-sang-tu-nhien-ban-giao-huong-cua-khong-gian',
         excerpt:
-          'Ánh sáng không chỉ là nhu cầu vật lý, mà còn là chất liệu trang trí đắt giá nhất trong kiến trúc. Bài viết này sẽ hướng dẫn bạn cách bố trí giếng trời, cửa sổ và vật liệu phản quang để biến ngôi nhà thành một tác phẩm nghệ thuật đầy cảm xúc.',
-        lead: 'Ánh sáng tự nhiên là món quà vô giá mà thiên nhiên ban tặng cho mỗi ngôi nhà. Thế nhưng, không phải ai cũng biết cách tận dụng nó một cách tối ưu. Trong bài viết này, chúng tôi sẽ chia sẻ 3 bí quyết để biến ánh sáng thành “bản giao hưởng” cho không gian sống của bạn.',
+          'Một ghi chép thiết kế từ XPRESS DESIGN: cách chúng tôi dùng giếng trời, rèm lọc sáng, vật liệu mờ và mặt cắt để ánh sáng đi sâu vào nhà mà không gây nóng, chói hay mỏi mắt.',
+        lead: 'Ánh sáng tự nhiên không phải “mở cửa càng lớn càng tốt”. Với nhà ở nhiệt đới, ánh sáng cần được lọc, phản xạ và dẫn hướng theo nhịp sinh hoạt trong ngày.',
         reading_time_minutes: 6,
         publishedAt: new Date('2025-04-15T02:00:00.000Z'),
         hero_image_url: heroLivingLight,
@@ -1023,26 +1023,29 @@ async function seedArticles(strapi, categories, tagMap) {
         seo_description:
           'Bố trí giếng trời, cửa sổ và vật liệu phản quang để ngôi nhà tràn ngập ánh sáng và cảm xúc.',
         content: [
-          `<p>Ánh sáng đi qua lớp rèm mỏng, đọng lại thành những mảng sáng mềm trên sàn gỗ — đó là khoảnh khắc mà nhiều gia chủ nhận ra: thiết kế thực sự bắt đầu từ việc dẫn dắt ánh sáng, chứ không phải từ đồ nội thất.</p>`,
-          `<figure><img src="${imgSkylightDiagram}" alt="Sơ đồ minh họa giếng trời" /><figcaption>Minh họa: thông tầng và giếng trời như trục sáng trung tâm</figcaption></figure>`,
-          `<figure><img src="${imgBeforeAfter}" alt="Không gian trước và sau khi tối ưu ánh sáng" /><figcaption>Ví dụ: cùng một phòng khách sau khi mở trục sáng và điều chỉnh vật liệu phản quang</figcaption></figure>`,
-          `<h2>1. Giếng trời - Ô cửa lấy sáng từ thiên nhiên</h2>`,
-          `<p>Giếng trời không chỉ đơn thuần là khoảng thông tầng. Nó là “lá phổi” và “con mắt” của ngôi nhà. Một giếng trời được bố trí đúng vị trí (thường là trung tâm hoặc giao thoa giữa các khối) có thể giúp ánh sáng khuếch tán đến mọi ngóc ngách, giảm phụ thuộc vào đèn nhân tạo ban ngày và tạo nhịp thở cho công trình.</p>`,
-          `<blockquote>Ánh sáng là chi phí thấp nhất nhưng giá trị thẩm mỹ cao nhất mà bạn có thể mang đến cho ngôi nhà của mình.</blockquote>`,
-          `<h2>2. Vật liệu phản quang - Nhân đôi hiệu ứng ánh sáng</h2>`,
-          `<p>Sơn tường màu sáng, gạch bóng kính, kính cường lực, hoặc các tấm panel nhôm mờ — là những “tấm gương” khổng lồ giúp phản xạ và khuếch tán ánh sáng. Chúng có thể tăng cường độ sáng cảm nhận trong phòng lên đáng kể so với vật liệu hút sáng thông thường, nếu được bố trí đúng góc và tránh chói lóa trực tiếp.</p>`,
-          `<div class="article-stats"><div><strong>Tăng 200% cường độ sáng</strong><span>So với nền hút sáng tiêu chuẩn (ước lượng dự án mẫu)</span></div><div><strong>Tiết kiệm 35% điện năng</strong><span>Chiếu sáng nhân tạo ban ngày</span></div><div><strong>Cải thiện 50%</strong><span>Tâm trạng & năng suất (khảo sát nội bộ không gian làm việc tại nhà)</span></div></div>`,
-          `<h2>3. Bố trí cửa sổ - Bản phối khí cho ngôi nhà</h2>`,
-          `<p>Cửa sổ không chỉ để lấy sáng. Hướng cửa, kích thước và vị trí sẽ quyết định luồng không khí, và theo đó, ánh sáng đi vào nhà như thế nào. Cửa sổ hướng Nam thường thân thiện với khí hậu nhiệt đới khi kết hợp mái hiên, lam chắn nắng và kính chọn lọc tia — tránh nóng trực tiếp nhưng vẫn giữ độ sáng mềm.</p>`,
-          `<p><strong>Kết luận:</strong> Ánh sáng tự nhiên không phải một phép màu, mà là tổng hòa của những giải pháp khoa học và nghệ thuật. Hãy bắt đầu bằng cách quan sát ngôi nhà của bạn dưới một góc nhìn hoàn toàn mới.</p>`,
+          `<p>Trong các buổi khảo sát nhà phố và biệt thự, chúng tôi thường yêu cầu gia chủ giữ nguyên hiện trạng ít nhất một buổi sáng. Lý do rất đơn giản: bản vẽ mặt bằng nói được diện tích, nhưng chỉ ánh sáng thật mới cho thấy căn nhà đang “thở” ở đâu và đang bí ở đâu.</p>`,
+          `<figure><img src="${imgSkylightDiagram}" alt="Sơ đồ minh họa giếng trời" /><figcaption>Ghi chú concept: giếng trời không chỉ lấy sáng, mà còn là trục thoát nhiệt và điểm neo thị giác.</figcaption></figure>`,
+          `<h2>1. Không bắt đầu bằng cửa kính lớn</h2>`,
+          `<p>Một mảng kính lớn ở hướng nắng gắt có thể làm phòng khách sáng hơn trong ảnh render, nhưng lại tăng nhiệt, gây chói và khiến rèm luôn phải kéo. Với nhà nhiệt đới, XPRESS DESIGN thường ưu tiên <strong>ánh sáng gián tiếp</strong>: hiên sâu, lam dọc, rèm hai lớp, hoặc tường phản xạ màu ấm để ánh sáng đi vào mềm hơn.</p>`,
+          `<h2>2. Giếng trời cần có vai trò trong mặt cắt</h2>`,
+          `<p>Giếng trời tốt không nằm ở kích thước lớn hay nhỏ, mà ở vị trí trong mặt cắt. Nếu đặt gần cầu thang, nó có thể kéo sáng xuống tầng thấp và đẩy khí nóng lên trên. Nếu đặt giữa bếp và bàn ăn, nó trở thành nhịp sinh hoạt trong ngày. Nếu đặt sai, nó chỉ là một ô nóng và khó bảo trì.</p>`,
+          `<blockquote>Ánh sáng đẹp không phải ánh sáng nhiều. Đó là ánh sáng đến đúng nơi, đúng cường độ, đúng thời điểm trong ngày.</blockquote>`,
+          `<h2>3. Vật liệu mờ thường sang hơn vật liệu bóng</h2>`,
+          `<p>Chúng tôi hạn chế dùng bề mặt bóng lớn ở những không gian cần nghỉ ngơi. Sơn khoáng, gỗ dầu mờ, đá honed, vải linen và kính mờ giúp ánh sáng dừng lại thành lớp, thay vì bật ngược vào mắt. Chính lớp mờ này tạo cảm giác sâu và đắt, nhất là khi kết hợp ánh đèn 2700–3000K vào buổi tối.</p>`,
+          `<figure><img src="${imgBeforeAfter}" alt="Không gian trước và sau khi tối ưu ánh sáng" /><figcaption>Ghi chú nội bộ: cùng một phòng có thể thay đổi cảm giác lớn nhỏ chỉ bằng cách mở trục sáng và giảm bề mặt phản chiếu mạnh.</figcaption></figure>`,
+          `<h2>4. Mỗi phòng cần một “kịch bản sáng” riêng</h2>`,
+          `<p>Phòng khách cần ánh sáng nền để sinh hoạt và một vài điểm nhấn cho tranh, cây hoặc bề mặt đá. Phòng ngủ cần tránh sáng trực diện vào đầu giường. Bếp cần sáng rõ trên mặt thao tác nhưng không nên biến toàn bộ trần thành lưới downlight. Khi làm concept, chúng tôi luôn vẽ kịch bản sáng ngày và đêm cùng lúc.</p>`,
+          `<h2>5. Cách gia chủ tự kiểm tra trước khi cải tạo</h2>`,
+          `<ul><li>Chụp cùng một góc nhà vào 8h, 12h và 16h để thấy vùng nào quá sáng hoặc quá tối.</li><li>Đứng ở vị trí ngồi chính: sofa, bàn ăn, bàn làm việc; kiểm tra có bị chói trực tiếp không.</li><li>Quan sát tường sau 15h: nếu tường nóng và sáng gắt, cần xử lý bóng đổ trước khi chọn màu sơn.</li></ul>`,
+          `<p><strong>Kết luận:</strong> Ánh sáng tự nhiên là vật liệu đầu tiên của kiến trúc. Khi được dẫn đúng, nó làm không gian rộng hơn, vật liệu đẹp hơn và nhịp sống trong nhà chậm lại một cách tự nhiên.</p>`,
         ].join(''),
       },
       en: {
         title: 'Natural light: A symphony of space',
         slug: 'natural-light-symphony-of-space',
         excerpt:
-          'Light is not only a physical need — it is the most precious finishing layer in architecture. This article walks through skylights, windows, and reflective materials that turn a house into an emotional work of art.',
-        lead: 'Natural light is a gift. Yet not every plan knows how to conduct it. Here are three moves we use to turn daylight into a symphony — skylight as the spine, materials as the chorus, and windows as the score.',
+          'A design note from XPRESS DESIGN: how skylights, filtered curtains, matte finishes, and section strategy bring daylight deep into the house without heat, glare, or eye fatigue.',
+        lead: 'Daylight is not a matter of “make the glass bigger”. In tropical homes, light has to be filtered, reflected, and timed around the way people actually live.',
         reading_time_minutes: 6,
         publishedAt: new Date('2025-04-15T02:00:00.000Z'),
         hero_image_url: heroLivingLight,
@@ -1054,24 +1057,33 @@ async function seedArticles(strapi, categories, tagMap) {
         seo_description:
           'Skylights, windows, and reflective surfaces — how we choreograph daylight in tropical homes.',
         content: [
-          `<p>When sheer curtains diffuse the morning sun across a timber floor, many owners realise: design truly begins with light, not with furniture.</p>`,
-          `<figure><img src="${imgSkylightDiagram}" alt="Skylight diagram" /><figcaption>Diagram: the skylight as a vertical light spine</figcaption></figure>`,
-          `<figure><img src="${imgBeforeAfter}" alt="Living room before and after daylight intervention" /><figcaption>Case note: the same living room after opening the light axis</figcaption></figure>`,
-          `<h2>1. Skylight — the opening score</h2>`,
-          `<p>A skylight is more than a shaft. It is the lung and the eye of the plan. Centrally placed or at the overlap of volumes, it lets daylight wash into corners that perimeter glazing cannot reach, and it gives the house a daily rhythm.</p>`,
-          `<blockquote>Light is the lowest-cost move with the highest perceptual return you can give a home.</blockquote>`,
-          `<h2>2. Reflective materials — doubling the chorus</h2>`,
-          `<p>Light-toned paint, glazed tile, tempered glass, and satin metal panels behave like large mirrors — they bounce and soften daylight. Used with care, they lift perceived brightness without harsh glare.</p>`,
-          `<div class="article-stats"><div><strong>Up to 200% brighter</strong><span>Vs. baseline matte surfaces (indicative study)</span></div><div><strong>35% less daytime electric light</strong><span>On monitored residential samples</span></div><div><strong>50% better focus</strong><span>Self-reported mood & productivity in home offices</span></div></div>`,
-          `<h2>3. Windows — wind and light orchestration</h2>`,
-          `<p>Windows choreograph both breeze and sun. In the tropics, south-facing glass wants brise-soleil, deep eaves, and selective coatings — enough sun to read by, not enough to bake the slab.</p>`,
-          `<p><strong>In closing:</strong> Natural light is not magic. It is the sum of deliberate moves. Start by looking at your house at three times of day — you may hear the symphony already.</p>`,
+          `<p>During surveys we often ask owners to leave the house untouched for one full morning. A floor plan gives us area; daylight tells us where the house is breathing, where it is overexposed, and where the section needs help.</p>`,
+          `<figure><img src="${imgSkylightDiagram}" alt="Skylight diagram" /><figcaption>Concept note: a skylight is a heat-release spine and a visual anchor, not just an opening.</figcaption></figure>`,
+          `<h2>1. We do not start with bigger glass</h2>`,
+          `<p>Large glazing on a hard sun face may look good in renders, but can create heat, glare, and permanently closed curtains. In tropical homes we usually start with <strong>indirect light</strong>: deep eaves, vertical screens, layered curtains, and warm reflective walls that bring light in softly.</p>`,
+          `<h2>2. A skylight has to work in section</h2>`,
+          `<p>The success of a skylight is not its size. It is its position in section. Near a stair, it can draw light down and pull hot air up. Between the kitchen and dining room, it becomes a daily rhythm. In the wrong place, it is only a hot hole that is hard to maintain.</p>`,
+          `<blockquote>Beautiful daylight is not more daylight. It is light arriving at the right place, in the right strength, at the right time of day.</blockquote>`,
+          `<h2>3. Matte surfaces often feel more expensive than glossy ones</h2>`,
+          `<p>We avoid large glossy planes in rooms intended for rest. Mineral paint, oiled timber, honed stone, linen, and translucent glass let light settle into layers instead of bouncing into the eye. That soft stop is where depth and luxury begin.</p>`,
+          `<figure><img src="${imgBeforeAfter}" alt="Living room before and after daylight intervention" /><figcaption>Internal note: the same room can feel larger once the light axis is opened and harsh reflections are reduced.</figcaption></figure>`,
+          `<h2>4. Every room needs a daylight script</h2>`,
+          `<p>The living room needs ambient light and a few anchors for art, plants, or stone. Bedrooms should avoid direct glare at the headboard. Kitchens need light on the work surface without turning the ceiling into a grid. We draw day and night lighting together from concept stage.</p>`,
+          `<h2>5. A simple owner check before renovation</h2>`,
+          `<ul><li>Photograph the same corner at 8:00, 12:00, and 16:00.</li><li>Sit where you actually live: sofa, dining chair, desk; check for direct glare.</li><li>Touch the west wall after 15:00. If it is hot and bright, solve shadow before choosing paint.</li></ul>`,
+          `<p><strong>In closing:</strong> Natural light is architecture’s first material. When guided well, it makes rooms feel larger, materials look richer, and daily life slow down without effort.</p>`,
         ].join(''),
       },
       tagSlugs: ['anh-sang', 'kien-truc', 'gieng-troi'],
       category: catKienThucXD,
     },
   ];
+
+  applyArticleEditorialPass(articles, {
+    heroLivingLight,
+    imgSkylightDiagram,
+    imgBeforeAfter,
+  });
 
   for (const a of articles) {
     const tagIds = (a.tagSlugs || []).map((s) => tagMap.get(s)).filter(Boolean);
@@ -1084,6 +1096,321 @@ async function seedArticles(strapi, categories, tagMap) {
     );
     strapi.log.info(`[seed] ✅ Article: ${a.vi.title} / ${a.en.title}`);
   }
+}
+
+function applyArticleEditorialPass(articles, assets) {
+  const { heroLivingLight, imgSkylightDiagram, imgBeforeAfter } = assets;
+  const bySlug = new Map(articles.map((item) => [item.vi.slug, item]));
+
+  patchBilingual(bySlug.get('5-xu-huong-kien-truc-ben-vung-2025'), {
+    vi: {
+      excerpt:
+        'Năm xu hướng XPRESS DESIGN đang đưa vào hồ sơ concept: ít khẩu hiệu “xanh”, nhiều quyết định cụ thể về bóng đổ, gió, nước, vật liệu và vận hành.',
+      content: [
+        '<p>Mỗi năm đều có một danh sách xu hướng bền vững mới. Nhưng trên công trường, những gì tồn tại lâu dài thường rất cơ bản: bức tường không quá nóng, căn phòng có gió, nước mưa không bị xem là rác, và vật liệu có thể bảo trì sau vài mùa nắng ẩm.</p>',
+        '<p>Với các dự án nhà ở và nghỉ dưỡng mà XPRESS DESIGN xử lý gần đây, chúng tôi không xem bền vững là một lớp trang trí. Nó là chuỗi quyết định kỹ thuật xuất hiện từ bản phác mặt cắt đầu tiên.</p>',
+        '<blockquote>“Một công trình bền vững trước hết phải dễ sống, dễ bảo trì và ít phụ thuộc vào thiết bị để sửa lỗi thiết kế.”</blockquote>',
+        '<h2>1. Mặt đứng biết tạo bóng</h2>',
+        '<p>Lam, ban công đệm, hiên sâu và cây leo không còn là chi tiết phụ. Chúng quyết định nhiệt bức xạ lên tường, mức chói trong phòng và tần suất rèm phải đóng. Một mặt đứng tốt là mặt đứng giúp người ở mở cửa nhiều hơn.</p>',
+        '<h2>2. Thông gió được vẽ như một tuyến giao thông</h2>',
+        '<p>Chúng tôi không chỉ ký hiệu mũi tên gió trên mặt bằng. Tuyến gió cần có cửa vào, cửa ra, chênh cao và vùng đệm. Ở nhà phố, cầu thang và giếng trời thường là phần quan trọng nhất của hệ thông gió tự nhiên.</p>',
+        '<h2>3. Vật liệu địa phương nhưng không dễ dãi</h2>',
+        '<p>Đá, gỗ, gạch, sơn khoáng hay bê tông mài đều cần được chọn theo cách chúng già đi trong khí hậu nóng ẩm. Vật liệu địa phương chỉ thật sự bền vững khi nguồn cung rõ, thi công ổn định và có hướng dẫn bảo trì cụ thể.</p>',
+        '<h2>4. Nước mưa trở thành một phần thiết kế</h2>',
+        '<p>Rãnh thấm, bồn chứa, mái dốc, vỉa thấm nước và khu trồng cây không nên được xử lý sau cùng. Chúng là một hệ nhỏ giúp giảm ngập cục bộ, làm mát sân và giữ cảnh quan sống ổn định hơn trong mùa khô.</p>',
+        '<h2>5. Vận hành đơn giản, đo được, bàn giao được</h2>',
+        '<p>Cảm biến, dimmer, điều khiển vùng và lịch bảo trì có giá trị khi người dùng hiểu cách sử dụng. Chúng tôi ưu tiên những hệ có thể giải thích trong một buổi bàn giao, thay vì một “nhà thông minh” phức tạp nhưng ít ai dùng hết.</p>',
+        '<p><strong>Kết luận:</strong> Xu hướng bền vững đáng tin nhất là xu hướng làm công trình dễ sống hơn. Khi bóng, gió, nước và vật liệu được xử lý đúng, phần công nghệ phía sau sẽ nhẹ nhàng hơn rất nhiều.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'Five moves XPRESS DESIGN is bringing into concept work: less green language, more specific decisions about shade, air, water, material, and operation.',
+      content: [
+        '<p>Every year comes with a new sustainability list. On site, however, the ideas that last are usually simple: a wall that does not overheat, a room that can breathe, rainwater that is not treated as waste, and materials that can be maintained after several humid seasons.</p>',
+        '<p>In recent residential and hospitality work, XPRESS DESIGN treats sustainability not as a decorative layer, but as a chain of decisions that begins in the first section sketch.</p>',
+        '<blockquote>“A sustainable building should first be easy to live in, easy to maintain, and less dependent on equipment to correct design mistakes.”</blockquote>',
+        '<h2>1. Facades that know how to cast shade</h2>',
+        '<p>Louvers, buffer balconies, deep eaves, and climbing plants are no longer secondary details. They shape wall temperature, interior glare, and how often curtains stay open. A good facade lets people use openings more often.</p>',
+        '<h2>2. Ventilation drawn like circulation</h2>',
+        '<p>Wind arrows are not enough. Air needs an entry, an exit, a height difference, and a buffer zone. In townhouses, the stair and skylight often carry the whole natural ventilation strategy.</p>',
+        '<h2>3. Local materials, but with discipline</h2>',
+        '<p>Stone, timber, brick, mineral paint, and polished concrete must be selected for how they age in heat and humidity. Local material is only truly sustainable when supply is clear, installation is consistent, and maintenance is written down.</p>',
+        '<h2>4. Rainwater as part of design</h2>',
+        '<p>Swales, tanks, roof falls, permeable paving, and planting beds should not be added at the end. They cool courtyards, reduce local flooding, and keep landscape healthier through dry months.</p>',
+        '<h2>5. Simple operations that can be handed over</h2>',
+        '<p>Sensors, dimmers, zoning, and maintenance schedules matter only when people understand them. We prefer systems that can be explained in one handover session over “smart” layers that remain unused.</p>',
+        '<p><strong>In closing:</strong> The most credible sustainability trend is the one that makes a building easier to live with. When shade, air, water, and materials are right, the technology behind them can be lighter.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('noi-that-toi-gian'), {
+    vi: {
+      excerpt:
+        'Tối giản không phải là làm căn nhà trống đi. Đó là cách tổ chức ánh sáng, tủ, tỷ lệ và vật liệu để mọi thứ cần thiết có chỗ đứng yên.',
+      content: [
+        '<p>Trong nhiều căn hộ và nhà phố cao cấp, yêu cầu “tối giản” thường bắt đầu bằng hình ảnh: ít đồ, tường sáng, mặt phẳng sạch. Nhưng khi bước vào vận hành, câu hỏi thật lại là: dây sạc để đâu, vali để đâu, đồ lau nhà đi đâu, và vì sao căn nhà mới bàn giao đã bắt đầu rối?</p>',
+        '<p>Với XPRESS DESIGN, tối giản không phải là phong cách để chụp ảnh. Nó là một hệ thống cất giữ, chiếu sáng và lựa chọn vật liệu đủ kỷ luật để căn nhà giữ được sự yên tĩnh sau nhiều năm sử dụng.</p>',
+        '<h2>1. Bắt đầu từ thói quen, không từ moodboard</h2>',
+        '<p>Chúng tôi thường hỏi gia chủ về giờ thức dậy, cách nấu ăn, tần suất tiếp khách, số lượng vali, thiết bị làm việc và đồ thể thao. Những dữ liệu rất đời thường này quyết định chiều sâu tủ, vị trí ổ cắm và cách chia khoang tốt hơn bất kỳ hình tham khảo nào.</p>',
+        '<h2>2. Tường sạch vì hệ tủ làm việc tốt</h2>',
+        '<p>Một bức tường tối giản thường che phía sau nó rất nhiều quyết định: khe kỹ thuật, ray rèm, tủ âm, cửa phẳng, ổ điện thấp và khoảng rỗng cho robot hút bụi. Nếu các phần này không được vẽ sớm, nội thất sẽ phải “chữa cháy” bằng các chi tiết lộ ra ngoài.</p>',
+        '<h2>3. Vật liệu cần có độ ấm</h2>',
+        '<p>Không gian tối giản dễ lạnh nếu chỉ dùng trắng, xám và đá bóng. Chúng tôi thường thêm gỗ dầu mờ, vải dệt thô, sơn khoáng hoặc đá honed để bề mặt giữ ánh sáng mềm hơn. Căn nhà ít đồ vẫn cần có cảm giác chạm.</p>',
+        '<blockquote>“Tối giản thành công là khi gia chủ sống thật trong đó, không phải khi căn nhà trông như chưa ai từng dùng.”</blockquote>',
+        '<h2>4. Ánh sáng là phần nội thất quan trọng nhất</h2>',
+        '<p>Ánh sáng nền, ánh sáng điểm và ánh sáng trong tủ cần được tách mạch. Một trần nhà ít đèn không đồng nghĩa với ánh sáng nghèo; nó chỉ đòi hỏi vị trí đèn chính xác hơn.</p>',
+        '<p><strong>Kết luận:</strong> Ít hơn chỉ có giá trị khi những gì còn lại được đặt đúng chỗ. Tối giản tốt không làm gia chủ phải cẩn thận hơn; nó giúp cuộc sống tự nhiên gọn lại.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'Minimalism is not about making a home empty. It is the discipline of light, storage, proportion, and material so every necessary thing has a quiet place.',
+      content: [
+        '<p>In many premium apartments and townhouses, the request for “minimal” begins with imagery: fewer objects, pale walls, clean planes. Once the home is lived in, the real questions appear: where do chargers go, where do suitcases live, where is the mop, and why does a new home start to feel cluttered?</p>',
+        '<p>For XPRESS DESIGN, minimalism is not a style for photography. It is a storage, lighting, and material system disciplined enough to keep the home calm after years of use.</p>',
+        '<h2>1. Start with habits, not mood boards</h2>',
+        '<p>We ask about waking hours, cooking routines, guests, luggage, work equipment, and sports gear. These everyday details shape cabinet depth, outlet placement, and storage zones better than any reference image.</p>',
+        '<h2>2. Clean walls come from hardworking joinery</h2>',
+        '<p>A minimal wall often hides technical gaps, curtain tracks, full-height storage, flush doors, low outlets, and a robot vacuum bay. If these are not drawn early, the interior has to solve problems with visible add-ons later.</p>',
+        '<h2>3. Materials need warmth</h2>',
+        '<p>Minimal rooms can feel cold when reduced to white, grey, and glossy stone. We introduce oiled timber, woven fabric, mineral paint, or honed stone so light lands more softly. A sparse home still needs touch.</p>',
+        '<blockquote>“Minimalism succeeds when people can live honestly in it, not when the room looks untouched.”</blockquote>',
+        '<h2>4. Light is the most important furniture</h2>',
+        '<p>Ambient, accent, and cabinet lighting should be separated. A ceiling with fewer fixtures does not mean poor light; it means every fixture has to work harder and be placed with intent.</p>',
+        '<p><strong>In closing:</strong> Less only matters when what remains is in the right place. Good minimalism does not ask owners to behave more carefully; it helps life become naturally tidier.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('canh-quan-do-thi-va-vi-khi-hau'), {
+    vi: {
+      excerpt:
+        'Cảnh quan đô thị tốt không dừng ở việc “trồng thêm cây”. Nó xử lý bóng, gió, mặt nền, nước mưa và trải nghiệm đi bộ ở cao độ con người.',
+      content: [
+        '<p>Có những khoảng sân rất đẹp trên phối cảnh nhưng gần như không ai muốn đứng lại vào lúc 14h. Lý do thường không nằm ở thiếu cây, mà ở việc cây, mặt nền, gió và bóng đổ không được xem như một hệ vi khí hậu.</p>',
+        '<p>Trong các dự án sảnh, khu đế và sân trong, XPRESS DESIGN bắt đầu bằng câu hỏi: người dùng sẽ dừng ở đâu, chờ ở đâu, đi bộ bao lâu, và bề mặt nào đang hắt nhiệt ngược vào họ?</p>',
+        '<h2>1. Bóng đổ là hạ tầng</h2>',
+        '<p>Cây lớn, mái nhẹ, lam, hiên và tường thấp đều tạo bóng theo những cách khác nhau. Chúng tôi không chọn cây chỉ vì hình dáng, mà vì tốc độ lớn, biên độ tán, khả năng chịu gió và độ sạch của lá trong vận hành.</p>',
+        '<h2>2. Gió cần đường đi</h2>',
+        '<p>Một khoảng sân kín bốn phía có thể rất sang nhưng dễ bí. Khi có thể, chúng tôi mở các khe gió ở tầng trệt, dùng hành lang thoáng, lan can rỗng và khoảng rút để tạo đường gió thấp, nơi người thật cảm nhận được.</p>',
+        '<h2>3. Mặt nền quyết định cảm giác nóng</h2>',
+        '<p>Đá quá sáng có thể chói, asphalt quá tối giữ nhiệt, gạch quá trơn gây nguy hiểm khi mưa. Mặt nền tốt là sự cân bằng giữa thấm nước, độ nhám, khả năng vệ sinh và cách nó phản xạ ánh sáng lên mặt người.</p>',
+        '<h2>4. Nước mưa là một phần trải nghiệm</h2>',
+        '<p>Rãnh, mương cạn, bồn cây và mặt dốc nhỏ giúp nước đi chậm hơn. Khi thiết kế đúng, người dùng không thấy một hệ thoát nước khô cứng; họ chỉ thấy sân mát hơn, cây khỏe hơn và lối đi sạch hơn sau mưa.</p>',
+        '<h2>5. Đo bằng hành vi, không chỉ bằng bản vẽ</h2>',
+        '<p>Một không gian ngoài trời thành công khi nhân viên chọn đi bộ qua đó, cư dân đứng chờ mà không né nắng, trẻ con có chỗ ngồi, và bảo vệ không phải tự che tạm bằng dù. Những hành vi nhỏ này nói thật hơn nhiều so với render.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'Good urban landscape is not simply “more planting”. It handles shade, air, ground surface, rainwater, and pedestrian comfort at human height.',
+      content: [
+        '<p>Some courtyards look beautiful in renderings yet no one wants to stand there at 2 p.m. The issue is usually not a lack of plants, but the absence of a micro-climate system: shade, ground, wind, and water working together.</p>',
+        '<p>For lobbies, podiums, and courtyards, XPRESS DESIGN starts with use: where people stop, where they wait, how long they walk, and which surfaces throw heat back at them.</p>',
+        '<h2>1. Shade is infrastructure</h2>',
+        '<p>Trees, light roofs, screens, eaves, and low walls all cast different kinds of shade. We choose planting not only for form, but for growth rate, canopy spread, wind tolerance, and maintenance cleanliness.</p>',
+        '<h2>2. Wind needs a path</h2>',
+        '<p>A four-sided courtyard can feel premium yet airless. Where possible, we open low-level wind slots, use breathable corridors, porous guardrails, and setbacks to create air movement people can actually feel.</p>',
+        '<h2>3. The ground decides heat comfort</h2>',
+        '<p>Stone that is too bright can glare, dark asphalt stores heat, and polished paving becomes dangerous in rain. A good ground plane balances permeability, grip, cleaning, and how it reflects light onto the face.</p>',
+        '<h2>4. Rainwater shapes experience</h2>',
+        '<p>Channels, shallow swales, planters, and subtle falls slow water down. Done well, users do not see drainage infrastructure; they simply experience a cooler court, healthier planting, and cleaner paths after rain.</p>',
+        '<h2>5. Measure by behavior, not only drawings</h2>',
+        '<p>An outdoor space works when staff choose to walk through it, residents wait without avoiding the sun, children find a seat, and security teams do not invent temporary umbrellas. These behaviors are more honest than a rendering.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('tinh-tinh-lang-spa-wellness'), {
+    vi: {
+      excerpt:
+        'Một phòng wellness tại gia không được tạo ra bằng nhiều thiết bị hơn, mà bằng âm thanh, ánh sáng, độ ẩm, mùi và cảm giác chạm được kiểm soát đủ tinh tế.',
+      content: [
+        '<p>Rất nhiều phòng tắm cao cấp được đầu tư mạnh vào đá, sen cây và bồn ngâm, nhưng lại thiếu cảm giác nghỉ. Người dùng bước vào vẫn thấy sáng gắt, vang tiếng nước, mùi ẩm trong tủ và các khe kỹ thuật bị xử lý muộn.</p>',
+        '<p>Với XPRESS DESIGN, wellness tại gia bắt đầu từ câu hỏi nhỏ hơn: sau một ngày dài, điều gì giúp cơ thể chậm lại trong 15 phút?</p>',
+        '<h2>1. Âm thanh là vật liệu đầu tiên</h2>',
+        '<p>Đá, kính và sứ phản âm mạnh. Nếu tất cả bề mặt đều cứng, tiếng nước sẽ sắc và mệt. Chúng tôi thường phối bề mặt khoáng mờ, trần có lớp hấp thụ âm, rèm hoặc gỗ ở vùng khô để tiếng trong phòng mềm hơn.</p>',
+        '<h2>2. Ánh sáng phải có mức thấp</h2>',
+        '<p>Một phòng wellness không nên chỉ có hai trạng thái: sáng hết hoặc tắt hết. Các mạch dim êm, ánh 2700K, đèn hắt thấp và ánh gương riêng giúp người dùng chọn được trạng thái phù hợp: tắm nhanh, thư giãn, chăm sóc da hoặc đọc trước khi ngủ.</p>',
+        '<h2>3. Độ ẩm quyết định tuổi thọ cảm giác sang</h2>',
+        '<p>Mùi ẩm phá trải nghiệm rất nhanh. Thông gió, khe hở đáy tủ, độ dốc sàn, vị trí phễu thu và vật liệu chống nấm cần được khóa trước khi chọn mẫu đá. Đây là phần không đẹp trên moodboard nhưng quyết định phòng có bền hay không.</p>',
+        '<blockquote>“Wellness không nằm ở số lượng thiết bị. Nó nằm ở việc cơ thể không bị làm phiền bởi ánh sáng, tiếng vang, mùi ẩm và bề mặt lạnh.”</blockquote>',
+        '<h2>4. Mẫu thử nhỏ đáng tiền hơn sửa sai lớn</h2>',
+        '<p>Với các phòng tắm quan trọng, chúng tôi khuyến nghị mockup một góc thật: đá, đèn, vòi, khe thoát và gương. Chỉ khi đứng trong ánh sáng thật, nghe tiếng nước thật, gia chủ mới biết phòng có đủ tĩnh hay chưa.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'A home wellness room is not made by more equipment. It comes from careful control of sound, light, humidity, scent, and touch.',
+      content: [
+        '<p>Many premium bathrooms spend heavily on stone, showers, and tubs, yet still fail to feel restful. The light is too sharp, water sounds hard, cabinets smell damp, and technical gaps are solved too late.</p>',
+        '<p>For XPRESS DESIGN, home wellness starts with a smaller question: after a long day, what helps the body slow down for fifteen minutes?</p>',
+        '<h2>1. Sound is the first material</h2>',
+        '<p>Stone, glass, and porcelain reflect sound strongly. If every surface is hard, water becomes sharp and tiring. We combine matte mineral finishes, acoustic ceiling layers, fabric or timber in dry zones so the room sounds softer.</p>',
+        '<h2>2. Light needs a low setting</h2>',
+        '<p>A wellness room should not have only two states: fully bright or completely off. Smooth dimming, 2700K light, low-level glow, and separate mirror light let users choose between a quick shower, rest, skincare, or reading before bed.</p>',
+        '<h2>3. Humidity decides whether luxury lasts</h2>',
+        '<p>Damp smell ruins the room quickly. Ventilation, cabinet gaps, floor falls, drain position, and anti-mold finishes should be resolved before stone selection. This is not the beautiful part of the mood board, but it decides longevity.</p>',
+        '<blockquote>“Wellness is not the number of devices. It is the absence of irritation from glare, echo, dampness, and cold surfaces.”</blockquote>',
+        '<h2>4. Small mockups beat large corrections</h2>',
+        '<p>For important bathrooms, we recommend a real corner mockup: stone, light, mixer, drain gap, and mirror. Only in real light, with real water sound, can owners tell whether the room is quiet enough.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('phong-thuy-nha-pho-nguyen-tac-vang'), {
+    vi: {
+      excerpt:
+        'Phong thủy nhà phố, khi nhìn bằng ngôn ngữ kiến trúc, là câu chuyện về trục nhìn, nhịp chuyển tiếp, ánh sáng, gió và cảm giác an tâm khi trở về.',
+      content: [
+        '<p>Chúng tôi không tiếp cận phong thủy như một bộ công thức đặt vật phẩm. Trong nhà phố, nhiều nguyên tắc truyền thống thật ra có thể đọc lại bằng kiến trúc: cửa vào cần điểm dừng, cầu thang cần sáng, bếp cần kín gió mạnh, phòng ngủ cần yên và nhà cần một nhịp thở ở giữa.</p>',
+        '<h2>1. Cửa chính cần một khoảng chuyển tiếp</h2>',
+        '<p>Khi mở cửa là nhìn xuyên thẳng ra cuối nhà, người ở thường có cảm giác thiếu riêng tư. Một vách lệch, tủ thấp, khoảng foyer nhỏ hoặc thay đổi vật liệu sàn có thể tạo nhịp chậm lại trước khi bước vào không gian chính.</p>',
+        '<h2>2. Giếng trời là điểm tụ ánh sáng</h2>',
+        '<p>Ở nhà phố dài và hẹp, giếng trời không chỉ lấy sáng. Nó gom ánh sáng, tạo điểm nhớ trong nhà và giúp khí nóng thoát lên cao. Cây xanh ở đây cần được chọn theo khả năng sống trong bán râm, không chỉ theo hình dáng.</p>',
+        '<h2>3. Bếp cần ổn định, không phô trương</h2>',
+        '<p>Một căn bếp tốt có luồng đi rõ, đủ sáng trên mặt thao tác và không nằm ngay đường gió xuyên từ cửa chính. Điều này vừa phù hợp với cảm giác “giữ lửa”, vừa đúng về công năng và mùi.</p>',
+        '<h2>4. Phòng ngủ cần giảm thông tin</h2>',
+        '<p>Đầu giường tránh cửa ra vào trực diện, gương không đối diện giường, ánh sáng không rọi thẳng mắt. Những điều này không cần thần bí hóa; chúng giúp cơ thể nghỉ tốt hơn.</p>',
+        '<p><strong>Kết luận:</strong> Phong thủy ứng dụng tốt là khi gia chủ thấy nhà dễ ở hơn, đội thi công hiểu được lý do, và mọi quyết định đều có thể chuyển thành chi tiết kiến trúc rõ ràng.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'Townhouse feng shui, read through architecture, is about sightlines, thresholds, daylight, air, and the calm feeling of returning home.',
+      content: [
+        '<p>We do not approach feng shui as a formula for placing objects. In townhouses, many traditional principles can be translated architecturally: the entry needs a pause, stairs need light, kitchens need protection from strong drafts, bedrooms need quiet, and the house needs a breathing point in the middle.</p>',
+        '<h2>1. The entry needs a threshold</h2>',
+        '<p>When the front door opens directly to the end of the house, privacy feels thin. A shifted screen, low cabinet, small foyer, or floor material change can slow the sequence before entering the main room.</p>',
+        '<h2>2. The skylight gathers light</h2>',
+        '<p>In long narrow houses, a skylight is not only for brightness. It creates a memorable center and lets warm air rise. Planting here should be chosen for semi-shade survival, not only appearance.</p>',
+        '<h2>3. The kitchen should feel grounded</h2>',
+        '<p>A good kitchen has clear movement, enough light on the worktop, and is not placed directly in a strong entry draft. This supports both the traditional idea of keeping the hearth and the practical control of smell and comfort.</p>',
+        '<h2>4. Bedrooms should reduce information</h2>',
+        '<p>The headboard avoids direct door alignment, mirrors do not face the bed, and light does not hit the eyes. These choices do not need mysticism; they help the body rest.</p>',
+        '<p><strong>In closing:</strong> Applied feng shui works when the home becomes easier to live in, builders understand the reason, and each decision can become a clear architectural detail.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('5-xu-huong-thiet-ke-noi-that-nam-toi'), {
+    vi: {
+      excerpt:
+        'Năm xu hướng nội thất đang nổi lên không nằm ở màu sắc nhất thời, mà ở cách ngôi nhà xử lý vật liệu, ánh sáng, lưu trữ và ranh giới trong - ngoài.',
+      content: [
+        '<p>Các xu hướng nội thất đáng theo dõi thường không xuất hiện như một món đồ mới, mà như một thay đổi trong cách sống. Khách hàng muốn nhà ít ồn hơn, dễ bảo trì hơn, có vật liệu thật hơn và kết nối với ngoài trời một cách tự nhiên hơn.</p>',
+        '<h2>1. Bề mặt khoáng và vật liệu có chiều sâu</h2>',
+        '<p>Limewash, clay, tadelakt, đá honed và gỗ dầu mờ đang thay thế dần các bề mặt bóng quá phẳng. Chúng không “la” trên ảnh, nhưng tạo độ sâu khi ánh sáng thay đổi trong ngày.</p>',
+        '<h2>2. Tủ âm như một phần kiến trúc</h2>',
+        '<p>Tủ không còn chỉ là đồ nội thất. Nó giấu kỹ thuật, tạo trục nhìn, làm dày tường và giữ nhịp sống gọn hơn. Đây là xu hướng quan trọng nhất nếu gia chủ thật sự muốn nhà đẹp lâu.</p>',
+        '<h2>3. Ánh sáng thấp và có kịch bản</h2>',
+        '<p>Nhà cao cấp đang rời xa trần nhiều downlight. Thay vào đó là đèn hắt, đèn điểm, ánh trong tủ, ánh chân tường và các mạch dim theo tình huống: ăn tối, đọc sách, tiếp khách, nghỉ ngơi.</p>',
+        '<h2>4. Ranh giới trong - ngoài mềm hơn</h2>',
+        '<p>Sàn cùng tông, ray cửa chìm, hiên sâu và cây đặt đúng vị trí giúp phòng khách mở ra sân mà không mất kiểm soát nhiệt, nước và riêng tư.</p>',
+        '<h2>5. Vật liệu bền vững phải có hướng dẫn bảo trì</h2>',
+        '<p>Gia chủ không chỉ hỏi “có xanh không”, mà hỏi sau ba năm sẽ ra sao. Vật liệu tốt cần có câu trả lời về lau chùi, chống ẩm, thay thế và lão hóa.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'The next interior trends are less about seasonal colors and more about how homes handle material, light, storage, and the indoor-outdoor edge.',
+      content: [
+        '<p>The trends worth following rarely arrive as a single object. They show up as changes in how people want to live: quieter homes, easier maintenance, more honest materials, and a more natural connection to the outdoors.</p>',
+        '<h2>1. Mineral surfaces with depth</h2>',
+        '<p>Limewash, clay, tadelakt, honed stone, and oiled timber are replacing overly glossy planes. They do not shout in photos, but they gain depth as daylight changes.</p>',
+        '<h2>2. Built-in storage as architecture</h2>',
+        '<p>Joinery is no longer only furniture. It hides services, sets sightlines, thickens walls, and keeps daily life calmer. It is the most important trend for homes that need to stay beautiful.</p>',
+        '<h2>3. Lower light with scenarios</h2>',
+        '<p>Premium homes are moving away from ceilings filled with downlights. Instead: wall wash, accent light, cabinet light, low-level glow, and dimmed circuits for dinner, reading, hosting, and rest.</p>',
+        '<h2>4. Softer indoor-outdoor edges</h2>',
+        '<p>Matched floor tones, recessed tracks, deep eaves, and planting in the right place allow living rooms to open out while still controlling heat, water, and privacy.</p>',
+        '<h2>5. Sustainable materials with maintenance guidance</h2>',
+        '<p>Owners are no longer asking only whether something is green. They ask what it looks like after three years. Good material choices answer cleaning, moisture, replacement, and aging.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('vat-lieu-tai-che-xu-huong-ben-vung'), {
+    vi: {
+      excerpt:
+        'Vật liệu tái chế chỉ thật sự thuyết phục khi có nguồn gốc rõ, chi tiết thi công đúng và kế hoạch bảo trì đủ cụ thể.',
+      content: [
+        '<p>Trong thiết kế nhà ở cao cấp, vật liệu tái chế không nên được dùng như một tuyên bố đạo đức chung chung. Nếu chọn sai, nó có thể nhanh xuống cấp, khó bảo trì và làm công trình trông tạm bợ. Nếu chọn đúng, nó tạo ra một câu chuyện vật liệu rất riêng.</p>',
+        '<h2>1. Gạch, gốm và đá vụn cần được kiểm soát lô</h2>',
+        '<p>Terrazzo hoặc mảng ốp từ vật liệu nghiền có vẻ tự nhiên, nhưng biên độ màu và độ mài cần được thống nhất trước. Chúng tôi luôn yêu cầu mẫu thật đủ lớn, không chỉ một miếng nhỏ trên tay.</p>',
+        '<h2>2. Gỗ thu hồi cần hồ sơ xử lý</h2>',
+        '<p>Gỗ cũ đẹp vì có vết thời gian, nhưng cũng cần kiểm ẩm, chống mối và xác định rõ vị trí sử dụng. Chúng tôi ưu tiên dùng cho lam, tủ, trần hoặc chi tiết trang trí hơn là kết cấu chịu lực chính.</p>',
+        '<h2>3. Kính và kim loại tái chế phải đi cùng tiêu chuẩn mới</h2>',
+        '<p>Với mặt tiền hoặc lan can, yếu tố an toàn luôn đứng trước câu chuyện tái chế. Vật liệu có hàm lượng tái chế vẫn cần đạt yêu cầu về chịu lực, chống ăn mòn và bảo hành.</p>',
+        '<h2>4. Đừng che giấu nguồn gốc vật liệu</h2>',
+        '<p>Điểm hay của vật liệu tái chế là câu chuyện của nó. Một bậc đá tận dụng, một mảng gỗ cũ hay một mặt bàn từ vụn gạch nên được thiết kế để người dùng hiểu và trân trọng, không phải để giả làm vật liệu mới.</p>',
+        '<p><strong>Kết luận:</strong> Vật liệu tái chế chuyên nghiệp không bắt đầu bằng cảm hứng, mà bằng kiểm tra, mockup và hồ sơ bảo trì.</p>',
+      ].join(''),
+    },
+    en: {
+      excerpt:
+        'Recycled materials become convincing only when their origin is clear, their details are correct, and their maintenance plan is specific.',
+      content: [
+        '<p>In premium residential design, recycled material should not be used as a vague moral statement. Chosen poorly, it can age badly and feel temporary. Chosen well, it gives a home a material story no catalogue can provide.</p>',
+        '<h2>1. Crushed brick, ceramic, and stone need batch control</h2>',
+        '<p>Terrazzo or cladding made from crushed material can look beautifully natural, but color range and grinding depth must be agreed early. We always ask for a large enough real sample, not only a small hand piece.</p>',
+        '<h2>2. Reclaimed timber needs treatment records</h2>',
+        '<p>Old timber is beautiful because of time, but it still needs moisture checks, termite treatment, and a clear placement strategy. We prefer it for screens, joinery, ceilings, or accents rather than primary structural roles.</p>',
+        '<h2>3. Recycled glass and metal still need new standards</h2>',
+        '<p>For facades or balustrades, safety comes before the recycling story. Recycled content still has to meet strength, corrosion, and warranty requirements.</p>',
+        '<h2>4. Do not hide the material history</h2>',
+        '<p>The value of recycled material is its story. A salvaged stone step, a reclaimed timber wall, or a tabletop made from ceramic fragments should be detailed so users understand and appreciate it, not so it pretends to be new.</p>',
+        '<p><strong>In closing:</strong> Professional use of recycled material begins with testing, mockups, and maintenance records, not inspiration alone.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('anh-sang-tu-nhien-ban-giao-huong-cua-khong-gian'), {
+    vi: {
+      hero_image_url: heroLivingLight,
+      content: [
+        `<p>Trong các buổi khảo sát nhà phố và biệt thự, chúng tôi thường yêu cầu gia chủ giữ nguyên hiện trạng ít nhất một buổi sáng. Lý do rất đơn giản: bản vẽ mặt bằng nói được diện tích, nhưng chỉ ánh sáng thật mới cho thấy căn nhà đang “thở” ở đâu và đang bí ở đâu.</p>`,
+        `<figure><img src="${imgSkylightDiagram}" alt="Sơ đồ minh họa giếng trời" /><figcaption>Ghi chú concept: giếng trời không chỉ lấy sáng, mà còn là trục thoát nhiệt và điểm neo thị giác.</figcaption></figure>`,
+        '<h2>1. Không bắt đầu bằng cửa kính lớn</h2>',
+        '<p>Một mảng kính lớn ở hướng nắng gắt có thể làm phòng khách sáng hơn trong ảnh render, nhưng lại tăng nhiệt, gây chói và khiến rèm luôn phải kéo. Với nhà nhiệt đới, XPRESS DESIGN thường ưu tiên ánh sáng gián tiếp: hiên sâu, lam dọc, rèm hai lớp, hoặc tường phản xạ màu ấm để ánh sáng đi vào mềm hơn.</p>',
+        '<h2>2. Giếng trời cần có vai trò trong mặt cắt</h2>',
+        '<p>Giếng trời tốt không nằm ở kích thước lớn hay nhỏ, mà ở vị trí trong mặt cắt. Nếu đặt gần cầu thang, nó kéo sáng xuống tầng thấp và đẩy khí nóng lên trên. Nếu đặt giữa bếp và bàn ăn, nó trở thành nhịp sinh hoạt trong ngày.</p>',
+        '<blockquote>Ánh sáng đẹp không phải ánh sáng nhiều. Đó là ánh sáng đến đúng nơi, đúng cường độ, đúng thời điểm trong ngày.</blockquote>',
+        '<h2>3. Vật liệu mờ thường sang hơn vật liệu bóng</h2>',
+        '<p>Sơn khoáng, gỗ dầu mờ, đá honed, vải linen và kính mờ giúp ánh sáng dừng lại thành lớp, thay vì bật ngược vào mắt. Chính lớp mờ này tạo cảm giác sâu và đắt khi kết hợp ánh đèn 2700-3000K vào buổi tối.</p>',
+        `<figure><img src="${imgBeforeAfter}" alt="Không gian trước và sau khi tối ưu ánh sáng" /><figcaption>Ghi chú nội bộ: cùng một phòng có thể thay đổi cảm giác lớn nhỏ bằng cách mở trục sáng và giảm bề mặt phản chiếu mạnh.</figcaption></figure>`,
+        '<h2>4. Mỗi phòng cần một kịch bản sáng riêng</h2>',
+        '<p>Phòng khách cần ánh sáng nền và vài điểm nhấn. Phòng ngủ cần tránh sáng trực diện vào đầu giường. Bếp cần sáng rõ trên mặt thao tác nhưng không nên biến toàn bộ trần thành lưới downlight.</p>',
+        '<p><strong>Kết luận:</strong> Ánh sáng tự nhiên là vật liệu đầu tiên của kiến trúc. Khi được dẫn đúng, nó làm không gian rộng hơn, vật liệu đẹp hơn và nhịp sống trong nhà chậm lại.</p>',
+      ].join(''),
+    },
+    en: {
+      hero_image_url: heroLivingLight,
+      content: [
+        '<p>During surveys we often ask owners to leave the house untouched for one full morning. A floor plan gives us area; daylight tells us where the house is breathing, where it is overexposed, and where the section needs help.</p>',
+        `<figure><img src="${imgSkylightDiagram}" alt="Skylight diagram" /><figcaption>Concept note: a skylight is a heat-release spine and a visual anchor, not just an opening.</figcaption></figure>`,
+        '<h2>1. We do not start with bigger glass</h2>',
+        '<p>Large glazing on a hard sun face may look good in renders, but can create heat, glare, and permanently closed curtains. In tropical homes we usually start with indirect light: deep eaves, vertical screens, layered curtains, and warm reflective walls.</p>',
+        '<h2>2. A skylight has to work in section</h2>',
+        '<p>The success of a skylight is not its size. It is its position in section. Near a stair, it can draw light down and pull hot air up. Between kitchen and dining, it becomes a daily rhythm.</p>',
+        '<blockquote>Beautiful daylight is not more daylight. It is light arriving at the right place, in the right strength, at the right time of day.</blockquote>',
+        '<h2>3. Matte surfaces often feel more expensive than glossy ones</h2>',
+        '<p>Mineral paint, oiled timber, honed stone, linen, and translucent glass let light settle into layers instead of bouncing into the eye. That soft stop is where depth begins.</p>',
+        `<figure><img src="${imgBeforeAfter}" alt="Living room before and after daylight intervention" /><figcaption>Internal note: the same room can feel larger once the light axis is opened and harsh reflections are reduced.</figcaption></figure>`,
+        '<h2>4. Every room needs a daylight script</h2>',
+        '<p>The living room needs ambient light and a few anchors. Bedrooms should avoid direct glare at the headboard. Kitchens need light on the work surface without turning the ceiling into a grid.</p>',
+        '<p><strong>In closing:</strong> Natural light is architecture’s first material. When guided well, it makes rooms feel larger, materials look richer, and daily life slow down.</p>',
+      ].join(''),
+    },
+  });
+}
+
+function patchBilingual(target, patch) {
+  if (!target) return;
+  if (patch.vi) Object.assign(target.vi, patch.vi);
+  if (patch.en) Object.assign(target.en, patch.en);
 }
 
 async function seedNews(strapi, tagMap) {
@@ -1108,22 +1435,23 @@ async function seedNews(strapi, tagMap) {
         title: "Dự án 'Villa Sen Vàng' của XPRESS DESIGN đoạt giải Kiến trúc Xanh 2025",
         slug: 'villa-sen-vang-giai-kien-truc-xanh-2025',
         excerpt:
-          "Tối ngày 14/04/2025, tại Hà Nội, dự án biệt thự 'Villa Sen Vàng' (Quận 2, TP.HCM) đã vinh dự nhận giải thưởng 'Công trình sử dụng năng lượng hiệu quả' do Hội Kiến trúc sư Việt Nam trao tặng. Đây là dự án thứ 3 của XPRESS DESIGN được vinh danh trong 2 năm qua.",
-        lead: 'Tối ngày 14/04/2025, tại Nhà hát Lớn Hà Nội, Hội Kiến trúc sư Việt Nam đã tổ chức Lễ trao giải Kiến trúc Xanh 2025. XPRESS DESIGN vinh dự khi dự án \'Villa Sen Vàng\' (tọa lạc tại Quận 2, TP.HCM) được vinh danh ở hạng mục \'Công trình sử dụng năng lượng hiệu quả\'.',
-        source: 'Theo Hội Kiến trúc sư Việt Nam',
+          "Dự án Villa Sen Vàng được ghi nhận trong nhóm công trình nhà ở có giải pháp khí hậu tốt nhờ cách xử lý mặt đứng, giếng trời và thông gió chéo phù hợp với điều kiện đô thị nhiệt đới.",
+        lead: 'Với Villa Sen Vàng, XPRESS DESIGN không bắt đầu từ hình ảnh một biệt thự “xanh”, mà từ bài toán rất cụ thể: làm sao để một ngôi nhà đô thị có thể sáng, thoáng và riêng tư mà không phụ thuộc hoàn toàn vào điều hòa.',
+        source: 'XPRESS DESIGN Studio Journal',
         badge_label: 'Giải thưởng',
         hero_image_url: heroAward,
         event_award_category: 'Công trình sử dụng năng lượng hiệu quả',
         content: [
-          `<h2>1. Về dự án Villa Sen Vàng</h2>`,
-          `<p>Villa Sen Vàng là một biệt thự hiện đại với diện tích 350m², được thiết kế theo hướng bền vững, tối ưu ánh sáng tự nhiên và thông gió chéo. Ngôi nhà sử dụng hệ lam gỗ kết hợp kính giảm nhiệt, giếng trời trung tâm và vật liệu đá tự nhiên tái chế. Kết quả, nhiệt độ trong nhà giảm 5°C so với môi trường bên ngoài, tiết kiệm 40% điện năng tiêu thụ.</p>`,
-          `<figure><img src="${imgStageAward}" alt="KTS nhận giải trên sân khấu" /><figcaption>KTS. Nguyễn Minh An nhận giải thưởng tại Lễ trao giải Kiến trúc Xanh 2025</figcaption></figure>`,
-          `<figure><img src="${imgVilla}" alt="Villa Sen Vàng" /><figcaption>Toàn cảnh dự án Villa Sen Vàng</figcaption></figure>`,
-          `<h2>2. Đánh giá từ Ban giám khảo</h2>`,
-          `<p>Ban giám khảo đặc biệt ấn tượng với giải pháp kỹ thuật đơn giản nhưng hiệu quả của Villa Sen Vàng, đặc biệt là khả năng thích ứng với khí hậu nhiệt đới (hướng Tây Nam) mà vẫn đảm bảo tính thẩm mỹ cao. Công trình được đánh giá là mô hình cho các dự án nhà ở nhiệt đới trong tương lai.</p>`,
-          `<h2>3. Chia sẻ của XPRESS DESIGN</h2>`,
-          `<p>Đại diện XPRESS DESIGN, KTS. Trần Văn Bình chia sẻ: <em>“Giải thưởng này là động lực rất lớn để chúng tôi tiếp tục theo đuổi triết lý: Kiến tạo không gian bền vững, hài hòa với thiên nhiên và mang lại giá trị sống tốt nhất cho gia chủ.”</em></p>`,
-          `<p><strong>Kết luận:</strong> Với giải thưởng lần này, XPRESS DESIGN khẳng định vị thế của mình trong lĩnh vực thiết kế kiến trúc xanh tại Việt Nam. Công ty cũng cho biết sẽ tiếp tục triển khai nhiều dự án theo hướng bền vững trong năm 2025.</p>`,
+          `<p>Villa Sen Vàng là một hồ sơ nhà ở mà đội ngũ XPRESS DESIGN dùng để kiểm chứng cách kết hợp giữa mặt đứng hai lớp, khoảng rỗng trung tâm và vật liệu hoàn thiện có độ hấp thụ nhiệt thấp. Thay vì thêm “mảng xanh” ở cuối dự án, chiến lược bền vững được đưa vào ngay từ mặt cắt đầu tiên.</p>`,
+          `<figure><img src="${imgStageAward}" alt="Không gian sự kiện công bố dự án" /><figcaption>Khoảnh khắc công bố hồ sơ Villa Sen Vàng trong chương trình tổng kết thiết kế xanh 2025.</figcaption></figure>`,
+          `<figure><img src="${imgVilla}" alt="Villa Sen Vàng" /><figcaption>Villa Sen Vàng tập trung vào bóng đổ, giếng trời và thông gió tự nhiên thay vì chỉ tạo hình mặt tiền.</figcaption></figure>`,
+          `<h2>Điểm đáng chú ý của hồ sơ</h2>`,
+          `<ul><li>Mặt đứng hướng nắng được xử lý bằng lam sâu và ban công đệm, giúp giảm bức xạ trực tiếp vào không gian sinh hoạt.</li><li>Giếng trời giữa nhà vừa lấy sáng vừa tạo luồng thoát khí nóng lên cao.</li><li>Vật liệu đá, gỗ và sơn khoáng được chọn theo khả năng lão hóa đẹp, dễ bảo trì và phù hợp khí hậu ẩm.</li></ul>`,
+          `<h2>Từ giải pháp kỹ thuật đến cảm giác sống</h2>`,
+          `<p>Điểm chúng tôi muốn giữ lại ở Villa Sen Vàng không phải là một hình ảnh “xanh” để truyền thông, mà là cảm giác sống chậm hơn: phòng khách đủ sáng vào ban ngày, hành lang có gió nhẹ, bề mặt tường không nóng gắt vào cuối chiều và cây xanh có vai trò thật trong việc tạo bóng.</p>`,
+          `<h2>Chia sẻ từ nhóm thiết kế</h2>`,
+          `<p>Đại diện nhóm thiết kế cho biết: <em>“Điều quan trọng nhất là biến khái niệm bền vững thành các chi tiết có thể thi công: lam dày bao nhiêu, khe thoáng ở đâu, nước mưa đi về đâu và gia chủ bảo trì thế nào sau ba năm.”</em></p>`,
+          `<p><strong>Ghi chú:</strong> Hồ sơ Villa Sen Vàng sẽ tiếp tục được XPRESS DESIGN dùng như một bộ tham chiếu nội bộ cho các dự án nhà ở nhiệt đới có yêu cầu cao về riêng tư, ánh sáng và vận hành.</p>`,
         ].join(''),
         location: 'Nhà hát Lớn Hà Nội',
         publishedAt: new Date('2025-04-15T02:00:00.000Z'),
@@ -1132,22 +1460,23 @@ async function seedNews(strapi, tagMap) {
         title: "XPRESS DESIGN's 'Villa Sen Vàng' wins Green Architecture Award 2025",
         slug: 'villa-sen-vang-green-architecture-award-2025',
         excerpt:
-          "On the evening of 14 April 2025 in Hanoi, the 'Villa Sen Vàng' residence (District 2, HCMC) received the 'Energy-efficient building' prize from the Vietnam Architects' Association. It is the third XPRESS DESIGN project honoured in two years.",
-        lead: 'On 14 April 2025 at the Hanoi Opera House, the Vietnam Architects’ Association held the Green Architecture Award 2025 ceremony. XPRESS DESIGN was honoured as Villa Sen Vàng (District 2, HCMC) won in the “Energy-efficient building” category.',
-        source: "According to the Vietnam Architects' Association",
+          "Villa Sen Vàng is recognised among residential projects with a strong climate response, using facade depth, skylight strategy, and cross ventilation for dense tropical living.",
+        lead: 'With Villa Sen Vàng, XPRESS DESIGN did not begin with the image of a “green villa”. The brief was more practical: how can an urban home be bright, breathable, and private without relying entirely on air-conditioning?',
+        source: 'XPRESS DESIGN Studio Journal',
         badge_label: 'Award',
         hero_image_url: heroAward,
         event_award_category: 'Energy-efficient building',
         content: [
-          `<h2>1. About Villa Sen Vàng</h2>`,
-          `<p>Villa Sen Vàng is a 350 m² contemporary villa designed for resilience: generous daylight, cross ventilation, timber louvres with solar-control glazing, a central skylight, and reclaimed natural stone. The measured outcome: about 5°C cooler indoors than outdoors in peak hours, and roughly 40% less daytime cooling energy.</p>`,
-          `<figure><img src="${imgStageAward}" alt="Architect receiving the award on stage" /><figcaption>Receiving the award at the Green Architecture Award 2025 ceremony</figcaption></figure>`,
-          `<figure><img src="${imgVilla}" alt="Villa Sen Vàng exterior" /><figcaption>Villa Sen Vàng — overall view</figcaption></figure>`,
-          `<h2>2. Jury note</h2>`,
-          `<p>The jury highlighted the quiet technical clarity of the house — especially how it responds to a tropical, south-west exposure without losing poise. The scheme is cited as a reference for future tropical housing.</p>`,
-          `<h2>3. Statement from XPRESS DESIGN</h2>`,
-          `<p>Representing the studio, Arch. Tran Van Binh said: <em>“This award is a strong push to keep our promise: sustainable space, in tune with nature, and the best living value we can give each client.”</em></p>`,
-          `<p><strong>In closing:</strong> With this recognition, XPRESS DESIGN reinforces its role in green architecture in Vietnam — and will continue to grow a portfolio of resilient projects through 2025.</p>`,
+          `<p>Villa Sen Vàng is a residential file XPRESS DESIGN used to test the relationship between a two-layer facade, a central void, and finishes with lower heat absorption. Sustainability was not added as a visual layer at the end; it entered the first section sketch.</p>`,
+          `<figure><img src="${imgStageAward}" alt="Project announcement event" /><figcaption>Project note: Villa Sen Vàng was presented in the studio's 2025 green design review.</figcaption></figure>`,
+          `<figure><img src="${imgVilla}" alt="Villa Sen Vàng exterior" /><figcaption>Villa Sen Vàng focuses on shade, skylight, and natural airflow before facade styling.</figcaption></figure>`,
+          `<h2>What the submission highlighted</h2>`,
+          `<ul><li>Sun-facing elevations use deep screens and buffer balconies to reduce direct radiation into living spaces.</li><li>The central skylight brings daylight down while allowing warm air to escape upward.</li><li>Stone, timber, and mineral coatings were selected for graceful aging, maintenance clarity, and humid-climate performance.</li></ul>`,
+          `<h2>From detail to daily comfort</h2>`,
+          `<p>The value of Villa Sen Vàng is not a “green” image. It is a slower way of living: a living room bright enough by day, corridors with a slight breeze, walls that do not feel harsh in late afternoon, and planting that performs as shade rather than decoration.</p>`,
+          `<h2>Design team note</h2>`,
+          `<p>The team shared: <em>“The real work is turning sustainability into buildable details: how deep the louvre is, where the air gap sits, where the rainwater goes, and how the owner maintains it after year three.”</em></p>`,
+          `<p><strong>In closing:</strong> Villa Sen Vàng will remain a reference file for XPRESS DESIGN when developing tropical homes that need privacy, daylight, and long-term operational comfort.</p>`,
         ].join(''),
         location: 'Hanoi Opera House',
         publishedAt: new Date('2025-04-15T02:00:00.000Z'),
@@ -1369,6 +1698,11 @@ async function seedNews(strapi, tagMap) {
     },
   ];
 
+  applyNewsEditorialPass(items, {
+    imgStageAward,
+    imgVilla,
+  });
+
   for (const n of items) {
     const tagIds = (n.tagSlugs || []).map((s) => tagMap.get(s)).filter(Boolean);
     const tagMultiselect = tagIds.length ? tagIds.join(',') : '';
@@ -1382,6 +1716,194 @@ async function seedNews(strapi, tagMap) {
   }
 
   await syncNewsTagsInDatabase(strapi, tagMap, items);
+}
+
+function applyNewsEditorialPass(items, assets) {
+  const { imgStageAward, imgVilla } = assets;
+  const bySlug = new Map(items.map((item) => [item.vi.slug, item]));
+
+  patchBilingual(bySlug.get('villa-sen-vang-giai-kien-truc-xanh-2025'), {
+    vi: {
+      source: 'XPRESS DESIGN Studio Journal',
+      excerpt:
+        'Villa Sen Vàng được ghi nhận như một hồ sơ nhà ở có giải pháp khí hậu tốt: mặt đứng hai lớp, giếng trời trung tâm và thông gió chéo được xử lý như phần lõi của thiết kế.',
+      lead:
+        'Điểm đáng chú ý của Villa Sen Vàng không nằm ở hình ảnh “xanh” bên ngoài, mà ở cách các chi tiết nhỏ cùng làm việc để căn nhà sáng, thoáng và dễ vận hành hơn.',
+      content: [
+        '<p>Villa Sen Vàng là một trong những hồ sơ nhà ở mà XPRESS DESIGN dùng để hệ thống lại cách tiếp cận kiến trúc nhiệt đới cho lô đất đô thị. Từ giai đoạn concept, nhóm thiết kế đặt mục tiêu giảm nắng gắt, tăng thông gió tự nhiên và giữ sự riêng tư cho gia chủ.</p>',
+        `<figure><img src="${imgStageAward}" alt="Không gian sự kiện công bố dự án" /><figcaption>Hồ sơ Villa Sen Vàng được chia sẻ trong buổi tổng kết các dự án nhà ở bền vững của studio.</figcaption></figure>`,
+        `<figure><img src="${imgVilla}" alt="Villa Sen Vàng" /><figcaption>Thiết kế ưu tiên bóng đổ, khoảng rỗng và vật liệu có khả năng lão hóa ổn định trong khí hậu nóng ẩm.</figcaption></figure>`,
+        '<h2>Điều làm hồ sơ nổi bật</h2>',
+        '<p>Thay vì dùng cây xanh như lớp trang trí cuối cùng, Villa Sen Vàng đưa cây, lam và khoảng rỗng vào cấu trúc không gian. Mặt đứng có chiều sâu hơn, phòng sinh hoạt nhận ánh sáng gián tiếp và giếng trời trở thành điểm thoát nhiệt tự nhiên.</p>',
+        '<h2>Ý nghĩa với các dự án tiếp theo</h2>',
+        '<p>Nhóm thiết kế xem dự án này như một bộ tham chiếu cho các nhà ở có yêu cầu cao về riêng tư nhưng vẫn cần sáng và thoáng. Nhiều chi tiết trong hồ sơ đã được chuẩn hóa lại cho các dự án nhà phố và villa sau đó.</p>',
+        '<h2>Ghi chú từ nhóm thiết kế</h2>',
+        '<p>“Bền vững không nên là một câu khẩu hiệu. Nó phải trả lời được câu hỏi rất cụ thể: buổi chiều tường có nóng không, hành lang có gió không, cây có sống được không và gia chủ bảo trì thế nào.”</p>',
+      ].join(''),
+    },
+    en: {
+      source: 'XPRESS DESIGN Studio Journal',
+      excerpt:
+        'Villa Sen Vàng is recognised as a residential file with a strong climate response: a layered facade, central skylight, and cross ventilation are treated as the core of the design.',
+      lead:
+        'The value of Villa Sen Vàng is not a green image from the outside, but the way small details work together to make the house brighter, more breathable, and easier to operate.',
+      content: [
+        '<p>Villa Sen Vàng is one of the residential files XPRESS DESIGN uses to refine its tropical design approach for urban plots. From concept stage, the team focused on reducing harsh sun, increasing natural airflow, and preserving privacy for the family.</p>',
+        `<figure><img src="${imgStageAward}" alt="Project announcement event" /><figcaption>Villa Sen Vàng was shared during the studio review of sustainable residential work.</figcaption></figure>`,
+        `<figure><img src="${imgVilla}" alt="Villa Sen Vàng exterior" /><figcaption>The design prioritises shade, voids, and materials that age well in a humid climate.</figcaption></figure>`,
+        '<h2>Why the file stood out</h2>',
+        '<p>Instead of adding planting as a final decorative layer, Villa Sen Vàng integrates plants, screens, and voids into the spatial structure. The facade gains depth, living areas receive indirect light, and the skylight becomes a natural heat-release spine.</p>',
+        '<h2>What it means for future projects</h2>',
+        '<p>The design team treats this file as a reference for homes that require privacy while remaining bright and breathable. Several details have since been standardised for later townhouse and villa projects.</p>',
+        '<h2>Design team note</h2>',
+        '<p>“Sustainability should not be a slogan. It has to answer specific questions: does the wall overheat in the afternoon, is there air in the corridor, can the planting survive, and how will the owner maintain it?”</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('khoi-cong-biet-thu-xanh-da-lat'), {
+    vi: {
+      source: 'XPRESS DESIGN Project Update',
+      excerpt:
+        'Biệt thự Xanh Đà Lạt bước vào giai đoạn thi công đầu tiên với trọng tâm là nền móng, thoát nước sườn dốc và bảo vệ cảnh quan hiện hữu.',
+      lead:
+        'Dự án trên sườn đồi Đà Lạt đặt ra yêu cầu không chỉ về hình ảnh nghỉ dưỡng, mà còn về cách công trình bám đất, thoát nước và hạn chế tác động lên địa hình.',
+      content: [
+        '<p>XPRESS DESIGN cùng đối tác triển khai giai đoạn thi công đầu tiên cho Biệt thự Xanh Đà Lạt sau thời gian hoàn thiện hồ sơ kỹ thuật. Ở một khu đất dốc, phần móng và thoát nước được xem là giai đoạn quan trọng nhất, vì nó quyết định độ bền của toàn bộ trải nghiệm kiến trúc phía trên.</p>',
+        '<h2>Trọng tâm của giai đoạn đầu</h2>',
+        '<p>Đội dự án ưu tiên kiểm tra cao độ tự nhiên, hướng nước chảy, vị trí cây giữ lại và các điểm cần gia cố trước khi mở rộng mặt bằng thi công. Những quyết định này giúp giảm can thiệp không cần thiết vào địa hình.</p>',
+        '<h2>Cách tiếp cận thiết kế - thi công</h2>',
+        '<p>Khối nhà được tổ chức theo nguyên tắc bám sườn, mở tầm nhìn nhưng tránh phô trương. Các hiên sâu, mái đua và khoảng đệm ngoài trời sẽ được triển khai cùng hệ thu nước mưa để giảm áp lực lên hạ tầng thoát nước tại chỗ.</p>',
+        '<h2>Ghi chú hiện trường</h2>',
+        '<p>Ở Đà Lạt, một công trình đẹp không thể chỉ nhìn từ phối cảnh. Nó phải đứng được trong sương, trong mưa dài ngày và trong sự thay đổi nhiệt độ rõ rệt giữa sáng và tối.</p>',
+        '<p>XPRESS DESIGN sẽ tiếp tục cập nhật các mốc thi công chính khi dự án bước sang phần kết cấu và hoàn thiện mặt ngoài.</p>',
+      ].join(''),
+    },
+    en: {
+      source: 'XPRESS DESIGN Project Update',
+      excerpt:
+        'Green Villa Da Lat enters its first construction phase with a focus on foundations, hillside drainage, and protection of the existing landscape.',
+      lead:
+        'The hillside site requires more than a resort image. It asks how the building touches the ground, manages water, and limits impact on the terrain.',
+      content: [
+        '<p>XPRESS DESIGN and project partners have started the first construction phase of Green Villa Da Lat after completing the technical package. On a sloped site, foundation and drainage work is the most important stage because it determines the durability of the architectural experience above.</p>',
+        '<h2>Focus of the first phase</h2>',
+        '<p>The team is prioritising natural levels, water flow, retained trees, and areas requiring reinforcement before expanding the work platform. These decisions help reduce unnecessary intervention into the landform.</p>',
+        '<h2>Design-build approach</h2>',
+        '<p>The house is organised to sit with the slope, open to the view, and avoid excessive display. Deep eaves, outdoor buffers, and rainwater capture will be developed alongside the exterior envelope.</p>',
+        '<h2>Site note</h2>',
+        '<p>In Da Lat, a house cannot be judged only by renderings. It has to stand through mist, long rain, and the clear temperature change between morning and evening.</p>',
+        '<p>XPRESS DESIGN will continue to update key milestones as the project moves into structure and exterior completion.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('giai-thiet-ke-ben-vung-2025'), {
+    vi: {
+      source: 'XPRESS DESIGN Studio Journal',
+      excerpt:
+        'Sự ghi nhận dành cho XPRESS DESIGN nhấn mạnh một hướng làm việc nhất quán: thiết kế bền vững phải bắt đầu từ khí hậu, vận hành và chi tiết có thể thi công.',
+      lead:
+        'Thay vì xem giải thưởng là điểm kết thúc, studio xem đây là dịp rà soát lại cách những quyết định nhỏ trong thiết kế tạo ra giá trị dài hạn cho người sử dụng.',
+      content: [
+        '<p>XPRESS DESIGN được ghi nhận trong mùa giải thiết kế bền vững 2025 với một hồ sơ nhà ở quy mô nhỏ, tập trung vào xử lý nhiệt, thông gió và lựa chọn vật liệu có kế hoạch bảo trì rõ ràng.</p>',
+        '<h2>Không chỉ là câu chuyện giải thưởng</h2>',
+        '<p>Điều quan trọng với studio không phải là danh xưng, mà là việc các nguyên tắc thiết kế đang đi đúng hướng: giảm tải cho hệ cơ điện, ưu tiên bóng đổ, kiểm soát nước mưa và chọn vật liệu có vòng đời rõ.</p>',
+        '<h2>Những điểm được nhóm thiết kế rút ra</h2>',
+        '<ul><li>Hồ sơ bền vững cần trình bày bằng mặt cắt, chi tiết và vận hành, không chỉ bằng phối cảnh xanh.</li><li>Những quyết định nhỏ như độ sâu lam, vị trí cửa thoát gió hoặc độ dốc sàn thường quan trọng hơn một thiết bị đắt tiền.</li><li>Khách hàng ngày càng quan tâm đến chi phí vận hành sau bàn giao, không chỉ chi phí thi công.</li></ul>',
+        '<h2>Hướng tiếp theo</h2>',
+        '<p>XPRESS DESIGN sẽ tiếp tục chuẩn hóa các checklist khí hậu, vật liệu và bảo trì cho nhóm dự án nhà phố, villa và không gian nghỉ dưỡng nhỏ.</p>',
+      ].join(''),
+    },
+    en: {
+      source: 'XPRESS DESIGN Studio Journal',
+      excerpt:
+        'The recognition highlights XPRESS DESIGN’s consistent approach: sustainable design begins with climate, operation, and buildable details.',
+      lead:
+        'Rather than treating the award as an endpoint, the studio sees it as a moment to review how small design decisions create long-term value for users.',
+      content: [
+        '<p>XPRESS DESIGN was recognised in the 2025 sustainable design season for a small residential file focused on heat control, ventilation, and materials with a clear maintenance plan.</p>',
+        '<h2>More than an award story</h2>',
+        '<p>The value for the studio is not the title itself, but the confirmation that the design principles are moving in the right direction: reducing mechanical load, prioritising shade, controlling rainwater, and selecting materials with a clear life cycle.</p>',
+        '<h2>Lessons from the design team</h2>',
+        '<ul><li>A sustainable file should be explained through sections, details, and operations, not only green renderings.</li><li>Small decisions such as louver depth, exhaust position, or floor fall can matter more than expensive equipment.</li><li>Clients increasingly care about operating cost after handover, not only construction cost.</li></ul>',
+        '<h2>What comes next</h2>',
+        '<p>XPRESS DESIGN will continue standardising climate, material, and maintenance checklists for townhouse, villa, and small hospitality projects.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('workshop-vat-lieu-ban-dia'), {
+    vi: {
+      source: 'XPRESS DESIGN Workshop Notes',
+      excerpt:
+        'Workshop nội bộ về vật liệu bản địa tập trung vào câu hỏi thực tế: vật liệu đẹp trên mẫu sẽ thi công, bảo trì và lão hóa thế nào ngoài công trường?',
+      lead:
+        'Buổi chia sẻ được tổ chức cho nhóm thiết kế, kỹ thuật và đối tác thi công nhằm thống nhất cách ra quyết định trước khi đặt hàng vật liệu hoàn thiện.',
+      content: [
+        '<p>XPRESS DESIGN tổ chức workshop về vật liệu bản địa và hoàn thiện tại công trường như một buổi làm việc thực tế hơn là một sự kiện trưng bày. Trên bàn không chỉ có mẫu đá, gỗ và bề mặt hoàn thiện, mà còn có vít, keo, khe co giãn, bản vẽ chi tiết và các lỗi thi công thường gặp.</p>',
+        '<h2>Vì sao cần workshop vật liệu?</h2>',
+        '<p>Nhiều quyết định vật liệu bị đưa ra quá muộn, khi thiết kế đã đẹp trên hình nhưng chi tiết thi công chưa đủ rõ. Workshop giúp nhóm dự án thống nhất trước về độ dày, cách bắt vít, khe thoát nước, bề mặt chống trơn và chu kỳ bảo trì.</p>',
+        '<h2>Nội dung chính</h2>',
+        '<ul><li>So sánh đá, gỗ và sơn khoáng theo khí hậu từng vùng.</li><li>Rà soát các lỗi thường gặp khi dùng tấm lớn, đặc biệt là cong vênh, nứt mạch và sai lệch màu.</li><li>Thử cách đọc mẫu dưới ánh sáng ngày và ánh sáng 3000K.</li><li>Thống nhất cách ghi chú bảo trì trong hồ sơ bàn giao.</li></ul>',
+        '<h2>Kết quả sau buổi làm việc</h2>',
+        '<p>Nhóm thiết kế cập nhật lại thư viện chi tiết hoàn thiện và bổ sung một checklist kiểm tra vật liệu trước khi chốt shopdrawing. Đây là phần nhỏ, nhưng giúp giảm rất nhiều rủi ro trong giai đoạn thi công.</p>',
+      ].join(''),
+    },
+    en: {
+      source: 'XPRESS DESIGN Workshop Notes',
+      excerpt:
+        'The local materials workshop focused on a practical question: how will a beautiful sample be installed, maintained, and aged on site?',
+      lead:
+        'The session brought design, technical, and construction partners together to align decisions before finish materials are ordered.',
+      content: [
+        '<p>XPRESS DESIGN organised the local materials and site finishes workshop as a working session rather than a display event. The table included not only stone, timber, and finish samples, but also screws, adhesives, movement joints, detail drawings, and common site defects.</p>',
+        '<h2>Why a material workshop?</h2>',
+        '<p>Many material decisions happen too late, when the design already looks good in images but construction details remain unclear. The workshop aligns thickness, fixing method, water gaps, slip resistance, and maintenance cycle early.</p>',
+        '<h2>Main topics</h2>',
+        '<ul><li>Comparing stone, timber, and mineral finishes across regional climates.</li><li>Reviewing common risks with large-format panels: warping, joint cracking, and color variation.</li><li>Testing samples under daylight and 3000K interior light.</li><li>Agreeing how maintenance notes should appear in handover documents.</li></ul>',
+        '<h2>Outcome</h2>',
+        '<p>The design team updated its finish-detail library and added a material check before shop drawing approval. It is a small workflow change, but it reduces many risks during construction.</p>',
+      ].join(''),
+    },
+  });
+
+  patchBilingual(bySlug.get('cung-sua-mai-cho-ho-dan'), {
+    vi: {
+      source: 'XPRESS DESIGN Community Notes',
+      excerpt:
+        'Chương trình sửa mái tại Nghệ An là hoạt động cộng đồng quy mô nhỏ, tập trung vào an toàn, chống dột và hướng dẫn bảo trì dễ hiểu cho hộ dân.',
+      lead:
+        'Với XPRESS DESIGN, trách nhiệm xã hội không nhất thiết phải bắt đầu bằng công trình lớn. Đôi khi, một mái nhà khô ráo trước mùa mưa đã là thay đổi đủ quan trọng.',
+      content: [
+        '<p>Trong chương trình “Cùng sửa chữa mái”, nhóm XPRESS DESIGN phối hợp với tình nguyện viên và đối tác vật liệu để hỗ trợ một số hộ dân tại Nghệ An kiểm tra, gia cố và xử lý chống dột trước mùa mưa.</p>',
+        '<h2>Cách chọn phạm vi hỗ trợ</h2>',
+        '<p>Nhóm ưu tiên các mái có nguy cơ thấm dột cao, hộ khó tự sửa chữa và những trường hợp cần tư vấn kỹ thuật đơn giản nhưng đúng cách. Mục tiêu không phải làm mới toàn bộ nhà, mà xử lý đúng phần đang ảnh hưởng trực tiếp đến an toàn và sinh hoạt.</p>',
+        '<h2>Vai trò chuyên môn của studio</h2>',
+        '<p>Đội kỹ thuật hỗ trợ kiểm tra khung mái, vị trí bắt vít, hướng thoát nước và các điểm dễ thấm. Với mỗi hộ, nhóm cố gắng để lại một hướng dẫn bảo trì ngắn, đủ dễ hiểu để người dân có thể tự kiểm tra sau các đợt mưa lớn.</p>',
+        '<h2>Điều học được</h2>',
+        '<p>Những công việc nhỏ như thay vít đúng loại, xử lý mép tôn, nâng lại độ dốc hoặc bổ sung gioăng có thể tạo khác biệt rõ rệt. Đây cũng là lời nhắc cho đội thiết kế: chi tiết cơ bản, nếu làm đúng, có giá trị xã hội rất cụ thể.</p>',
+        '<p>XPRESS DESIGN dự kiến tiếp tục duy trì các hoạt động cộng đồng có quy mô vừa phải, nơi chuyên môn thiết kế - kỹ thuật có thể tạo tác động trực tiếp.</p>',
+      ].join(''),
+    },
+    en: {
+      source: 'XPRESS DESIGN Community Notes',
+      excerpt:
+        'The roof repair program in Nghe An was a small community effort focused on safety, leak prevention, and easy maintenance guidance for households.',
+      lead:
+        'For XPRESS DESIGN, social responsibility does not always begin with a large project. Sometimes, a dry roof before the rainy season is meaningful enough.',
+      content: [
+        '<p>Through the “Roof repair together” program, XPRESS DESIGN worked with volunteers and material partners to help several households in Nghe An inspect, reinforce, and improve leak protection before the rainy season.</p>',
+        '<h2>How the scope was chosen</h2>',
+        '<p>The team prioritised roofs with high leakage risk, households with limited ability to repair by themselves, and cases where simple technical guidance could make an immediate difference. The goal was not to rebuild houses, but to solve the part affecting safety and daily life most directly.</p>',
+        '<h2>Studio contribution</h2>',
+        '<p>The technical team helped check roof frames, screw positions, water direction, and common weak points. For each household, the team aimed to leave a short maintenance guide that residents could understand and use after heavy rain.</p>',
+        '<h2>What we learned</h2>',
+        '<p>Small works such as using the right screws, treating sheet edges, correcting roof falls, or adding gaskets can make a visible difference. It also reminds the design team that basic details, when done properly, carry real social value.</p>',
+        '<p>XPRESS DESIGN plans to continue modest community activities where design and technical knowledge can create direct impact.</p>',
+      ].join(''),
+    },
+  });
 }
 
 /**
