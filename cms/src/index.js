@@ -408,10 +408,19 @@ async function seedProjects(strapi) {
         ...detailVi,
         title: 'Biệt thự Xanh Đà Lạt',
         slug: 'biet-thu-xanh-da-lat',
+        hero_subtitle: 'Biệt thự nghỉ dưỡng trên triền đồi thông',
+        problem_title: 'Một căn biệt thự phải mở ra cảnh quan nhưng không đánh mất sự ấm cúng.',
+        problem_body:
+          'Khu đất nằm trên sườn dốc, nhìn xuống thung lũng nhưng chịu sương lạnh, gió mạnh và chênh cao lớn. Bài toán không chỉ là tạo tầm nhìn đẹp; công trình cần bám địa hình, giữ được cảm giác trú ẩn, giảm thất thoát nhiệt vào buổi tối và vẫn mở đủ rộng để chủ nhà sống cùng rừng thông.',
+        implementation_title: 'Bám theo cao độ tự nhiên, mở nhà theo hướng nhìn và hướng gió.',
+        implementation_body:
+          'Khối nhà được chia thành các lớp thấp dần theo triền đất, hạn chế đào đắp và tạo nhiều mặt tiếp xúc với cảnh quan. Đá bazan địa phương dùng cho phần đế giúp công trình neo chắc vào nền đồi; gỗ thông và kính low-e khổ lớn làm mềm không gian ở tầng sinh hoạt. Hồ bơi vô cực đặt ở cao độ chuyển tiếp, vừa là điểm nhìn chính vừa làm khoảng đệm khí hậu giữa nhà và thung lũng.',
+        result_quote:
+          'Công trình có cảm giác như đã thuộc về ngọn đồi từ trước: mở rộng khi nhìn ra xa, kín đáo khi quay về đời sống bên trong.',
         description:
           'Biệt thự nghỉ dưỡng trên đồi thông, hoà quyện thiên nhiên với tầm nhìn panorama hướng thung lũng.',
         content:
-          '<p>Công trình sử dụng vật liệu địa phương — đá bazan, gỗ thông và kính low-e khổ lớn — nhằm tối ưu thông gió tự nhiên và đón trọn ánh sáng ban ngày.</p><p>Không gian sống mở xuyên suốt tầng trệt kết nối trực tiếp với hồ bơi vô cực và rừng thông bao quanh, xoá nhòa ranh giới giữa nội thất và cảnh quan.</p><p>Các điểm nhấn thiết kế:</p><ul><li>Mặt tiền đá bazan tối màu, tương phản với gỗ thông sáng ấm.</li><li>Hệ kính khổ lớn cao 3.2m trượt toàn phần mở ra terrace.</li><li>Hồ bơi vô cực bốn cạnh, mặt nước nối liền tầm nhìn thung lũng.</li><li>Hệ thống thông gió chéo — giảm 60% chi phí làm mát.</li></ul>',
+          '<p>Nhóm thiết kế ưu tiên giữ lại đường dốc tự nhiên, bố trí lối vào, phòng khách và terrace theo chuỗi cao độ dễ di chuyển. Các khoảng mở lớn được kiểm soát bằng mái đua và lớp cây hiện hữu, nhờ đó nhà nhận đủ sáng nhưng không bị phơi trực tiếp vào những khung giờ nắng gắt.</p>',
         location: 'Đà Lạt, Lâm Đồng',
         seo_title: 'Biệt thự Xanh Đà Lạt — Dự án kiến trúc nghỉ dưỡng',
         seo_description:
@@ -421,10 +430,19 @@ async function seedProjects(strapi) {
         ...detailEn,
         title: 'Green Villa Da Lat',
         slug: 'green-villa-da-lat',
+        hero_subtitle: 'A resort villa on a pine-covered hillside',
+        problem_title: 'The villa had to open to the valley without losing warmth and shelter.',
+        problem_body:
+          'The site sits on a sloped pine hill with strong wind, evening mist and a significant level difference. The challenge was not simply to frame the view, but to let the house follow the terrain, feel protected at night and remain open enough for daily life to connect with the forest.',
+        implementation_title: 'Following the natural levels, then opening the plan toward view and breeze.',
+        implementation_body:
+          'The massing steps down with the hillside to reduce excavation and create multiple relationships with the landscape. Local basalt anchors the base, while pine wood and large low-e glass soften the living areas. The infinity pool sits at the transition level, acting as both the main visual edge and a climatic buffer between the house and the valley.',
+        result_quote:
+          'The finished villa feels settled into the hill: expansive toward the view, quiet and grounded for the life inside.',
         description:
           'A resort villa on the pine hill in harmony with nature, offering a panoramic view over the valley.',
         content:
-          '<p>The project uses local materials — basalt stone, pine wood and oversized low-e glass — to optimize natural ventilation and daylight.</p><p>The ground floor flows into an infinity pool and the surrounding pine forest, blurring the line between interior and landscape.</p><p>Design highlights:</p><ul><li>A dark basalt façade contrasted with warm, light-toned pine wood.</li><li>Full-sliding 3.2m-tall glazing opening onto the terrace.</li><li>A four-sided infinity pool extending the view across the valley.</li><li>Cross ventilation system — cutting cooling costs by 60%.</li></ul>',
+          '<p>The design team kept the natural slope legible, arranging arrival, living room and terrace as a clear sequence of levels. Large openings are controlled by roof overhangs and existing trees, giving the house generous daylight without exposing it to harsh direct sun.</p>',
         location: 'Da Lat, Lam Dong',
         seo_title: 'Green Villa Da Lat — Resort Architecture Project',
         seo_description:
@@ -445,10 +463,19 @@ async function seedProjects(strapi) {
         ...detailVi,
         title: 'Penthouse Urban Skyline',
         slug: 'penthouse-urban-skyline',
+        hero_subtitle: 'Không gian sống tối giản trên tầng cao đô thị',
+        problem_title: 'Một penthouse có tầm nhìn mạnh nhưng dễ trở nên lạnh và phô trương.',
+        problem_body:
+          'Căn hộ sở hữu mặt kính lớn nhìn toàn cảnh trung tâm thành phố, nhưng chính ưu thế đó tạo ra áp lực về nắng chiều, tiếng ồn và cảm giác thiếu riêng tư. Gia chủ muốn một không gian sang trọng, ít chi tiết, có thể tiếp khách trang trọng nhưng vẫn đủ mềm cho sinh hoạt gia đình mỗi ngày.',
+        implementation_title: 'Giảm chi tiết, tăng chiều sâu vật liệu và kiểm soát ánh sáng.',
+        implementation_body:
+          'Mặt bằng được tổ chức lại quanh trục phòng khách - bếp - terrace, giúp các khu vực chính cùng hưởng tầm nhìn mà không cản luồng di chuyển. Đá Calacatta, gỗ walnut và đồng thau được dùng theo mảng lớn, hạn chế trang trí vụn. Hệ rèm hai lớp, kính hiệu suất cao và ánh sáng gián tiếp giúp không gian giữ được độ êm vào ban ngày lẫn buổi tối.',
+        result_quote:
+          'Căn penthouse đạt được sự sang trọng kín tiếng: ít hình thức hơn, nhưng mỗi bề mặt và tỷ lệ đều có chủ đích.',
         description:
           'Căn penthouse tại trung tâm TP.HCM với tầm nhìn toàn cảnh skyline, thiết kế theo phong cách Luxury Minimalism.',
         content:
-          '<p>Sự sang trọng không đến từ các chi tiết rườm rà mà từ việc chắt lọc vật liệu và tỷ lệ không gian hoàn hảo: đá marble Calacatta, gỗ walnut và đồng thau vàng ấm.</p><p>Khu bếp đảo ốp đá nguyên khối, phòng khách double-height kết nối ra terrace riêng nhìn xuống thành phố.</p>',
+          '<p>Khu bếp đảo được xử lý như một khối nội thất trung tâm, vừa phục vụ sinh hoạt thường ngày vừa đủ trang trọng khi tiếp khách. Phòng ngủ chính tách khỏi vùng sinh hoạt bằng lớp hành lang đệm, giúp căn hộ vẫn có nhịp riêng tư rõ ràng dù mặt bằng mở.</p>',
         location: 'Quận 1, TP. Hồ Chí Minh',
         seo_title: 'Penthouse Urban Skyline — Thiết kế nội thất cao cấp',
         seo_description:
@@ -458,10 +485,19 @@ async function seedProjects(strapi) {
         ...detailEn,
         title: 'Urban Skyline Penthouse',
         slug: 'urban-skyline-penthouse',
+        hero_subtitle: 'Minimal high-rise living above the city',
+        problem_title: 'A penthouse with a powerful view can easily feel cold and performative.',
+        problem_body:
+          'The apartment has generous glazing toward the downtown skyline, but that strength also brings heat, glare, noise and privacy concerns. The owner wanted a refined home with few visible details: formal enough for hosting, yet calm and soft enough for daily family life.',
+        implementation_title: 'Reducing visual noise while deepening material and light control.',
+        implementation_body:
+          'The plan was reorganised around the living - kitchen - terrace axis so the main rooms share the view without interrupting circulation. Calacatta stone, walnut and warm brass are used in large, disciplined surfaces rather than decorative fragments. Layered curtains, high-performance glazing and indirect lighting keep the rooms composed from afternoon to evening.',
+        result_quote:
+          'The penthouse reaches a quiet form of luxury: fewer gestures, but every surface and proportion has a clear intention.',
         description:
           'A downtown HCMC penthouse with a full skyline view, designed in the Luxury Minimalism aesthetic.',
         content:
-          '<p>Luxury here comes not from ornamentation but from material curation and perfect proportions: Calacatta marble, walnut wood and warm brass.</p><p>The solid-stone kitchen island and double-height living room open onto a private terrace overlooking the city.</p>',
+          '<p>The kitchen island is treated as the central furniture piece, practical for daily use and composed enough for formal hosting. The primary bedroom is separated by a buffered corridor, giving the open plan a clear private rhythm.</p>',
         location: 'District 1, Ho Chi Minh City',
         seo_title: 'Urban Skyline Penthouse — Premium Interior Design',
         seo_description:
@@ -482,10 +518,19 @@ async function seedProjects(strapi) {
         ...detailVi,
         title: 'Neo Classic Residence',
         slug: 'neo-classic-residence',
+        hero_subtitle: 'Căn hộ tân cổ điển tiết chế tại Hà Nội',
+        problem_title: 'Giữ tinh thần cổ điển mà không biến căn hộ thành một sân khấu nặng nề.',
+        problem_body:
+          'Gia chủ yêu thích chi tiết Pháp cổ, nhưng diện tích căn hộ và nhịp sống hiện đại không phù hợp với lối trang trí dày đặc. Thách thức nằm ở việc giữ được sự trang trọng, tỷ lệ cân xứng và cảm giác có chiều sâu, đồng thời đảm bảo căn hộ dễ sử dụng, dễ bảo trì và không bị tối.',
+        implementation_title: 'Tinh giản phào chỉ, cân bằng bằng nội thất đương đại.',
+        implementation_body:
+          'Các mảng tường chính được chia tỷ lệ theo trục nhìn thay vì phủ chi tiết toàn bộ. Phào chỉ, trần caisson và cột trang trí chỉ xuất hiện ở những điểm cần nhấn như phòng khách, sảnh vào và phòng ăn. Nội thất có đường nét gọn, màu trắng ngà - champagne - xanh prussian được dùng để tạo lớp nền sang nhưng không xa cách.',
+        result_quote:
+          'Căn hộ giữ được sự lịch thiệp của tân cổ điển, nhưng vận hành như một ngôi nhà hiện đại: sáng, rõ ràng và vừa đủ trang trọng.',
         description:
           'Sự kết hợp hoàn hảo giữa vẻ đẹp cổ điển Pháp và tiện nghi hiện đại trong căn hộ tại Hà Nội.',
         content:
-          '<p>Các chi tiết phào chỉ tinh tế, cột trang trí và hệ trần caisson được tiết chế, cân bằng bằng nội thất đương đại với đường nét thanh thoát.</p><p>Bảng màu trắng ngà, vàng champagne và xanh prussian blue tạo nên không gian đẳng cấp nhưng không xa cách.</p>',
+          '<p>Nhóm thiết kế kiểm soát kỹ chiều cao trần giả, vị trí đèn và kích thước phào để căn hộ không bị thấp. Các hệ tủ được giấu vào mảng tường, nhờ đó đường nét cổ điển vẫn sạch và không gây rối trong sinh hoạt thường ngày.</p>',
         location: 'Ba Đình, Hà Nội',
         seo_title: 'Neo Classic Residence — Căn hộ tân cổ điển Hà Nội',
         seo_description:
@@ -495,10 +540,19 @@ async function seedProjects(strapi) {
         ...detailEn,
         title: 'Neo Classic Residence',
         slug: 'neo-classic-residence-en',
+        hero_subtitle: 'A restrained neo-classical apartment in Hanoi',
+        problem_title: 'Keeping the classical spirit without turning the apartment into a heavy stage set.',
+        problem_body:
+          'The owner appreciates French classical detailing, but the apartment size and contemporary lifestyle could not support dense ornamentation. The challenge was to preserve proportion, dignity and depth while keeping the home bright, practical and easy to maintain.',
+        implementation_title: 'Editing the mouldings, then balancing them with contemporary furniture.',
+        implementation_body:
+          'The main walls are proportioned around key sightlines rather than covered with detail. Mouldings, caisson ceilings and decorative columns appear only where emphasis is needed: the living room, entry and dining area. Clean-lined furniture and an ivory, champagne and Prussian blue palette create elegance without distance.',
+        result_quote:
+          'The apartment keeps the manners of neo-classicism while working like a modern home: bright, legible and measured.',
         description:
           'A perfect blend of classical French beauty and modern comfort in a Hanoi apartment.',
         content:
-          '<p>Refined mouldings, decorative columns and caisson ceilings are balanced by contemporary furniture with clean silhouettes.</p><p>An ivory, champagne and Prussian blue palette delivers elegance without feeling distant.</p>',
+          '<p>The team carefully controlled ceiling build-up, lighting positions and moulding dimensions so the rooms would not feel compressed. Storage is absorbed into the wall planes, keeping the classical lines clean for everyday use.</p>',
         location: 'Ba Dinh, Hanoi',
         seo_title: 'Neo Classic Residence — Hanoi Neo-Classical Apartment',
         seo_description:
@@ -519,10 +573,19 @@ async function seedProjects(strapi) {
         ...detailVi,
         title: 'Nhà phố Tối giản Đà Nẵng',
         slug: 'nha-pho-toi-gian-da-nang',
+        hero_subtitle: 'Nhà phố hẹp, thoáng và bền với khí hậu biển',
+        problem_title: 'Một nhà phố hẹp cần thoáng, sáng nhưng vẫn kín đáo trước đường phố.',
+        problem_body:
+          'Khu đất có mặt tiền không lớn, chiều sâu dài và chịu nắng gắt kèm gió muối từ biển. Nếu mở quá nhiều, nhà dễ nóng và thiếu riêng tư; nếu đóng kín, các tầng giữa sẽ tối và bí. Gia chủ cần một không gian giản dị, dễ chăm sóc, có đủ ánh sáng tự nhiên cho mọi phòng.',
+        implementation_title: 'Dùng giếng trời, khoảng rỗng và lớp lam để dẫn sáng thay vì mở ồ ạt.',
+        implementation_body:
+          'Giếng trời xuyên bốn tầng được đặt lệch để ánh sáng đi sâu nhưng không rọi trực tiếp vào vùng sinh hoạt chính. Mặt tiền lam bê tông tạo lớp che nắng, cho gió biển đi qua và giảm tầm nhìn từ ngoài vào. Bên trong, gỗ sồi trắng, bê tông trần và các mảng tường phẳng giữ không gian nhẹ, ít chi tiết và dễ bảo trì.',
+        result_quote:
+          'Ngôi nhà giải quyết được bài toán nhà phố ven biển: kín vừa đủ ở mặt tiền, thoáng và sáng dần khi đi vào bên trong.',
         description:
           'Tối ưu không gian cho nhà phố diện tích hẹp nhưng vẫn đảm bảo sự thoáng đãng và sang trọng.',
         content:
-          '<p>Giếng trời xuyên 4 tầng và khoảng thông tầng đưa ánh sáng tự nhiên chạm tới mọi phòng. Mặt tiền lam bê tông che nắng nhưng vẫn lưu thông gió biển.</p><p>Nội thất gỗ sồi trắng kết hợp bê tông trần mang đến vẻ đẹp mộc mạc nhưng tinh tế.</p>',
+          '<p>Các phòng ngủ được bố trí quanh lõi sáng, nhờ đó hành lang không còn là khoảng tối bị bỏ phí. Tầng trệt giữ mặt bằng linh hoạt cho sinh hoạt gia đình, trong khi sân sau nhỏ hoạt động như điểm thoát khí và lấy sáng phụ.</p>',
         location: 'Sơn Trà, Đà Nẵng',
         seo_title: 'Nhà phố Tối giản Đà Nẵng — Kiến trúc hiện đại ven biển',
         seo_description:
@@ -532,10 +595,19 @@ async function seedProjects(strapi) {
         ...detailEn,
         title: 'Minimalist Townhouse Da Nang',
         slug: 'minimalist-townhouse-da-nang',
+        hero_subtitle: 'A narrow townhouse shaped for coastal climate',
+        problem_title: 'A narrow townhouse needed daylight and air without exposing the family to the street.',
+        problem_body:
+          'The plot has a modest frontage, a long depth and strong coastal sun with salty wind. Too much openness would create heat and privacy issues; too much enclosure would leave the middle floors dark and stagnant. The family needed a simple, low-maintenance home with natural light in every room.',
+        implementation_title: 'Using skylights, voids and a louvred skin instead of excessive openings.',
+        implementation_body:
+          'A four-storey skylight is shifted off-axis so daylight travels deep into the plan without falling harshly on the main living areas. The concrete louvre facade shades the frontage, allows sea breeze through and filters views from the street. Inside, white oak, exposed concrete and calm wall planes keep the house light, spare and easy to maintain.',
+        result_quote:
+          'The house solves the coastal townhouse problem: protected at the street edge, brighter and more breathable as one moves inside.',
         description:
           'A narrow townhouse optimized for openness and elegance without sacrificing luxury.',
         content:
-          '<p>A 4-storey skylight and an interior void bring daylight to every room. The concrete louvre façade shades the sun while letting sea breezes pass.</p><p>White oak furniture paired with exposed concrete delivers a rustic yet refined ambience.</p>',
+          '<p>Bedrooms are arranged around the light core so corridors no longer become unused dark strips. The ground floor remains flexible for family routines, while a small rear court acts as a secondary light and exhaust point.</p>',
         location: 'Son Tra, Da Nang',
         seo_title: 'Minimalist Townhouse Da Nang — Coastal Modern Architecture',
         seo_description:
@@ -556,10 +628,19 @@ async function seedProjects(strapi) {
         ...detailVi,
         title: 'Văn phòng Sáng tạo Sài Gòn',
         slug: 'van-phong-sang-tao-sai-gon',
+        hero_subtitle: 'Workspace hybrid cho đội ngũ công nghệ 500 người',
+        problem_title: 'Văn phòng cần hỗ trợ làm việc linh hoạt mà không biến thành một mặt bằng mở ồn ào.',
+        problem_body:
+          'Đội ngũ công nghệ có nhiều kiểu làm việc khác nhau: họp nhanh, tập trung sâu, làm nhóm dài giờ và kết nối liên phòng ban. Mặt bằng cũ thiếu vùng chuyển tiếp, âm học yếu và khiến nhân sự phải chọn giữa ồn ào hoặc cô lập. Bài toán là tạo một nơi làm việc có năng lượng nhưng vẫn kiểm soát được tiếng ồn và nhịp di chuyển.',
+        implementation_title: 'Tổ chức không gian theo hoạt động, không theo sơ đồ bàn ghế cố định.',
+        implementation_body:
+          'Mặt bằng được chia thành các lớp: vùng cộng tác gần lõi giao thông, focus-pod cách âm ở khu yên tĩnh, phòng họp linh hoạt quanh các nhóm sản phẩm và cafeteria trung tâm như điểm gặp tự nhiên. Trần tiêu âm bằng vật liệu tái chế, bề mặt mềm và hệ ánh sáng theo vùng giúp giảm mệt mỏi thị giác trong ngày làm việc dài.',
+        result_quote:
+          'Không gian mới giúp đội ngũ đổi trạng thái làm việc nhanh hơn: gặp nhau dễ hơn, tập trung tốt hơn và ít phụ thuộc vào phòng họp đóng kín.',
         description:
           'Văn phòng hybrid cho công ty công nghệ 500 nhân sự, thiết kế xoay quanh hoạt động và con người.',
         content:
-          '<p>Không gian mở với các cụm collaboration, phòng focus-pod cách âm và hệ thống acoustic ceiling bằng vật liệu tái chế.</p><p>Cafeteria trung tâm hoạt động như heart of the office, kết nối 3 tầng qua cầu thang điêu khắc.</p>',
+          '<p>Cầu thang nội bộ được đặt cạnh cafeteria để kéo luồng di chuyển giữa ba tầng, giảm phụ thuộc vào thang máy. Các cụm làm việc được mã màu nhẹ theo nhóm chức năng, đủ để định hướng nhưng không làm văn phòng trở nên rối mắt.</p>',
         location: 'Quận 1, TP. Hồ Chí Minh',
         seo_title: 'Văn phòng Sáng tạo Sài Gòn — Thiết kế workspace hybrid',
         seo_description:
@@ -569,10 +650,19 @@ async function seedProjects(strapi) {
         ...detailEn,
         title: 'Saigon Creative Office',
         slug: 'saigon-creative-office',
+        hero_subtitle: 'A hybrid workspace for a 500-person technology team',
+        problem_title: 'The office had to support flexible work without becoming a noisy open plan.',
+        problem_body:
+          'The technology team works in many modes: quick check-ins, deep focus, long group sessions and cross-team exchange. The previous layout lacked transition zones, had weak acoustics and forced people to choose between noise and isolation. The task was to create an energetic workplace with controlled sound and clear movement.',
+        implementation_title: 'Organising the plan by activity instead of fixed desk logic.',
+        implementation_body:
+          'The floor plate is layered into collaboration areas near circulation cores, acoustic focus pods in quieter zones, flexible meeting rooms around product teams and a central cafeteria as a natural gathering point. Recycled acoustic ceilings, softer surfaces and zone-based lighting reduce visual and acoustic fatigue during long working days.',
+        result_quote:
+          'The new workplace helps the team shift work modes faster: easier to meet, easier to focus and less dependent on closed meeting rooms.',
         description:
           'A hybrid office for a 500-people tech company, designed around activity and people.',
         content:
-          '<p>Open zones for collaboration, soundproof focus pods and an acoustic ceiling system in recycled materials.</p><p>A central cafeteria acts as the heart of the office, connecting three floors via a sculptural staircase.</p>',
+          '<p>The internal stair is placed beside the cafeteria to pull movement across three floors and reduce reliance on elevators. Work clusters use restrained colour coding by function, enough for orientation without making the office visually busy.</p>',
         location: 'District 1, Ho Chi Minh City',
         seo_title: 'Saigon Creative Office — Hybrid Workspace Design',
         seo_description:
@@ -593,10 +683,19 @@ async function seedProjects(strapi) {
         ...detailVi,
         title: 'Nhà phố Hà Nội 2025',
         slug: 'nha-pho-ha-noi-2025',
+        hero_subtitle: 'Nhà phố hiện đại trong lớp ký ức phố cổ',
+        problem_title: 'Một ngôi nhà mới trong phố cổ phải sáng hơn mà không lạc khỏi bối cảnh.',
+        problem_body:
+          'Khu đất nằm trong mạng phố dày, ít mặt thoáng và bị che sáng bởi các công trình lân cận. Gia chủ muốn một ngôi nhà hiện đại, tiện nghi cho gia đình nhiều thế hệ, nhưng mặt tiền không được xa lạ với nhịp vật liệu và tỷ lệ của phố cũ. Vấn đề chính là đưa ánh sáng và cây xanh vào sâu trong nhà mà vẫn giữ được sự riêng tư.',
+        implementation_title: 'Tạo lõi sáng trung tâm và dùng gạch thủ công như lớp lọc đô thị.',
+        implementation_body:
+          'Giếng trời xuyên suốt kết hợp vườn trong nhà cao bốn mét giúp các tầng nhận sáng từ giữa thay vì phụ thuộc hoàn toàn vào mặt tiền. Lớp gạch đất nung thủ công được xếp theo nhịp thưa - đặc để gợi ký ức phố cổ, đồng thời lọc nắng, lọc nhìn và tạo bóng đổ thay đổi trong ngày. Khung thép đen và kính lớn được tiết chế để phần hiện đại nằm sau lớp vật liệu quen thuộc.',
+        result_quote:
+          'Ngôi nhà có đời sống đương đại bên trong, nhưng khi nhìn từ phố vẫn giữ được sự chừng mực và chất liệu gần gũi của Hà Nội cũ.',
         description:
           'Nhà phố 4 tầng tối ưu ánh sáng giữa lòng phố cổ Hà Nội, giao thoa hiện đại và truyền thống.',
         content:
-          '<p>Giếng trời xuyên suốt, vườn trong nhà với cây xanh cao 4m, cùng vật liệu thân thiện môi trường.</p><p>Mặt tiền gạch đất nung thủ công gợi nhắc phố cổ, kết hợp với cửa kính khung thép đen tối giản.</p>',
+          '<p>Các không gian chung được đặt gần lõi cây để gia đình dễ gặp nhau trong sinh hoạt thường ngày. Phòng riêng lùi về hai đầu nhà, dùng cửa trượt và khoảng đệm để giảm tiếng ồn từ phố cũng như từ các tầng khác.</p>',
         location: 'Hoàn Kiếm, Hà Nội',
         seo_title: 'Nhà phố Hà Nội 2025 — Hiện đại giữa lòng phố cổ',
         seo_description:
@@ -606,10 +705,19 @@ async function seedProjects(strapi) {
         ...detailEn,
         title: 'Hanoi Townhouse 2025',
         slug: 'hanoi-townhouse-2025',
+        hero_subtitle: 'A contemporary townhouse within the memory of the Old Quarter',
+        problem_title: 'A new house in the Old Quarter had to become brighter without losing its context.',
+        problem_body:
+          'The plot sits in a dense urban fabric with limited open sides and neighbouring buildings blocking daylight. The family wanted a contemporary home for multiple generations, but the facade still needed to respect the material rhythm and scale of the old streets. The main challenge was to bring daylight and planting deep into the house while maintaining privacy.',
+        implementation_title: 'Creating a central light core and using handmade brick as an urban filter.',
+        implementation_body:
+          'A full-height skylight and a four-metre indoor garden bring light from the centre rather than relying only on the frontage. Handmade terracotta bricks are arranged in alternating solid and porous rhythms, referencing the Old Quarter while filtering sun, views and changing shadows. Black steel and large glass panels are kept restrained behind this familiar material layer.',
+        result_quote:
+          'The house carries contemporary life inside, yet from the street it remains measured and materially close to old Hanoi.',
         description:
           'A 4-storey townhouse maximizing daylight in the Old Quarter, bridging modern and traditional.',
         content:
-          '<p>A full-height skylight, an indoor garden with 4m-tall trees and eco-friendly materials throughout.</p><p>A handmade terracotta façade references the Old Quarter, paired with minimalist black steel-framed glazing.</p>',
+          '<p>Shared spaces are placed near the planted core so family members naturally meet during daily routines. Private rooms step back toward both ends of the house, using sliding doors and buffer zones to reduce noise from the street and between floors.</p>',
         location: 'Hoan Kiem, Hanoi',
         seo_title: 'Hanoi Townhouse 2025 — Modern in the Old Quarter',
         seo_description:
